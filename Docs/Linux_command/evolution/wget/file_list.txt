@@ -1,0 +1,2 @@
+https://releases.ubuntu.com/20.04.3/ubuntu-20.04.3-desktop-amd64.iso
+https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-8.5-x86_64-dvd1.iso

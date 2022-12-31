@@ -1,0 +1,98 @@
+1.rsync or remote synchronization is a software utility for Unix-Like systems that efficiently sync files and directories between two hosts or machines.
+
+
+2.Rsync is famous for its delta-transfer algorithm, in which it copies only the differences between the source files present in the local-host and the existing files in the destination or the remote host.
+
+
+
+rsync local-file user@remote-host:remote-file
+
+
+
+rsync [options] source [destination]
+
+
+
+
+Options
+    --a, –archive: This is equivalent to using -rlptgoD. Archive mode includes all the necessary options like copying files recursively, preserving almost everything (like symbolic links, file permissions, user & group ownership and timestamps).
+
+
+    -a, --archive
+
+   -v, –verbose:
+    -v, –verbose: By default, rsync works silently. A single -v will give us information about what files are being transferred and a brief summary about the data transferred at the end. Two -v options will give us information on the status of delta-transmission and on what files are up to date so as to be skipped and slightly more information at the end.
+
+
+    -h, –human-readable format: Outputs in a human readable format
+
+        -h, --human-readable format
+
+    -z, –compress: Compress file data during the transfer
+
+
+           -z, --compress
+
+
+     Using rsync as a list command: If only the source path is specified, the contents of the source are listed in an output format similar to ls -l.
+
+
+
+     Copy/Sync files and directory locally:
+
+                rsync -avh ss/ bar/
+
+                rsync -avhze ssh /foo user@remote-host:/tmp/\
+
+
+                --rsh=COMMAND, -e        specify the remote shell to use
+
+      Rsync with particular file permissions:
+
+            rsync -avhe ssh --chown=USER:GROUP /foo user@remote-host:/tmp/
+
+      Show progress during transfer
+
+            rsync -avhe ssh --progress /foo user@remote-host:/tmp/
+
+       Automatically delete files from local-host after successful transferring
+
+
+
+        rsync -avhe ssh --remove-source-files /foo user@backup-server:/tmp
+
+        Performing a Dry run with rsync: A Dry run makes rsync perform a trial run that doesn’t make any changes and displays almost the same output as a real run would do. I
+
+
+            rsync -avhe ssh --dry-run --chown=USER:GROUP /foo user@remote-host:/
+
+
+
+           -r	Allows to sync data recursively but does not keep ownership for users and groups, permissions, timestamps, or symbolic links.
+
+           -a	The archive mode behaves like the recursive mode but keeps all file permissions, symbolic links, file ownership, etc.
+
+           -z	Used to compress data during transfers to save space.
+
+           -b	Performs a backup during data synchronization.
+
+           -h	Shows the numbers in the output in a human-readable format.
+           -n	Does a dry run. Used for testing before the actual synchronization takes place.
+
+            -e	Instructs the rsync to use the SSH protocol for remote transfers.
+            -progress	Displays the transfer progress during synchronization.
+            -v	Verbose output. Displays the details of the transfer.
+
+            -q	Used to suppress the output for the rsync command and options.
+
+
+
+
+
+
+
+
+
+
+
+

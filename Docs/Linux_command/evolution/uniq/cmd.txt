@@ -1,0 +1,53 @@
+1. using uniq word for using uniq command
+    -The uniq command in Linux is a command-line utility that reports or filters out the repeated lines in a file.\
+
+2. create no folder mydir
+    mkdir mydir
+3.create one file have duplicate contains
+
+    cat > q1.txt
+
+4. check the dupliacte or uniq for file
+
+        uniq mydir/q1.txt
+
+            ->return uniq line
+
+      sort -u mydir/q1.txt
+
+        ->same response
+
+
+  5.FInd the how many time line is repeated
+
+         uniq -c mydir/q1.txt
+
+  6.Print the line is repeated
+
+         uniq -d mydir/q1.txt
+
+  6.Print the ALL repeated line
+
+         uniq -D mydir/q1.txt
+
+  8.It allows you to skip N fields(a field is a group of characters, delimited by whitespace) of a line before determining the uniqueness of a line.
+
+        ->uniq -f1 mydir/q1.txt
+
+  9.comparisons done are case sensitive but with this option case insensitive comparisons can be made.
+
+        ->uniq -i mydir/q1.txt
+
+10. print only  unique
+
+    uniq -u mydir/q1.txt
+
+  11.-z – -zero-terminated
+
+             It will make a line end with 0 bytes (NULL), instead of a newline.
+             -uniq -z mydir/q1.txt
+12. w N – -check-chars(N) : It only compares N characters in a line.
+
+     uniq -w 1  mydir/q1.txt
+
+13.

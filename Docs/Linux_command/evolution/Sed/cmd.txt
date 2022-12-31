@@ -1,0 +1,119 @@
+1.sed command for use word sed
+
+    -SED command in UNIX stands for stream editor and it can perform lots of functions on file like searching, find and replace, insertion or deletion
+    -sed OPTIONS... [SCRIPT] [INPUTFILE...]
+
+2.Remove space form the file inside the folder
+
+     sed 's/ //g' myFolder/s1.txt
+3.Replacing or substituting string
+
+    -sed 's/unix/vipul/' myFolder/test.txt
+
+4 Replacing the nth occurrence of a pattern in a line
+
+        -sed 's/unix/vipul/2' myFolder/test.txt
+        -deafult first occurrence in check and replace
+5.Replacing all the occurrence of the pattern in a line :
+
+        sed 's/unix/vipul/g' myFolder/test.txt
+
+        - it replace all word found form the file
+        - it perform action in all file
+6.Replacing from nth occurrence to all occurrences in a line
+
+        sed 's/unix/vipul/2g' myFolder/test.txt
+7.Parenthesize first character of each word :
+
+    sed 's/\(\b[a-z]\)/\(\1\)/g' myFolder/s1.txt
+
+    (V)ipul
+    (D)AA
+    (5)DFD
+
+ 8.Replacing string on a specific line number
+
+    sed '3  s/unix/vipul/' myFolder/test.txt
+
+        3 is means it line number
+        replace in line 3
+        and check work is match it will replace witn new wotrd
+
+9.Duplicating the replaced line with /p flag
+
+    The /p print flag prints the replaced line twice on the terminal.
+
+        sed 's/unix/vipul/p' myFolder/test.txt
+
+        -line is fount and print iot 2 time
+
+10. Printing only the replaced lines  -n option along
+
+    -sed '12  s/unix/vipul/' myFolder/test.txt
+
+
+11. Replacing string on a range of lines
+
+
+    - sed '1,2 s/unix/vipul/' myFolder/test.txt
+
+        -it defind the range for the replace the line
+
+12.Deleting lines from a particular file :
+
+            Delete a particular line
+
+           -sed '2d' myFolder/s1.txt
+
+            2 line is delete form the file
+
+  13.to Delete a last line
+        -sed '$d' myFolder/s1.txt
+
+        delet the last fond line form the file.
+14 Delete line from range x to y
+
+        sed '1,2d' myFolder/s1.txt
+
+        delete range found line for the file
+ 15 Delete pattern matching line
+        sed '/exit/d' myFolder/s1.txt
+
+         check the exit word found in file is it extis it will delete
+
+
+    -----------------------------------------------advance------------------------------
+
+    1. Insert one blank line after each line –
+
+        sed G a.txt
+
+    2. To insert two blank lines –
+
+            To insert two blank lines
+
+             sed 'G;G' myFolder/a1.txt
+
+    3. Delete blank lines and insert one blank line after each line –
+
+
+            sed '/^$/d;G' myFolder/a1.tx
+
+            G Add one line in each line
+            sed '/^$/d;G' myFolder/a1.tx
+
+
+    4.Insert a black line above every line which matches “love” –
+
+         sed '/love/{x:p:x}' myFolder/a1.txt
+
+        below
+         sed '/love/d;G' myFolder/a1.txt
+
+     5.Insert 5 spaces to the left of every lines –
+            sed 's/^/     /' myFolder/a1.txt
+
+            add sapce for left side
+
+
+     https://www.geeksforgeeks.org/sed-command-linux-set-2/

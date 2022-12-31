@@ -1,0 +1,1407 @@
+Listing Command
+    ls
+        -Directory listing of given path
+    ls -l
+
+        -Formatted listing without hidden files
+
+     ls -A
+            -To show the hidden files, but not the ‘.’ (current directory) and ‘..’ (parent directory).
+
+    ls -a
+           -show hidden files  . (dot) symbol and they are not visible in the regular directory
+    ls -al
+        -Formatted listing with hidden files
+
+    ls -LS
+        -Formatted listing with sort by size
+
+    ls -lt
+        -Formatted listing with sort by modification time
+
+     ls -lu
+        -Formatted listing with sort by access time
+
+     ls -1
+        -Display one file or folder per line
+
+     ls *.doc
+        -Display all the files ending with just .doc
+
+     ls -lh
+        -This command will show you the file sizes in human readable format. Size of the file is very difficult to read when displayed in terms of byte.
+
+     ls -lhS
+        -If you want to display your files in descending order (highest at the top) according to their size, then you can use (ls -lhS) command.
+
+     ls -l --block-size=14
+        -It is used to display the files in a specific size format. Here, in [SIZE] you can assign size according to your requirement.
+        -ls -l --block-size=14
+
+      ls -d */
+        -It is used to display only subdirectories.
+        -ls -d */
+
+     ls -n
+         -It is used to print group ID and owner ID instead of their names.
+
+
+     ls --color=red
+            -This command is used to print list as colored or discolored.
+
+
+    ls -li
+            -This command prints the index number if file is in the first column.
+
+    ls -p
+
+            -It is used to identify the directory easily by marking the directories with a slash (/) line sign.
+
+    ls -r
+            -It is used to print the list in reverse order.
+            -ls -r
+
+    ls -R
+            -It will display the content of the sub-directories also.
+
+    ls -lX
+            -It will group the files with same extensions together in the list.
+
+     ls ~
+            -It gives the contents of home directory.
+
+    ls ../
+            -	It give the contents of parent directory.
+
+    ls --version
+            -It checks the version of ls command.
+
+    ls -g
+            -If you don't want to display the owner information in your list, then you can exclude this column with the help of this command.
+
+    ls -S
+            -sort by file size
+    ls -s
+            -list file size
+    ls -X
+            -sort by extension name
+
+    ls -r -X
+                -  sort by rever order extension name
+
+    ls > out.txt
+
+            -ls redirection to output file:
+
+    =ls -F
+            - 	Append indicator (one of */=>@|) to entries.
+
+    ls -ltr
+            - 	View Reverse Output Order by Date
+
+
+    ls -q
+            -Force printing of non-graphic characters in file names as the character `?'
+       ls  -Q
+
+            -Place double quotations around the entry names.
+
+    ls -m
+            -The "ls -m" command displays all files and directories separated by a comma.
+
+    ls --help
+            -By using this "ls --help", you can a guide for ls command. It has more options. Some of them are given below for the reference.
+
+
+     ls – o: list the files in long format but without the group name
+
+
+
+============================================
+
+   Directory Command
+
+            cd ~
+                -Change your current directory to your home directory
+
+            cd /etc/passwd
+                -Change directory to /etc/passwd
+
+
+            Cd ..
+
+                -Change current directory to parent directory
+
+            pwd
+                -Show current directory
+
+
+            mkdir php
+
+                -Create a directory php
+
+            mkdir -p /tmp/amrood/test
+                -Create all the necessary parent directories if parent directories are not available.
+
+            mkdir ~/hom ~/12
+                    create multiple  foder with single command
+
+            rmdir dir1
+                -Remove/Delete dir1 if it’s empty.
+
+
+   ==============================================================
+
+     File Command
+
+            cat <file_name>
+               - Display content of test.txt file.
+
+            cat -b test.txt
+                -Display content of test.txt file with line number.
+
+
+            cat -b my_first_file.php my_2_file.php
+
+                -Display content of both test1.txt and test2.txt file.
+
+            cat > my_cmd_file.txt
+
+                -create a my_cmd.txt file in the current location and ask to type content for the file. Press Ctrl + c to exit
+
+            cat test1.txt > test3.txt
+                -Redirect Contents of a Single File
+
+            tac test3.txt
+                -Display the Contents in Reverse Order
+
+            cat test1.txt >> test3.txt
+                -Append File Contents to Another File
+
+            cat test4.txt | more
+                    -you’ll end up with a huge string of data that’s hard to read. You can break it into pages using | more:
+                    -This displays a single page of the file. When you press a key, it will scroll to the next page.
+
+                    -If you’d like the ability to scroll forward and backward through the display, use | less.
+
+            cat -e test1.txt
+                -You can instruct cat to highlight the end of each line and spaces between lines with $.
+                -cat -e testsave.txt
+
+            cat -t test4.txt
+                -The cat command has the option of displaying the file content along with the tab space within the text.
+                -cat -t testsave.txt
+
+             $cat -A  "filename"
+                - use the -v, -E and -T option together, then instead of writing -vET in the command, you can just use the -A command line option.
+
+             cat test.txt; cat testsave.txt
+
+                -display Multiple Files at Once
+
+             wc my_cmd_file.txt
+
+                -Display number of lines, words and letters into the given file.
+
+             wc my_cmd_file.txt my_first_file.php
+
+               -Display number of lines, words and letters into the given file
+
+             wc -l my_cmd_file.txt
+
+                -Display number of lines into the given file.
+
+             wc -w my_first_file.php
+
+                -Display number of words into the given file.
+
+            wc -m my_first_file.php
+                -Display number of letters into the given file
+
+            wc -c my_first_file.php
+                    -c: This option displays count of bytes present in a file
+
+
+
+            wc -L my_first_file.php
+                    -The ‘wc’ command allow an argument -L, it can be used to print out the length of longest (number of characters) line in a file.
+
+
+             wc -version  my_first_file.php
+                    -This option is used to display the version of wc which is currently running on your system.
+
+        Copy====================================
+            cp source_file destination_file
+
+                   -Copying files or directories from source_file location to destination_file location.
+                    -cp /home/aum/ASPL_Vipul/file_cmd/my_cmd_file /home/aum/ASPL_Vipul/
+                    -cp -r /home/aum/ASPL_Vipul/file_cmd/my_cmd_file /home/aum/ASPL_Vipul/file_cmd/cpFIle/
+                    -ll
+
+             cp -r dir1 dir2
+
+                    -Copy dir1 to dir2. Create dir2 if it doesn't exist
+                    -cp -r /home/aum/ASPL_Vipul/file_cmd/my_cmd_file /home/aum/ASPL_Vipul/file_cmd/cpFIle/
+
+             cp a.txt  b.txt
+                -copy file in  current folder   1
+                -cp //var/www/html/ASPL/Linux_command/cpFile/a.txt  //var/www/html/ASPL/Linux_command/cpFile/f1
+
+              cp -i a.txt  b.txt
+
+                - stands for Interactive copying. With this option system first warns the user before overwriting the destination file. cp prompts for a response, if you press y then it overwrites the file and with any other option leave it uncopied
+
+              cp -b a.txt b.txt
+
+                --b(backup): With this option cp command creates the backup of the destination file in the same folder with the different name and in different format.
+
+             cp -f a.txt b.txt
+
+                - -f(force): If the system is unable to open destination file for writing operation because the user doesn’t have writing permission for this file then by using -f option with cp command, destination file is deleted first and then copying of content is done from source to destination file.
+
+            cp -v a.text b.Text
+                -If you pass the -v to the cp, it makes tells about what is going on. That is verbose output:
+
+         Move====================
+            mv file1 file2
+
+                -Rename/Move file1 to file2. If file2 is an existing directory, moves file1 into directory file2
+                -mv  /home/aum/ASPL_Vipul/file_cmd/my_cmd_file /home/aum/ASPL_Vipul/file_cmd/mvFile/
+
+            mv -b m123.txt m12.txt
+                -b(backup): With this option, it is easier to take a backup of an existing file that will be overwritten as a result of the mv command. This will create a backup file with the tilde character(~) appended to it.
+
+            mv -i m123.txt m12.txt
+
+                - -i (Interactive): Like in cp, the -i option makes the command ask the user for confirmation before moving a file that would overwrite an existing file, you have to press y for confirm moving, any other key leaves the file as it is. This option doesn’t work if the file doesn’t exist, it simply rename it or move it to new location
+
+         Remove Command=============================
+
+
+            rm <file_name>
+
+                -Remove test files/directory named.
+
+            rm -r test_dir
+
+                -Remove directories and their contents recursively.
+                -mkdir rmdir
+                -ll
+                -rm -r rmdir
+
+            rm -f test
+
+                -Remove test files/directory forcefully.
+                 rm -f rmdirtest
+
+            rm -i test_dir ()
+
+                -Remove directories and their contents recursively with confirmation prompt each time.
+
+            rm -I test_dir  ()
+
+                -Remove directories and their contents recursively with confirmation prompt only the first time
+
+            rm -v r12
+                -this command will instantly remove the files “testfile1”, “testfile2”, and “testfile3” located in the current directory.
+
+        in command=========================================================
+
+            The ln command is used to create links between files'
+
+             ln -s source_file link_file (bb)
+
+                -Create links of source_file. Links are a kind of shortcuts to other files.
+                -ln -sf in.txt in1.txt
+             ln -f in.txt in1.txt
+               -you can overwrite this error by using the force (-f) option.
+               -ln -f in.txt in1.txt
+            man ln
+        touch command=======================================================
+
+            -touch command is a way to create empty files
+            -You can update the modification and access time of each file with the help of touch command
+
+             touch test.txt
+
+                -Create a file if not available or update file timestamps.
+                -touch my_touch_file.php
+
+            touch -a test.txt
+
+                -Change only the access time of the file.
+                -touch -a my_touch_file.php
+
+
+            touch -m test.txt
+
+                -Change only the modification time of the file
+                --touch -m my_touch_file.php
+            touch -r test.txt
+
+                -This command will update time with reference to the other mentioned command.
+                -touch Demo.txt -r demo.txt
+
+            touch -c movie
+                    -Using 'c' option with touch command will not create an empty file, if that file doesn't exist.
+
+            touch -d <string> <filenam
+                -The touch command uses the -d option to set a timestamp using a date string
+
+            stat test.txt
+                -To see the access and change time of your file, you need to use stat command.
+
+            More Command==============================================
+
+                more command is used to view the text files in the command prompt, displaying one screen at a time in case the file is large (For example log files).
+
+
+             more file.txt
+                -Enable you to view through relatively lengthy text files one screenful at a time.
+                -more my_touch_file.php
+
+
+             more -5 file.txt
+
+                -Enable you to view through relatively lengthy text files one screenful at a time. -5 will set screen size to 5 lines.
+                -more -5 my_touch_file.php
+
+              more -d sample.txt
+                -d : Use this command in order to help the user to navigate. It displays “[Press space to continue, ‘q’ to quit.]” and displays “[Press ‘h’ for instructions.]” when wrong key is pressed.
+             more -f sample.txt
+
+                -f : This option does not wrap the long lines and displays them as such
+
+             more -p sample.txt
+                --p : This option clears the screen and then displays the text
+
+             more -c sample.txt
+
+
+                -c : This command is used to display the pages on the same area by overlapping the previously displayed text
+
+             more -s sample.txt
+                -s : This option squeezes multiple blank lines into one single blank line
+
+             more -u sample.txt
+                -u : This option omits the underlines.
+
+            more +/reset sample.txt
+
+                -+/pattern : This option is used to search the string inside your text document. You can view all the instances by navigating through the result
+
+            more +30 sample.txt
+                -num : This option displays the text after the specified number of lines of the document
+
+          Less command=========================
+
+            Less command is a Linux utility that can be used to read the contents of a text file one page(one screen) at a time. It has faster access because if file is large it doesn’t access the complete file, but accesses it page by page.
+
+
+            less file.txt
+                -Similar to more command but it will allows navigation though file using page up/down keys
+                -less -5 my_touch_file.php   //less  my_touch_file.php
+
+              -E : causes less to automatically exit the first time it reaches end of file.
+              -f : forces non-regular file to open.
+              -F : causes less to exit if entire file can be displayed on first screen
+              -g : highlight the string which was found by last search command
+              -G : suppresses all highlighting of strings found by search commands
+              -i : cause searches to ignore case
+              -n : suppresses line numbers
+              -p pattern : it tells less to start at the first occurrence of pattern in the file
+              -s : causes consecutive blank lines to be squeezed into a single blank line
+
+        head Command=====================================================
+
+            head file.txt
+
+                -Show first 10 lines (by default) of the file.txt file.
+                -head my_touch_file.php
+                -head -3 my_touch_file.php
+
+            head -3 file.txt
+                Or
+            head -n 3 file.txt
+
+                -Show first 3 lines of the file.txt file.
+                -head -3 my_touch_file.php  //head -n 3 my_touch_file.php
+
+            head -c 3 file.txt
+
+                -Show the specified number of bytes
+                -head -c 12 my_touch_file.php
+
+            head -v 3 file.txt
+                -show the file name tag
+
+            head -q  file.txt
+                -don't separate the content of multiple files with a file name tag
+                -head -q  file.txt
+
+           Tail Command==============================================================
+
+            tail file.txt
+
+                    -Show last 10 lines (by default) of the file.txt file.
+                    --tail my_touch_file.php
+
+            tail -3 file.txt
+                    Or
+            tail -n 3 file.txt
+
+                -Show last 3 lines of the file.txt file.
+                - tail -3 my_touch_file.php // --tail -n 3 my_touch_file.php
+
+
+            tail -f file.txt
+                    -Show last 10 lines (by default) of the file.txt file. -f option will append data as the file grows in real time.
+                    -To track a file for changes, the '-f' option is used.
+                    -tail -f  my_touch_file.php
+
+            tail -c file.txt
+                    -It will display the specified number of bytes.
+
+                    -tail -c  my_touch_file.php
+        diff command========================================
+
+            diff test1 test2
+
+                    -Find the difference between test1 and test2.
+                    -diff my_touch_file.php  my_first_file.php
+
+             diff -c test1 test2
+                    -Find the differences in context mode.
+                    -diff -c my_touch_file.php  my_first_file.php
+
+              diff -u test1 test2
+                    -Find the differences in unified mode.
+                    -diff -u my_touch_file.php  my_first_file.php
+
+              diff -y test1.txt test2.txt
+
+                    -Find the differences of both file side by side.
+                    -diff -y my_touch_file.php  my_first_file.php
+             diff -i test1.txt test2.txt
+
+                    -To make this command case in-sensitive use -i option with diff..
+                    -diff -i my_touch_file.php  my_first_file.php
+======================================
+
+     Permission Command
+
+            chmod octal file
+                -Change the permissions of file to octal, which can be found separately for user,group, and world/public by adding:
+                -4 – read (r), 2 – write (w), 1 – execute (x)
+                -chmod 777 file – read, write, execute for all
+                -chmod 755 file – rwx for owner, rx for group and world/public
+                -the owner has read and write permissions and everyone else has no permissions, we can execute the command "chmod 600 learningnotes.txt"
+                -chmod 600 learningnotes.txt
+
+            chown user1 sample
+
+                -Changes/Updates the ownership of user to user1 for sample file/directory.
+                -chmod ugo-rwx xyz.txt
+
+                -chown command is used to change the file Owner or group. Whenever you want to change ownership you can use chown command.
+                -chown aum my_first_file.php
+                -chown master file1.txt
+
+                -chown -c master file1.txt
+                    -c: Reports when a file change is made
+
+                 -chown -v master file1.txt
+                    --v: It is used to show the verbose information for every file processed.
+
+                 -To Change group ownership In our case I am using group1 as a group in the system. To change ownership we will use
+                    -chown :group1 file1.txt
+
+                -To change the owner as well as group: Again taking master as user and group1 as a group in the system
+                    -chown master:group1 greek1
+
+                -To change the owner from particular ownership only: Suppose we want to change ownership from master to root where current owner must be master only.
+
+                    chown --from=master root greek1
+
+                 -To copy ownership of one file to another:
+
+                    chown --reference=greek1 greek2
+                 -To change ownership of multiple files:
+
+                    chown master:group greek2 greek3
+
+               Chgrp : command is used to change the group ownership of a fi le. Provide the new group name as its  frst argument and
+                    the name of  le as the second argument.
+                    Example:
+                    $ chgrp newgrpName particularFile
+                    chmod: command is used to change/update  le access permissions.
+
+==============================================================
+
+       Process Management Command
+
+            ps
+                -Display  process on the system
+
+            ps -eF
+                -Display every process on the system
+            ps -aux
+                a-all user
+                u-show the user/owner
+                x-displays processes not executed in the terminal (making the output rather long
+
+             ps -aux
+
+
+            top
+                -Display all running processes
+
+
+           kill <pid>
+            Use the killall command to kill a process by name. This command will kill all processes with the keyword/name that you specify.
+            -kill process by pid.
+            -ls
+
+          killall
+
+          fg jobname
+            -forgrand
+            -You can use the command “fg” to continue a program which was stopped and bring it to the foreground.
+            fg jobname
+          ps bg
+            background
+
+            NICE
+                -Linux can run a lot of processes at a time, which can slow down the speed of some high priority processes and result in poor performance.
+
+                -To avoid this, you can tell your machine to prioritize processes as per your requirements
+                -This priority is called Niceness in Linux, and it has a value between -20 to 19.
+
+             nice -n 2 procces name
+
+          df -h
+            -This utility reports the free disk space(Hard Disk) on all the file systems.
+         Free
+            -This command shows the free and used memory (RAM) on the Linux system.
+
+    ==================================================================================
+
+
+        Compression Command
+
+            gzip myfile1.txt
+
+                   - Compress a file with extension .gz and remove the original file.
+                   -gzip my_touch_file.php
+
+
+             gzip -f myfile1.txt
+
+                   -Forcefully compress a file even if there already exists and remove the original file.
+                   -gzip -f my_touch_file.php
+
+            gzip -k mydoc.txt
+
+                    -Compress a file with extension .gz and keep the original file too.
+                    -gzip -k  my_first_file.php
+
+            gzip -[1-9] mydoc.txt
+                -Compress a file and change compression level.
+                -gzip [2] my_first_file.php
+
+            gzip -v mydoc.txt
+
+                -Display the name and percentage reduction for each file compressed or decompressed
+                -gzip -v  my_first_file.php
+
+            gzip -d mydoc.txt.gz
+                -Decompress a file and remove the original compress file.
+                -gzip -d  my_first_file.php.gz
+
+            gzip -r mydoc.txt.gz
+                -This will compress all the files in the given directory and sub-directories recursively.
+                -gzip -r  my_first_file.php.gz
+
+
+            You can use tar to compress a single file as easily as a group though this offers no particular advantage over using gzip directly. To use tar for this, just identify the file as you would a group of files with a “tar cfz newtarfile filename” command like
+
+            tar -cvzf proj.tar.gz /home/dipen/proj/
+
+                    -Create proj.tar.gz archive file of /home/dipen/proj/.
+                    -tar -cvzf proj.tar.gz /home/aum/ASPL_Vipul/file_cmd/
+
+            tar xvf proj.tar.gz
+                    -Uncompress proj.tar.gz archive file to current directory.
+                    -tar xvf proj.tar.gz
+
+            tar xvf proj.tar.gz -C /home/public_html/
+
+                    -Uncompress proj.tar.gz archive file to /home/public_html/ directory.
+                    -tar xvf proj.tar.gz -C /home/aum/ASPL_Vipul/
+
+
+            tar -tvf proj.tgz
+                    -List Content of proj.tgz archive file.
+                    -tar -tvf proj.tar.gz
+    ==============================================================================
+
+    Find Command
+
+        find . -name tecmint.txt
+
+            -Find all the files whose name is tecmint.txt in a current working directory.
+            -find my_first_file.php
+
+         find /home -type f -name "*.php"
+
+            -Find all php files in the /home directory.
+
+            -find /home/aum/ASPL_Vipul/file_cmd/ -type f -name "*.php"
+
+        find /home -iname tecmint.txt
+
+            -Find all the files whose name is tecmint.txt and contains both capital and small letters in /home directory.
+            -find /home/aum/ASPL_Vipul/file_cmd/ -iname "my_first_file.php"
+
+        find /home -type d -name Tecmint
+            -Find all directories whose name is Tecmint in /home directory.
+            -find /home/aum/ASPL_Vipul/file_cmd/ -type d -name file_cmd
+
+        find /home -type f -perm 0755
+            -Find all the files whose permissions are 755 in directory /home
+            -find /home/aum/ASPL_Vipul/file_cmd/ -type f -perm 755
+
+        find /home -type f ! -perm 755
+
+            -Find all the files whose permissions are not 755 in directory /home.
+            -find /home/aum/ASPL_Vipul/file_cmd/ -type f ! -perm 755
+
+        find /home -user dipen
+               -To find all files that belong to the user dipen under /home directory.
+               -find /home -user aum
+        find /home -group apache
+            -To find all files that belong to the group apache under /home directory.
+            -find /home -group aum
+
+        find /home -size +50M -size -100M
+            -To find all the files which are greater than 50MB and less than 100MB under /home directory.
+
+            -find /home -size +11M -size -100M
+
+        find /home -type f -size +100M -exec rm -f {} \;
+
+            -To find all 100MB files and delete them using one single command under /home directory.
+            -find /home/aum/ASPL_Vipul/file_cmd/ -size +10M -exec rm -f {}\;
+
+         Find all Read-Only files.
+                find -perm u=r
+           Find Files with 777 Permissions and Chmod to 644
+            find / -type f -perm 0777 -print -exec chmod 644 {} \;
+
+
+        find Directories with 777 Permissions and Chmod to 755
+                -find / -type d -perm 777 -print -exec chmod 755 {} \;
+
+        Find and remove single File
+
+                find . -type f -name "one.txt" -exec rm -f {} \;
+
+        Find all Empty Files
+           find . -type f -name two.txt  -empty
+
+        Find Last 50 Days Modified Files
+            -find / -mtime 50
+
+        Find Last 50 Days Accessed Files
+            -find / -atime 40
+
+            find -mtime +50 -mtime -100
+
+       Last Hour
+            find / -cmin -60
+
+    ======================================================================
+    Locate Command
+
+            The locate command is a Unix utility used for quickly finding files and directories.
+
+            locate "*.html" -n 20
+
+                -Search .html files in current location and display 20 result
+                - locate ".php"
+                  locate ".php" -n 10
+
+             locate "*.json" -c
+
+                -Display count of all matching entries of file “*.json“
+                -locate ".php" -c
+
+             locate ".txt" -A
+
+                -Displays only the entries matching all the specified pattern(s)
+
+            locate ".txt" -b
+                -Matches only the base name against the specified patterns.
+
+            locate ".txt" -c
+             -Outputs the number of matching entries instead of the file names
+
+            -e
+                Only displays entries for existing files
+            -i
+                Ignores pattern case sensitivity
+            -p
+                -Ignores punctuation and spaces when matching patterns
+
+            -0
+                -Separates output entries using the ASCII NUL character instead of printing each entry in a new line
+            -r
+                -Used for searching a basic regular expression [REGEXP]. Specifying this option doesn't allow [pattern] arguments
+            -w
+                 -Matches only the whole path name against the specified patterns.
+            -h
+                help
+
+    ===========================================================
+    Sort Command
+
+        sort mydoc.txt
+                -Sort the content of file mydoc.txt.
+                -sort my_first_file.php
+         ls | sort
+            -Sort the response of stdin output (ls command)
+            -ls | sort
+
+        sort -r mydoc.txt
+            -Sort the content of file mydoc.txt in reverse order.
+            -sort -r my_first_file.php
+
+
+         sort -n mydoc.txt
+            -Sort the content of file mydoc.txt in numeric order.
+            -sort -n mydoc.txt
+
+         sort -o file.Text
+            -o Option: Unix also provides us with special facilities like if you want to write the output to a new file, output.txt, redirects the output like this or you can also use the built-in sort option -o, which allows you to specify an output file.
+            -sort -o sort.txt vip.txt
+
+         sort -k filename.txt
+            -Unix provides the feature of sorting a table on the basis of any column number by using -k option.
+
+            -Use the -k option to sort on a certain column. For example, use “-k 2” to sort on the second column
+
+            -sort -k2 vip.txt
+
+         sort -c vip.txt
+                --c option: This option is used to check if the file given is already sorted or not & checks if a file is already sorted pass the -c option to sort. This will write to standard output if there are lines that are out of order.
+
+         sort -u vip.txt
+           --u option: To sort and remove duplicates pass the -u option to sort.
+
+         sort -m vip.txt
+           -M Option: To sort by month pass the -M option to sort
+
+        sort -b vip.txt
+           -M Option: Ignore blanks at the start of the line.
+
+    ===============================================================
+
+     Uniq Command
+
+        -The uniq command in Linux is a command-line utility that reports or filters out the repeated lines in a file.
+
+        uniq mydoc.txt
+            -Filter the file mydoc.txt and remove the same line from.
+            -uniq  my_first_file.php
+
+      uniq -c mydoc.txt
+            -Filter the file mydoc.txt and remove the same line from. -c option display count a line was repeated
+            -uniq -c my_first_file.php
+
+        uniq -d mydoc.txt
+
+            -Prints the unique repeated lines and not the lines which aren’t repeated
+            -uniq -d my_first_file.php
+        uniq -D mydoc.txt
+            -Prints the all repeated lines and not the lines which aren’t repeated
+            -uniq -D my_first_file.php
+
+        uniq -i mydoc.txt
+            -By default, comparisons done are case sensitive but with this option case insensitive comparisons can be made
+        uniq -u mydoc.txt
+
+            -u – -unique : It allows you to print only unique lines.
+
+        uniq -z mydoc.txt
+           - zero-terminated : It will make a line end with 0 bytes (NULL), instead of a newline.
+
+         – – help : It displays a help message and exit.
+         – – version : It displays version information and exit.
+
+   ===============================================================
+
+    System Command
+
+        history
+            -It will show you a complete list of last executed commands with line numbers.
+
+        history -c
+            -Clear the history
+        which php
+            -Displays the absolute path of the files (or possibly links) which would be executed in the current environment.
+
+
+        whereis php
+
+            -Helps us locate the binary, source and manual files for commands.
+            -whereis php
+
+
+        env
+            -Lists all the current environment variables
+            -env
+
+        df -h
+            -Shows disk space usage.
+            -df -h
+
+
+        date
+            -Display current system date and time.
+            -date
+
+
+        date --set="8 JUN 2017 13:00:00"
+            -Change current system date and time
+
+        service ssh status
+            -Show the status of ssh service
+            -service ssh status
+
+        service nginx restart
+            -This will restart nginx service. We can also use the start or stop option with a service command.
+            -service nginx restart
+
+    =============================================
+    Network Command
+
+        wget mydoc.txt
+            -Download file mydoc.txt.
+        wget -c mydoc.txt
+           -Continue a stopped download file mydoc.txt.
+
+        ping www.google.com
+            -Ping host and output results
+
+        dig www.google.com
+            -Get DNS information for domain
+
+        ssh user1@192.168.56.10
+
+            -Connect to host 192.168.56.10 as user user1.
+        ssh -p 112 user1@192.168.56.10
+            -Connect to host 192.168.56.10 with port 112 as user user1.
+
+        sudo netstat -tulpn
+            -Display program and connection details.
+
+       ip
+        -The ip command is one of the basic commands every administrator will need in daily work, from setting up new systems and assigning IPs to troubleshooting existing systems.
+
+
+        ifconfig
+            -The ifconfig command was/is a staple in many sysadmin's tool belt for configuring and troubleshooting networks.
+
+        mtr
+            -MTR (Matt's traceroute) is a program with a command-line interface that serves as a network diagnostic and troubleshooting tool.
+
+       netstat
+            -The netstat tool for printing network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.
+
+    ==================================================================
+
+    Searching Command
+
+        Grep is an acronym that stands for Global Regular Expression Print
+
+
+        grep "online" index*
+            -Search for a string online in the file whose name starts with an index.
+            -grep "test" my_first_file.php
+
+        grep –n “main” setup.py
+
+           -Search for a string main in the setup.py file with line number
+           --grep -n "test" my_first_file.php
+
+        grep -r "function" ../php2/*
+
+            -Search for a string function in the current directory along with all of the subdirectories.
+            -grep -r "test" ../file_cmd/*
+
+        grep -rw "function" ../php2/*
+
+            -Search for an entire word function in the current directory along with all of the subdirectories.
+            - grep -rw "test" ../file_cmd/*
+
+        find ../php2/ -name "*.php" | grep -i vendor
+            -find command will get all php files from directory ../php2/ recursively and grep command will look for the vendor string into that result.
+            -find ../file_cmd/ -name ".php" | grep -i vendore
+            -find ../file_cmd/  ".php"  | grep -i f
+
+        grep "online" index.html -v
+            -Search for a string online in the fileindex.html and display the lines which does not match the given string/pattern.
+            -grep "test"  my_first_file.php  -v
+
+        netstat -tulpn | grep nginx
+            -It will display connection details whose process name is nginx.
+
+         grep -e "HEAD" -e "HTTP" logs/access.log
+            -It will display all the log entry which have either “HEAD” or “HTTP”
+            - grep -e "HEAD" -e "HTTP" /home/aum/ASPL_Vipul/file_cmd/my_touch_file.php.gz
+
+         grep -e "HEAD\|HTTP" logs/access.log
+
+         grep -e "HEAD|HTTP" logs/access.log
+
+
+         grep "HEAD.*HTTP" logs/access.log
+
+
+            -it will display all the log entry which have “HEAD” and “HTTP”
+
+        grep "HEAD.*HTTP" logs/access.log -n
+            -it will display all the log entry which have “HEAD” and “HTTP” with line number
+
+        grep -e "HTTP" -e "HEAD" logs/access.log -c
+            -It will display number of line which have either “HEAD” or “HTTP”
+
+        grep -E "HEAD.*HTTP" logs/access.log -v
+
+            -It will display all the log entry which don’t have “HEAD” and “HTTP”
+
+       grep -w vipul *
+            Grep allows you to find and print the results for whole words only. To search for the word vipul in all files in the current directory, append -w to the grep command.
+
+        grep -v vipul *
+            -you can use grep to print all lines that do not match a specific pattern of characters. To invert the search, append -v to a grep command.
+
+        grep -x “phoenix number3” *
+            -The grep command prints entire lines when it finds a match in a file. To print only those lines that completely match the search string, add the -x option.
+
+        grep -l phoenix *
+            -you only need to see the names of the files that contain a word or string of characters and exclude the actual lines.
+
+        grep -c vipul
+
+            -Grep can display the filenames and the count of lines where it finds a match for your word
+
+========================================================
+
+   Sed Command
+
+    -SED command in UNIX stands for stream editor and it can perform lots of functions on file like searching, find and replace, insertion or deletion
+
+    sed -n '3'p logs/access.log
+
+        -It will print the 3rd line from logs/access.log file
+        -sed -n '1'p my_first_file.php
+
+    sed -n '3~2'p logs/access.log
+        -It will print every 2nd line starting from the 3rd line from logs/access.log file.
+
+            -sed -n '1~1'p my_first_file.php
+    sed -n '2,4'p logs/access.log
+            -it will print from 2nd line to 4th line from logs/access.log file.
+
+            - sed -n '1,1'p my_first_file.php
+
+     sed -n '/Storage/,+2p' thegeekstuff.txt
+            -It will print 2 lines from pattern matches.
+            -sed -n '/test/,+2p' my_first_file.php
+
+      sed -n '/PATTERN1/,/PATTERN2/p' thegeekstuff.txt
+
+        -It will print lines between PATTERN1 and PATTERN2.
+        -sed -n '/test/,/t/p' my_first_file.php
+
+    sed 's/Linux/Linux-Unix/' thegeekstuff.txt
+        -it will replace all occurrences of Linux to Linux-Unix from thegeekstuff.txt and print output.
+        -sed 's/test/t/' my_first_file.php
+
+    Sed '3 s/Linux/Linux-Unix/' thegeekstuff.txt
+
+        -It will replace Linux to Linux-Unix on the 3rd line from thegeekstuff.txt and print output.
+        - sed '1 s/t/test/' my_first_file.php
+
+    sed 's/Linux/Linux-Unix/2' thegeekstuff.txt
+        -It will replace 2nd occurrences of Linux to Linux-Unix from thegeekstuff.txt and print output.
+        -sed 's/test/t/gi' my_first_file.php -i
+
+     sed -e 's/<[^>]*>//g' index.htm
+        -Eliminate HTML Tags from file Using sed.
+
+        -sed -e 's/<[^>]*>//g' my_first_file.php
+
+     sed 3d thegeekstuff.txt
+
+        -It will delete the 3rd line and print other lines.
+        -sed 3d /home/aum/ASPL_Vipul/file_cmd/d my_first_file.php
+
+        $sed '1,3 s/unix/linux/' geekfile.txt
+        -Replacing string on a range of lines : You can specify a range of line numbers to the sed command for replacing a string
+     sed /Linux/d access.log
+        -Delete the line which matches the patterns.
+        -sed /home/aum/ASPL_Vipul/file_cmd/d my_first_file.php
+
+
+
+
+    Awk Command
+
+
+        -The awk command is used for text processing in Linux. Although, the sed command is also used for text processing, but it has some limitations, so the awk command becomes a handy option for text processing. It provides powerful control to the data.
+        -It scans a file line by line
+        -It splits a file into multiple fields
+
+
+
+        echo | awk -v home=$HOME '{print "My home is",home}'echo | awk -v home=$HOME '{print "My home is",home}'
+
+            -Store bash variable value in general variable and concat with string and then print complete string.
+
+        awk '{print $1;}' logs/access.log
+            -It will print the 1st word from logs/access.log file. (If the line has 4 words, it will be stored in $1, $2, $3 and $4)
+
+            -awk '{print $1}' my_first_file.php
+
+        awk 'BEGIN {print "Name\tTotal\tSub1\tSub2\tSub3";} {print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$NF;} END{print "Report Generated\n--------------";}' student-marks
+            -It will read lines from a student-marks file and print those in tabular format .
+
+            -awk 'BEGIN {print "Name\tTotal\tSub1\tSub2\tSub3";} {print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$NF;} END{print "Report Generated\n--------------";}' student-marks
+
+        awk '{ region[$1]++; } END{ for (var in region) print var, "access", region[var],"times" }' regions.txt
+
+
+            -It will read lines from regions.txt file and create a region array which will increase the counter of region area then it will print those information.
+            -echo 'BEGIN { print "IP Address\tAccess Count\tNumber of sites"; } { Ip[$3]++; count[$3]+=$NF; } END{ for (var in Ip) print var,"\t",Ip[var],"\t\t",count[var]; }' >awk1
+            -awk '{ region[$1]++; } END{ for (var in region) print var, "access", region[var],"times" }' my_first_file.php
+
+
+
+        awk -F"." '{print $0,"\t",$1,"\t",$2,"\t",$3,"\t",$4}' IpList.txt
+
+
+            awk -F"." '{print $0,"\t",$1,"\t",$2,"\t",$3,"\t",$4}' my_first_file.php
+            -awk -F option will change default separator to “.” instead of “ “.
+
+            Awk -F option will change default separator to “.” instead of “ “
+
+
+
+
+
+
+
+
+
+
+
+            Other command
+                pr
+                    This command helps in formatting the file for printing on the terminal.
+
+                pr -n Filename
+
+                    -The ‘-h’ options assigns “header” value as the report header.
+
+                pr -x Filename
+                    The ‘-x’ option with the ‘pr’ command divides the data into x columns.
+
+
+
+                Printing a file
+                    lp Filename
+                        -Once you are done with the formatting, and it is time for you to get a hard copy of the file, you need to use the following command:
+
+
+               Installing Software
+
+                    you can use the apt commands to install or remove a package. Let’s update all the installed packages in our system using command
+
+                        -sudo apt-get update
+
+                Print value in cmd
+                    echo $VARIABLE
+                        -Variables are- Case Sensitive. Make sure that you type the variable name in the right letter case otherwise you may not get the desired results.
+
+
+                    unset variablename
+                        -This would remove the Variable and its value permanently.
+
+               Free
+                -This command shows the free and used memory (RAM) on the Linux system.
+
+
+
+        Best Text Editors for the Linux Command Line
+
+            -Neovim
+            -ne – The Nice Editor
+                -When compared to the classic and popular text editors, ne (the nice editor) is a good alternative that tries to offer advanced functionalities and make it easier to use them
+                -Sudo apt install ne
+            -Vim
+                -If you’ve been on Linux for quite some time, you must have heard about Vim. Vim is an extensively configurable, cross-platform, and highly efficient text editor.
+                -sudo apt install vim
+            -GNU Emacs
+                -GNU Emacs is undoubtedly one of the oldest and versatile text editors out there. In case you didn’t know, it was created by GNU Project founder Richard Stallman.
+                -sudo apt install emacs
+            -MCEDIT
+                -Midnight Commander is a fairly popular command line file manager and mcedit is an internal file editor of GNU Midnight Commander. It’s possible that many of us forget about this text editor, which is embedded inside the midnight commander utility.
+                -sudo apt install mc
+
+            -Nano
+                -When it comes to simplicity, Nano is the one. Unlike Vim or Emacs, it is suitable for beginners to get used to quickly.
+            -Tilde
+                -Tilde is a terminal-based text editor tailored for users who are normally used to GUI applications.
+                -sudo apt install tilde
+
+             -Micro
+                -Micro is an easy-to-use and highly customizable text editor. It also implements the universal copy/paste/save shortcuts (CTRL + C/V/S), which is rare in Linux terminal editors. Another cool offering from this text editor is its plugin system and internal command mode.
+                -sudo apt install micro
+
+            -Helix
+                -Helix editor is a rust-based terminal text editor, which is both fast and efficient in resources. It uses Tree-Sitter for syntax highlighting, which helps boost the speed. The built-in language server support provides context-aware completion, diagnostics, and code actions.
+                -sudo apt install git cargo
+
+      File Command
+
+         file: fi le command is used to determine the  file type.
+            It does not care about the extension used for fi le. It simply uses fi le
+            command and tell us the  file type. It has several options.
+
+            file * : used to list all  les
+            file -s : used for speci c  files
+
+            file/dirname/* : Used to list types of all the fi les from mentioned directory
+
+
+        Cut Command
+        cut: command for cutting out the sections from each line of  les and writing the result to standard output.
+            Example:
+            $ cut -b 1,2,3  le.txt : extract the speci c bytes, you need to follow -b option
+            $ cut -c 2,5,7  le.txt : To cut by character use the -c option
+
+
+        man command
+            man: It is used to view the on-line reference manual pages for commands/programs like so.
+            Example:
+            $ man du
+            $ man df
+        info command
+
+            info : command reads documentation in the info format. It will give detailed information for a command when
+            compared with the man page.
+
+         whoami :command is used both in Unix Operating System and as well as in Windows Operating System.
+                Example:
+                $ whoami
+                $ whoami -help: for help detail
+                $ whoami -version: for version detail
+
+
+          whatis: searches and shows a short or one-line manual page descriptions of the provided command name(s).
+                Example:
+                $ whatis wget
+
+        whereis: helps us locate the binary, source and manual  les for commands.
+            Example:
+            $ whereis cat
+
+         which: It is used to displays the absolute path (pathnames) of the  les (or possibly links) which would be executed in the
+            current environment.
+            Example:
+            $ which who
+
+        nice: It is used to show or change the nice value of a running program.
+            It runs speci ed command with an adjusted niceness.
+            When run without any command speci ed, it prints the current niceness
+
+        mount
+            -This command can be used to mount any data media, such as hard disks, CD-ROM drives, and other drives, to a
+            directory of the Linux  file system
+            -r :mount read-only -t  lesystem :Speci es the  le system. The most common are ext2 for Linux hard disks, msdos for
+            MS-DOS media, vfat for the Windows  le system, and iso9660 for CDs.
+
+            mount -t type device my_first_file.php
+            mount -t [type] [device] [dir]
+            The command instructs the kernel to attach the file system found on [device] at the [dir] directory. The -t [type] option is optional, and it describes the file system type (EXT3, EXT4, BTRFS, XFS, HPFS, VFAT, etc.).
+
+            DU
+
+            du: It is used to show disk space usage of  les present in a directory as well as its sub-directories as follows.
+            Example:
+            $ du /home/aaronkilik
+
+
+           su:
+            su:It is used to switch to another user ID or become root during a login session. Note that when su is invoked without a
+            username, it defaults to becoming root.
+            Example:
+            $ su
+            $ su username
+
+
+            screen Command
+
+
+            screen: command in Linux provides the ability to launch and use multiple shell sessions from a single ssh session.
+
+            Example:
+                    $ screen [-opts] [cmd [args]]
+                    $ screen -s  le : gives a name to the window. It creates a session which is identi ed by that name
+                    $ screen ls : list screen
+                    $ screen -d  le : used to detach a screen session
+                    $ screen -r  le : reattach a screen session
+                        Options : -a: It force all capabilities into each window’s termcap.
+                                -ls [match]: It display all the attached screens.
+                                    -d (-r): It detach the elsewhere running screen (and reattach here).
+                                    -S sockname: It name this session .sockname instead of old name
+
+            crontab Command
+
+            crontab: It is a daemon to run schedule tasks. Cron wakes up every minute and checks schedule tasks in crontable.
+                Example:
+                $ crontab -l : list crontab
+                $ crontab -e : edit crontab
+                $ crontab -u username -l : list sheduled cron tab
+                $ crontab -r : remove crontab
+
+            rsync command
+
+            rsync: It is a fast and extraordinarily versatile fi le copying tool. It can copy locally, to/from another host over any
+                remote shell, or to/from a remote rsync daemon.
+            Example:
+            : command in Linux provides the ability to launch and use multiple shell sessions from a single ssh session.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

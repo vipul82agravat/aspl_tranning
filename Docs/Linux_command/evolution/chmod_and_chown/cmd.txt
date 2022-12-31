@@ -1,0 +1,109 @@
+
+
+
+
+/1. create commnd to use chmod and chowm.
+
+    1.Use the chown command to change file owner and group information.
+        -Owner – Person or process who created the file.
+        -Group – All users have a primary group, and they own the file, which is useful for sharing files or giving access.
+        -Others – Users who are not the owner, nor a member of the group. Also, know as world permission.
+
+    2.read (r), write (w), and execute (x) permission
+
+    3. check the permission of dir
+
+        ls -l
+
+         ls -l /etc/host
+    4 Show the details of list permission for file and folder
+
+        stat cmd.txt
+
+  chown command
+
+    1.The chown command changes the user and/or group ownership of for given file
+        chown owner-user file
+        chown owner-user:owner-group file
+        chown owner-user:owner-group directory
+        chown options owner-user:owner-group file
+
+        2.change user for file
+            chown vipul demo.txt
+
+        3. change group for file
+
+            chown vipul:apache demo.txt
+
+        4 Change the owner of /foo
+             chown -R root /
+
+             -R Recursively change ownership of directories and their contents.
+
+
+         changes user if not exits it will create?
+
+             sudo chown news cmd.txt
+        5. Create News Group
+
+             1.groups
+
+             2.chown vipula:aum cmd.txt
+
+             3.ls -l cmd.txt
+
+
+    chmod command
+
+       1. chmod permission file
+
+            u for user
+            g for group
+            o for others
+            a for all
+
+        -We can set or remove
+            + for adding
+            - for removing
+            = set exact permission
+
+        File permission letter
+
+            r for read-only
+            w for write-only
+            x for execute-only
+
+       2. change permission of file
+
+            -chmod -R 755 cmd.txt
+
+       3.Remove rw permission to file
+
+            chmod  -rw cmd.txt
+       4. Add permission to file
+
+            chmod  +rw cmd.txt
+
+       5. permission to add  read permission for all/everyone (a).
+
+             chmod a+rw cmd.txt
+
+            Remove to all
+
+                chmod a+rw cmd.txt
+                chown alice: document.docx
+
+      6. give the permission to specicf folder
+
+             chmod a+rw /home/vipula/staff/vipul/
+
+       7.Next, sets read and write permission for user, sets read for group, and remove all access
+
+                chmod u=rw,g=rwx,o=r /home/vipula/staff/vipul/
+
+                    u=user
+                    g=group
+                    o=Others
+
+        8. -R, --recursive
+              change files and directories recursively

@@ -1,0 +1,77 @@
+1.create curl word use CURL
+
+        -curl is a command-line tool to transfer data to or from a server, using any of the supported protocols (HTTP, FTP, IMAP, POP3, SCP, SFTP, SMTP, TFTP, TELNET, LDAP, or FILE). curl is powered by Libcurl.
+
+        curl [options] [URL...]
+
+
+       Progress Meter
+            curl displays a progress meter during use to indicate the transfer rate, amount of data transferred, time left, etc.
+
+            curl -# -O ftp://ftp.example.com/file.zip
+
+         -O: This option downloads the file and saves it with the same name as in the URL.
+
+                curl -o [file_name] [URL...]
+
+                curl -o vipul.zip https://www.geeksforgeeks.org
+
+          -O: This option downloads the file and saves it with the same name
+
+            curl -O ftp://speedtest.tele2.net/1MB.zip
+
+         -C -: This option resumes download which has been stopped due to some reason.
+
+            curl -C - [URL...]
+
+                curl -C - -O ftp://speedtest.tele2.net/1MB.zip
+
+         –limit-rate: This option limits the upper bound of the rate of data transfer and keeps it around the given value in bytes.
+
+               curl --limit-rate [value] [URL]
+
+
+               curl --limit-rate 1000K -O ftp://speedtest.tele2.net/1MB.zip
+
+
+         -u: curl also provides options to download files from user authenticated FTP servers
+
+            curl -u {username}:{password} [FTP_URL]
+
+            curl -u demo:password -O ftp://test.rebex.net/readme.txt
+
+
+
+        -T: This option helps to upload a file to the FTP server.
+
+            curl -u {username}:{password} -T {filename} {FTP_Location}
+
+
+        –libcurl: This option is very useful from a developer’s perspective. If this option is appended to any cURL command, it outputs the C source code that uses libcurl for the specified option
+
+            curl [URL...] --libcurl [filename]
+
+            curl https://www.geeksforgeeks.org > log.html --libcurl code.c
+
+        -x, –proxy: curl also lets us use a proxy to access the URL.
+
+
+            curl -x [proxy_name]:[port] [URL...]
+
+            curl -u [user]:[password] -x [proxy_name]:[port] [URL...]
+
+        Sending mail: As curl can transfer data over different protocols, including SMTP, we can use curl to send mails.
+
+
+            curl –url [SMTP URL] –mail-from [sender_mail] –mail-rcpt [receiver_mail] -n –ssl-reqd -u {email}:{password} -T [Mail text file]
+
+        DICT protocol: The Libcurl defines the DICT protocol which can be used to easily get the definition or meaning of any word directly from the command line.
+
+
+        curl [protocol:[dictionary_URL]:[word]
+
+
+
+
+        getnolyHeder info of cURL
+        =>curl -v ftp://test.rebex.net/readme.txt

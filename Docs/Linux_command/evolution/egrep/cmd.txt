@@ -1,0 +1,65 @@
+1.egrep is a pattern searching command which belongs to the family of grep functions.
+2.It treats the pattern as an extended regular expression and prints out the lines that match the pattern
+
+
+    egrep [ options ] 'PATTERN' files
+    Example
+
+    egrep used grep.txt
+
+    -c: Used to counts and prints the number of lines that matched the pattern and not the lines.
+
+        egrep -c used grep.txt
+
+    -v: It prints the lines that does not match with the pattern.
+
+        egrep -v used grep.txt
+
+        prints with match result
+        for the files and retrurn
+        contains all files
+        in folder
+
+    -i: Ignore the case of the pattern while matching.
+
+        egrep -i used grep.txt
+
+    -l: Prints only the names of the files that matched.
+
+            egrep -l fact grep.txt
+
+    -l: Prints only the names of the files that NOt matched.
+
+            egrep -L fact grep.txt
+
+     -e: Allows to use a ‘-‘ sign in the beginning of the pattern
+
+        egrep -e fact grep.txt
+
+     -W: Prints only those lines that contain the whole words.
+
+            egrep -w fact grep.txt
+
+     -x: Prints only those lines that matches an entire line of the file.\
+
+            $ egrep -x 'fact12' grep.txt
+
+
+       -m NUMBER: Continue to search for matches till the count reaches NUMBER mentioned as argument.
+
+        egrep -m 1 'fact' grep.txt
+
+        -o: Prints only the matched parts of the line and not the entire line for each match.
+
+            egrep -o 'fact' grep.txt
+
+        -n: Prints each matched line along with the respective line numbers. For multiple files, prints the file names along with
+
+            egrep -n 'fact' grep.txt
+
+
+        -r: Recursively search for the pattern in all the files of the directory. The last argument is the directory to check. ‘.’ (dot)s
+
+            egrep -r 'fact' grep.txt
+
+

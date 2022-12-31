@@ -1,0 +1,234 @@
+1.Awk is a scripting language used for manipulating data and generating reports. The awk command programming language requires no compiling and allows the user to use variables, numeric functions, string functions, and logical operators.
+2. AWK Operations:
+
+
+    (a)   Scans a file line by line
+    (b) Splits each input line into fields
+    (c) Compares input line/fields to pattern
+    (d) Performs action(s) on matched lines
+
+    Useful For:
+        (a) Transform data files
+        (b) Produce formatted reports
+
+     3. Programming Constructs:
+    (a) Format output lines
+    (b) Arithmetic and string operations
+    (c) Conditionals and loops
+
+
+        awk options 'selection _criteria {action }' input-file > output-file
+
+
+        Options
+            -f program-file
+                Reads the AWK program source from the file
+                  program-file, instead of from the
+                  first command line argument.
+            --F fs            : Use fs for the input field separator
+
+
+
+            1. cat employee.txt
+
+            2.awk '{print}' employee.txt
+
+              print display contanis
+
+            3.awk '/manager/ {print}' employee.txt
+
+                serach work
+
+            4. awk '{print $1,$5}' employee.txt
+                find sepcfice clounm, form file
+            5.
+
+          Built-In Variables In Awk
+
+                Awk’s built-in variables include the field variables—$1, $2, $3, and so on ($0 is the entire line) — that break a line of text into individual words or pieces called fields.
+
+                NR: NR command keeps a current count of the number of input records
+                    awk '{print NR $1,$3}' employee.txt
+
+                    1 ajay manager account 45000
+                    2 sunil clerk account 25000
+                    3 varun manager sales 50000
+
+                    awk '{print NR "* " $1,$2}' geeksforgeeks.txt
+
+                NF: NF command keeps a count of the number of fields within the current input record.
+
+                     awk '{print NF $1,$3}' employee.txt
+
+                    4ajay account
+                    4sunil account
+                    4varun sales
+
+
+                    4amit account
+
+
+
+                 To print any non empty line if presen
+
+                FS: FS command contains the field separator character which is used to divide fields on the input line.
+
+                RS: RS command stores the current record separator character.
+
+
+                OFS: OFS command stores the output field separator, which separates the fields when Awk prints them. The default is a blank space.
+
+
+                ORS: ORS command stores the output record separator,
+
+
+
+                To find the length of the longest line present in the file:
+                    awk '{ if (length($0) > max) max=length($0) } END {print max}' geeksforgeeks.txt
+
+
+                To count the lines in a file:
+
+                     awk 'END {print NR}' geeksforgeeks.txt
+
+                Printing lines with more than 10 characters
+
+                     awk 'length($0) > 11' geeksforgeeks.txt
+
+
+                To find/check for any string in any specific column:
+
+
+                     awk '{ if($1=="A") print $0;}' geeksforgeeks.txt
+
+                 To print the squares of first numbers from 1 to n say 6:
+
+                    $ awk 'BEGIN { for (i=1;i<=6;i++) print "vipul is", i ,"an",i*1;}'
+
+
+
+
+                    while
+                        The while statement repeatedly executes a target statement as long as the specified condition is true
+
+
+                            awk '{ i=0; while(i <= 3) {print "vipul:",i; i++'}} employee.txt
+
+
+                     for
+                        The for statement also works like that of C, allowing users to create a loop that needs to execute a specific number of times.
+
+
+                         awk 'BEGIN { for(i=1; i<=13; i++) {print "vipu loop",$i;}}' geeksforgeeks.txt
+
+
+                    break
+
+                        The break statement immediately exits from an enclosing while or for. To begin the next iteration, use the continue statement.
+
+                        The next statement instructs awk to skip to the next record and begin scanning for patterns from the top.
+                        The exit statement instructs awk that the input has ended.
+
+                         awk 'BEGIN { for(i=1; i<=13; i++) {print "vipu loop",$i; if(i==2) break;}}' geeksforgeeks.text
+                         awk 'BEGIN {x=1; while(1) {print "vipuipl"; if(x==5) break; x++;}}'
+
+
+                  AWK Patterns
+
+                    -Inserting a pattern in front of an action in awk acts as a selector. The selector determines whether to perform an action or not.
+
+
+
+                        Regular expressions.
+                        Arithmetic relational expressions.
+                        String-valued expressions.
+                        Arbitrary Boolean combinations of the expressions above.
+
+
+
+
+                     Regular Expression Patterns
+
+                        Regular expression patterns are the simplest form of expressions containing a string of characters enclosed in slashes.\
+
+                            awk '$1 ~ /^Tarun/ {print $0}' geeksforgeeks.txt
+
+                   Relational Expression Patterns
+                    Another type of awk patterns are relational expression patterns. The relational expression patterns involve using any of the following relational operators: <, <=, ==, !=, >=, and >.
+
+
+                        awk 'BEGIN {a=10; b=10; if(a==b) print "a==b"}';
+
+                        awk 'BEGIN {a=10; b=10; if(a==b) print "a!=b"}';
+
+
+                  Range Patterns
+                        A range pattern is a pattern consisting of two patterns separated by a comma. Range patterns perform the specified action for each line between the occurrence of pattern one and pattern two.
+
+                        awk '/clerk/, /manager/ {print $1, $2}' employee.txt
+
+                   Special Expression Patterns
+
+
+                        Special expression patterns include BEGIN and END which denote program initialization and end. The BEGIN pattern matches the beginning of the input, before the first record is processed. The END pattern matches the end of the input, after the last record has been processed.
+
+
+
+                            awk 'BEGIN { print "first vipul:"}; {print $1, $2}; END {print "end vipul"}' geeksforgeeks.txt
+
+                    Combining Patterns
+
+                            The awk command allows users to combine two or more patterns using logical operators. The combined patterns can be any Boolean combination of patterns. The logical operators for combining patterns are:
+
+                             awk '$1 > 3 && $2 < 2 {print $1, $2}' employee.txt
+
+
+                    AWK Variables
+
+                                $0. Used to specify the whole line.
+                                $1. Specifies the first field.
+                                $2. Specifies the second field.
+
+                    NR. Counts the number of input records (usually lines)
+                    NF. Counts the number of fields in the current input record and displays the last field of the file.
+                    FS. Contains the character used to divide fields on the input line.
+                         awk -FS 'BEGIN{FS=":"; OFS="-"} {print $0}' /etc/passwd
+
+                    RS. Stores the current record separator character. T
+                        awk 'BEGIN {FS="-"; RS=","; OFS=" owes Rs. "} {print $1,$2}' debtors.txt
+
+                    OFS. Stores the output field separator, which separates the fields when printed.
+                        awk 'OFS="work as " {print $1,$2}' employee.txt
+
+
+
+                 AWK Actions
+
+                    The awk tool follows rules containing pattern-action pairs
+
+
+                    Actions consist of statements enclosed in curly braces {} which contain expressions, control statements, compound statements,
+
+
+
+                    awk '{action}'
+
+                    awk '{print "How to use the awk command"}'
+
+
+                     ps -ef | awk '{if ($NF =="--clipboard") print $0};'
+
+
+                     awk '/^[0-9][0-9]/ { print $1 }' teams.txt
+
+
+
+
+
+
+
+
+
+
+
+
