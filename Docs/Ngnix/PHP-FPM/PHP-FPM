@@ -1,0 +1,48 @@
+PHP -FPM
+
+    PHP-FPM (FastCGI Process Manager) dramatically speeds up the performance of your PHP environment.
+
+    -PHP-FPM is the most popular alternative implementation of PHP FastCGI. It has additional features which are really useful for high-traffic websites
+
+    -Advanced management that enables to easily stop/start processes.
+    -Emergency restart in case of accidental destruction of the opcode cache.
+    -Accelerated support for uploads.
+    -Slowlog variable configuration; to detect which functions take a longer time to execute than usual.
+    -Based on php.ini configuration files.
+    -FastCGI improvements, as fastcgi_finish_request(); a special function to stop and download all data while you keep doing a longer process
+
+
+    Nginx and PHP-FPM: a perfect match
+
+        -Nginx, as a stable high-performance web server and with a very low consumption of resources, is the perfect match for PHP-FPM. Nginx has an asynchronous architecture that is much more scalable, based on events
+
+
+    Configure PHP-FPM with NGINX
+
+        PHP-FPM NGINX Configuration Prerequisites
+            -You can open a SSH session to your Ubuntu
+            -You have already installed NGINX and PHP in your Ubuntu
+
+       NGINX PHP-FPM Configuration Steps
+
+        -Install PHP-FPM
+            - apt-get install php8.1-fpm
+        -check the status
+          - systemctl status php8.1-fpm
+
+       Configure PHP-FPM Pool
+        -
+
+      Configure NGINX for PHP-FPM
+        -Now create an NGINX server block that will make use of the above FPM pool. To do that, edit your NGINX configuration file and pass the path of pool’s socket file using the option fastcgi_pass inside location block for php.
+
+        How to Configure PHP-FPM with NGINX
+
+        Now create an NGINX server block that will make use of the above FPM pool. To do that, edit your NGINX configuration file and pass the path of pool’s socket file using the option fastcgi_pass inside location block for php.
+
+        location ~ \.php$ {
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_pass unix:/var/run/php7.2-fpm-wordpress-site.sock;
+            fastcgi_index index.php;
+            include fastcgi.conf;
+    }

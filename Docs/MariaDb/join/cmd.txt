@@ -1,0 +1,197 @@
+MySQL JOINS Tutorial: INNER, OUTER, LEFT, RIGHT, CROSS
+        Joins help retrieving data from two or more database tables.
+        The tables are mutually related using primary and foreign keys.
+
+
+
+        Create new table for join
+
+        CREATE TABLE emp_attendance (
+        id INT PRIMARY KEY,
+        type VARCHAR(100) NOT NULL,
+        note VARCHAR(100) NOT NULL,
+        emp_id INT NOT NULL);
+
+
+       Types of joins
+
+        Cross JOIN
+
+            Cross JOIN is a simplest form of JOINs which matches each row from one database table to all rows of another.
+
+                SELECT * FROM `employee_registration` CROSS JOIN `emp_attendance`;
+
+
+            Suppose we want to get all member records against all the movie records,
+
+
+        INNER JOIN
+
+            The inner JOIN is used to return rows from both tables that satisfy the given condition.
+
+                SELECT emp_attendance.`type` , emp_attendance.`note` , employee_registration.`first_name`
+                    FROM employee_registration ,emp_attendance
+                    WHERE employee_registration.`id` = emp_attendance.`emp_id`;
+
+
+                    SELECT A.`type` , A.`note` , B.`first_name`
+                    FROM `emp_attendance`AS A
+                    INNER JOIN `employee_registration` AS B
+                    ON B.`id` = A.`emp_id`;
+
+
+         Outer JOINs
+                MySQL Outer JOINs return all records matching from both tables .
+
+
+                SELECT A.`type` , A.`note` , B.`first_name`
+                FROM `emp_attendance`AS A
+                OUTER JOIN `employee_registration` AS B
+                ON B.`id` = A.`emp_id`;
+
+
+         LEFT JOIN
+
+            Assume now you want to get titles of all employee together with names of members who have rented them. It is clear that some movies have not being rented by any one. We can simply use LEFT JOIN for the purpose.
+
+            SELECT A.`type` , A.`note` , B.`first_name` FROM `emp_attendance` AS A LEFT JOIN `employee_registration` AS B ON A.`emp_id` = A.`id`;
+
+            ----------+------+------------+
+            | type     | note | first_name |
+            +----------+------+------------+
+            | checkin  | yes  | NULL       |
+            | checkout | yes  | NULL       |
+            +----------+------+------------+
+
+
+         RIGHT JOIN
+
+
+                RIGHT JOIN is obviously the opposite of LEFT JOIN. The RIGHT JOIN returns all the columns from the table on the right even if no matching rows have been found in the table on the left. Where no matches have been found in the table on the left, NULL is returned.
+
+                 SELECT A.`type` , A.`note` , B.`first_name` FROM `emp_attendance` AS A RIGHT JOIN `employee_registration` AS B ON A.`emp_id` = B.`id`;
+
+
+                 +------+------+-------------+
+                | type | note | first_name  |
+                +------+------+-------------+
+                | NULL | NULL | vipulreplce |
+                | NULL | NULL | janak       |
+                +------+------+-------------+
+
+
+                SELECT A.`type` , A.`note` , B.`first_name` FROM `emp_attendance` AS A INNER JOIN `employee_registration` AS B ON A.`emp_id` = B.`id`;
+
+
+
+           “ON” and “USING” clauses
+
+                    USING clause can also be used for the same purpose. The difference with USING is it needs to have identical names for matched columns in both tables.
+
+                     SELECT A.`type` , A.`note` , B.`first_name` FROM `emp_attendance` AS A LEFT JOIN `employee_registration` AS B  USING ( `id` );
+
+
+
+           MySQL UNION
+                Unions combine the results from multiple SELECT queries into a consolidated result set.
+
+
+                SELECT `type`,`note` FROM `emp_attendance` UNION SELECT `id`,`first_name` FROM `employee_registration`;
+
+
+                 type     | note        |
+                +----------+-------------+
+                | checkin  | yes         |
+                | checkout | yes         |
+                | 9        | vipulreplce |
+                | 12       | janak       |
+                +----------+-------------+
+
+
+            MySQL Views: How to Create View from Tables
+
+                VIEWS are virtual tables that do not store any data of their own but display data stored in other tables
+
+
+                CREATE VIEW `view_name` AS SELECT statement;
+
+                CREATE VIEW `employee_registration_view` AS SELECT `first_name`,`last_name` FROM `employee_registration`;
+
+                Query OK, 0 rows affected (0.015 sec)
+
+
+                SELECT * FROM `employee_registration_view`;
+
+
+                +-------------+-----------+
+                | first_name  | last_name |
+                +-------------+-----------+
+                | vipulreplce | tt1       |
+                | janak       | agravat   |
+                +-------------+-----------+
+                2 rows in set (0.001 sec)
+
+
+
+                SHOW CREATE VIEW `employee_registration_view`;
+
+
+          Joins and Views in MySQL
+
+                CREATE VIEW `employee_registration_view_list` AS SELECT mb.`note`,mb.`type`,mr.`first_name` FROM `employee_registration` AS mr INNER JOIN `emp_attendance` AS mb ON mr.`id` = mb.`emp_id`;
+
+
+                SELECT * FROM `employee_registration_view_list`;
+                +------+----------+-------------+
+                | note | type     | first_name  |
+                +------+----------+-------------+
+                | yes  | checkin  | vipulreplce |
+                | yes  | checkout | vipulreplce |
+                +------+----------+-------------+
+
+
+                DROP VIEW ` employee_registration_view_list `;
+
+
+         MySQL Index Tutorial – Create, Add & Drop
+
+            Indexes in MySQL sort data in an organized sequential way. They are created on the column(s) that will be used to filter the data.
+
+
+
+            What use an Index
+                    Nobody likes slow systems. High system performance is of prime importance in almost all database systems.
+
+
+
+                    CREATE TABLE `client_indexed` (
+                    `client_number` int(11) NOT NULL AUTO_INCREMENT,
+                    `full_names` varchar(150) DEFAULT NULL,
+                    `gender` varchar(6) DEFAULT NULL,
+                    `date_of_birth` date DEFAULT NULL,
+                    `physical_address` varchar(255) DEFAULT NULL,
+                    `postal_address` varchar(255) DEFAULT NULL,
+                    `contact_number` varchar(75) DEFAULT NULL,
+                    `email` varchar(255) DEFAULT NULL,
+                     PRIMARY KEY (`client_number`),INDEX(full_names)
+                    ) ENGINE=InnoDB;
+
+            Add index basic syntax
+
+                    CREATE INDEX id_index ON table_name(column_name);
+
+                    CREATE INDEX `name_index` ON `employee_registration`(`first_name`);
+
+                    SHOW INDEXES FROM table_name;
+
+                    SHOW INDEXES FROM `employee_registration`;
+
+
+
+               Syntax: Drop index
+
+                    DROP INDEX `index_id` ON `table_name`;
+
+                    DROP INDEX ` full_names` ON `client_indexed
+
+

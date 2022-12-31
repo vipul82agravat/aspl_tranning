@@ -1,0 +1,79 @@
+
+CronTab
+
+
+    -The Cron software utility is a time-based job scheduler in Unix-like operating systems. Cron allows Linux and Unix users to run commands or scripts at a given time and date.
+        -Connect to server and update the system
+            -Before begin with setting up crontab connect the server and update the system software to the latest version available.
+             -apt-get update
+
+        -Check if cron package is installe
+            -dpkg -l cron
+        -If cron is not installed, install the cron package on Ubuntu
+            -One can Install the cron package with package Manager using the following command-
+            -apt-get install cron
+
+        -Verify if cron service is running
+            -systemctl status cron
+
+         -Configure cron job on ubuntu
+
+
+               #nano /etc/crontab
+
+
+
+           crontab -l : List the all your cron jobs.
+           crontab -r : Delete the current cron jobs.
+
+           For more information about cron, one can check the manual pages using:
+            man cron
+            man crontab
+
+
+
+        Syantx
+
+            minute hour day_of_month month day_of_week command_to_run
+
+
+         crontab -e
+
+         Add last in this Configure file
+
+            * * * * * echo “Hello World at $(date)” >> $HOME/testcron.txt
+
+         tail testcron.txt
+
+
+
+        The Cron task syntax consists of 6 arguments separated by spaces. First 5 arguments describe the execution time, while the last argument is a command or a full path to a shell script that is going to be executed
+
+
+            [minute] [hour] [day of month] [month] [day of week] [command]
+
+
+           Asterisk
+             (* (run every hour, month, etc.))
+           Range
+            0-5 (run from 0th to 5th hour, month, etc.)
+
+          List
+            A list is a set of numbers or ranges separated by commas.
+
+          Step
+            */2 (run every second hour, month, etc.)
+
+
+         Name
+            A name can be used with month or day of week fields. Names are case insensitive.
+            -Jan, Feb, Mar (run every January, February, and March)
+
+        Special
+            @reboot, @weekly (run every time at startup, and once a week)
+
+
+       Manage Cron Logs
+            -Cron logs are stored in the /var/log/syslog global logging file by default. If you want to see your Cron activity, filter the syslog file to find CRON service activity:
+            -grep CRON /var/log/syslog
+

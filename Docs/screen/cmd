@@ -1,0 +1,51 @@
+Install cron Job
+
+        --The screen is a very good terminal multiplexer program in Linux which is hidden inside hundreds of Linux commands.
+
+            --sudo apt install screen
+
+        Start Screen for the First Time
+                -   screen
+        -One of the advantages of a screen that is you can detach it. Then, you can restore it without losing anything you have done on the screen. Here’s the sample scenario:
+
+        -The download process is estimated to take 2 hours long. If you disconnect the SSH session, or suddenly the connection is lost by accident, then the download process will stop. You have to start from the beginning again.
+
+        step to create screen
+            1. -screen
+            2. -sudo apt-get install dpkg
+            3. While downloading in progress, you can press “Ctrl-A” and “d“. You will not see anything when you press those buttons. The output will be like this:
+                - Response
+                -[detached from 11281.pts-1.aum18]
+
+        -Re-attach the Terminal Session with Screen
+
+            -After you detach the screen, let say you are disconnecting your SSH session and going home. In your home, you start to SSH again to your server and you want to see the progress of your download process. To do that, you need to restore the screen.
+
+            -screen -r
+
+
+            When you have more than 1 screen session, you need to type the screen session ID. Use screen -ls to see how many screens are available.
+            check if mutiple screen is there  you can check screen id
+
+                    -screen -ls
+
+            -Restore Any of screen you can useing screen -id
+
+                    -screen -r 7849
+
+
+
+            -Lock Linux Terminal Screen
+                -
+                The screen also has a shortcut to lock the screen. You can press the “Ctrl-A” and “x” shortcuts to lock the screen. This is handy if you want to lock your screen quickly. Here’s a sample output of the lock screen after you press the shortcut.
+
+                    -You can press the “Ctrl-A” and “x” shortcuts to lock the screen
+                    -Enter the password
+
+
+                -Add password to Lock Screen
+
+                    -mkpasswd test123
+
+            -Leaving Screen Terminal Session
+

@@ -1,0 +1,1085 @@
+MySQL Server
+    The server is a database component where all the applications related data is stored and it is served for multiple clients who access that data from a particular database server and under every MySQL Server  there is a program running called mysqld which takes the request from multiple application clients and process the data if the mysqld program is not running then client cannot access the data from server and it is a crucial program in the database server which directly gets the data from the storage.
+
+
+  Client Programs :
+
+    Client Programs are those which run when the MySQL Server is running if not the client programs will not work because these programs do not have direct access to the file system.
+
+
+
+
+Mysql		-	The MySQL Command-Line Client
+mysqladmin	-	Client for Administering a MySQL Server
+mysqlcheck	-	A Table Maintenance Program
+mysqldump	-	A Database Backup Program
+mysqlimport	-	A Data Import Program
+mysqlpump	-	A Database Backup Program
+mysqlshow	-	Display Database, Table, and Column Information
+mysqlslap	-	Load Emulation Client
+
+
+
+Non Client Programs
+    Non Client Programs are the programs which can run even if the MySQL Server is not running because these programs have direct access towards the File system of the server.
+
+
+    Mostly we use MySQL Workbench for administering and manipulating the changes in the database It is a gui tool for monitoring the MySQL
+
+
+
+
+   MySQL Connectors
+
+
+
+
+    Installation of the MySQL server
+
+            1. sudo apt update && sudo apt upgrade
+            2. sudo apt-get install wget software-properties-common dirmngr ca-certificates apt-transport-https -y
+            3. sudo apt install mariadb-server mariadb-client
+            4. mariadb --version
+            5. systemctl status mariadb
+            6. sudo systemctl status mariadb
+            7. sudo mariadb~
+            9.  systemctl status mariadb
+
+      Reset mysql root password
+
+        Step 1: sudo mysqld_safe --skip-grant-tables &
+        Step 2: mysql -uroot
+        Step 3: use mysql;
+        Step 4: update user set authentication_string=PASSWORD("mynewpassword") where User='root';
+        Step 5: flush privileges;
+        Step 6: quit
+        Step 7: sudo /etc/init.d/mysql restart
+        Step 8: mysql -u root -p
+
+
+    Mysql Dump
+            Mysqldump --databases mysql  > dump_mysql.sql
+
+     Mysql Workbench
+
+
+
+    Basics of Relational Databases
+
+        RDBMS stands for Relational Database Management System. RDBMS is the basis for SQL, and for all modern database systems.
+
+
+        One to One Relationships
+            -In a one-to-one relationship, one record in a table is associated with one and only one record in another table.
+
+        One to Many and Many to One Relationships
+
+            -In a one-to-many relationship, one record in a table can be associated with one or more records in another table.
+
+        Many to Many Relationships
+             Many-to-many relationship occurs when multiple records in a table are associated with multiple records in another table.
+
+        Self Referencing Relationships
+            in a Self Referencing relationship, one record in a table can be associated with another record in the same table. For example, let's say you have a referral program. Customers can refer other customers to your shopping website. T
+
+
+
+        SQL is a Structured Query Language. It is useful to manage relational databases whereas MySQL is an RDBMS which store, retrieve, modify and administrate a database using SQL.
+        SQL is a query language while MySQL is database software. which uses "SQL" language to query the database.
+        SQL is a query language so it will not provide any gui tools whereas MySQL is database software so it provides an integrated tool called 'MySQL workbench'.
+
+
+
+        Types of SQL Command
+
+                DDL – Data Definition Language
+                DQl – Data Query Language
+                DML – Data Manipulation Language
+                DCL – Data Control Language
+
+         MySQL Data Types as Part of Database Design
+
+            Text
+            Numbers
+            Dates and times
+
+            -Fixed-length fields (such as CHAR) are generally faster than variable-length fields (such as VARCHAR), but they also take up more disk space.
+            -You should keep in mind that if you insert a string five characters long into a CHAR(2) field, the final three characters will be truncated.
+            -The TIMESTAMP field is automatically set when an INSERT or UPDATE occurs, even if no value is specified for the field. If a table has multiple TIMESTAMP columns, only the first one will be updated when an INSERT or UPDATE is performed.
+
+
+            CHAR vs. VARCHAR
+
+               CHAR will always be stored as a string the length of the column
+
+               VARCHAR strings will be only as long as the stored string.
+
+            MySQL Storage Engines
+
+                MySQL provides various storage engines for its tables
+                    MyISAM
+                        -The MyISAM tables are optimized for compression and speed. The size of the MyISAM table can be up to 256TB, which is huge. Table-level locking limits the performance in read/write workloads
+
+                    InnoDB
+                        -innoDB is a transaction-safe (ACID compliant) storage engine for MySQL. They are also optimal for performance. InnoDB table supports foreign keys, commit, rollback, roll-forward operations. The size of an InnoDB table can be up to 64TB. InnoDB provides row-level locking. InnoDB stores user data in clustered indexes to reduce I/O for common queries based on primary keys.
+
+                    MEMORY (HEAP)
+                        -the memory tables are stored in memory so that they are faster than MyISAM tables. The lifetime of the data of the memory tables depends on the uptime of the database server. The memory storage engine is formerly known as HEAP.
+                    ARCHIVE
+                        -=The archive storage engine allows you to store a large number of records, which for archiving purpose, into a compressed format to save disk spac
+                        The archive storage engine compresses a record when it is inserted and decompresses it using the zlib library as it is read.q
+
+                        The archive tables only allow INSERT and SELECT statements. The ARCHIVE tables do not support indexes,
+
+                    CSV
+
+                    -The CSV storage engine tables stores data in comma-separated values (CSV) file format. CSV tables let you import or dump data in CSV format.
+
+
+
+            Database
+
+                Creating a Database
+
+                            CREATE DATABASE
+
+                            CREATE DATABASE [IF NOT EXISTS] Test_cd_catalog [CHARACTER SET utf8] [COLLATE utf8_general_ci]
+                Displaying Database
+                        -SHOW DATABASES;
+
+                Selecting Database
+
+                        USE database_name;
+
+                Removing Database
+
+                        DROP DATABASE [IF EXISTS] database_name;
+
+            Table
+                Creating Table
+                    CREATE TABLE tab_name (fileds) ;
+
+                    CREATE TABLE MyGuests (
+                    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    firstname VARCHAR(30) NOT NULL,
+                    lastname VARCHAR(30) NOT NULL,
+                );
+               Removing Table
+                    DROP TABLE [IF EXISTS] table_name;
+
+               Rename Table:
+                    ALTER TABLE table_name RENAME TO new_table_name;
+
+                    RENAME TO
+
+                Showing How a Table Was Created
+
+                    Describe tab_name;
+
+                Column Options
+
+                    SHOW COLUMNS FROM tab_name;
+
+                    SHOW COLUMNS FROM `MyGuests`;
+
+
+              Indexes, Keys, and Constraints
+
+
+                Indexes
+                    -Indexes are used to find rows with specific column values quickly. Without an index, MySQL must begin with the first row and then read through the entire table to find the relevant rows. The larger the table, the more time it will take. If the table has an index for the columns in question, MySQL can quickly determine the position of the data.
+
+                   -CREATE INDEX statement to create index
+                    -Indexes can also be unique, like the UNIQUE constraint,
+
+
+                    example
+                        CREATE INDEX index_name ON table_name (column_name);
+                        Unique Indexes:
+                            CREATE UNIQUE INDEX index_name ON table_name (column_name);
+                        Composite Indexes:
+                            CREATE INDEX index_name ON table_name (column1, column2);
+
+                Drop Inddex
+                    DROP INDEX: DROP INDEX index_name;
+
+
+                Keys
+                    Primary Key
+                    Foreign Key
+                    Unique Key
+
+                Constraints
+                    -NOT NULL
+                    -UNIQUE
+                    -PRIMARY KEY
+
+                        -A PRIMARY KEY constraint for a table enforces the table to accept unique data for a specific column and this constraint creates a unique index for accessing the table faster.
+
+                    -FOREIGN KEY
+
+                            -A FOREIGN KEY in MySQL creates a link between two tables by one specific column of both tables. The specified column in one table must be a PRIMARY KEY and referred by the column of another table known as FOREIGN KEY.
+                    -CHECK
+
+                        Add constraint: ALTER TABLE CUSTOMERS ADD CONSTRAINT myCheckConstraint CHECK(AGE >= 18);
+                        Drop constraint: ALTER TABLE CUSTOMERS DROP CONSTRAINT myCheckConstraint;
+
+
+
+                        Create Table without Constraint & Key: CREATE TABLE student AS SELECT * FROM catalog WHERE 1=2;
+                        Create Table with Constraint & Key: CREATE TABLE new_tbl LIKE orig_tbl;
+
+                    Creating a Temporary Table
+                        -A temporary table is very handy when it is impossible or expensive to query data that requires a single SELECT statement with the JOIN clauses
+
+                        -CREATE TEMPORARY TABLE statement.
+                        -MySQL removes the temporary table automatically when the session ends or the connection is terminated. You can use the  DROP TABLE statement to remove a temporary table explicitly when you are no longer using it.
+
+                        CREATE TEMPORARY TABLE credits(
+                            customerNumber INT PRIMARY KEY,
+                            creditLimit DEC(10,2)
+                            );
+
+                        DROP TEMPORARY TABLE credits;
+
+
+                      Adding, removing and modifying table columns
+
+                        Adding
+
+                        ALTER TABLE employee_registration ADD COLUMN phone VARCHAR(15) NOT NULL AFTER auth_token;
+
+                        modifying
+
+                        ALTER TABLE employee_registration MODIFY COLUMN phone VARCHAR(15) NOT NULL AFTER auth_token;
+
+
+
+                        Rename Column to Table:
+
+                        ALTER TABLE employee_registration CHANGE COLUMN phone mobile VARCHAR(15) NOT NULL;
+
+
+                        Remove
+
+                        ALTER TABLE employee_registration DROP COLUMN mobile;
+
+
+
+                Adding, removing and modifying Indexes
+
+                        Adding Index
+                            -CREATE TABLE t(
+                                c1 INT PRIMARY KEY,
+                                c2 INT NOT NULL,
+                                c3 INT NOT NULL,
+                                body TEXT,
+                                INDEX index_name (c2,c3),
+                                FULLTEXT KEY (body )
+                                );
+
+                            -CREATE INDEX employee_index ON employee_registration(id);
+
+
+
+                            Modifying Index:
+                                ALTER TABLE employee_registration RENAME INDEX employee_index TO employee_index_data;
+
+                            Removing Index:
+
+                                DROP INDEX employee_index_data ON employee_registration;
+
+
+
+                 The SELECT Statement
+
+                    SELECT * FROM employee_registration;
+
+
+                    SELECT column_list FROM table-name [WHERE Clause] [GROUP BY clause] [HAVING clause] [ORDER BY clause];
+
+
+                    View
+                        -A view is a virtual table. A view consists of rows and columns just like a table. The difference between a view and a table is that views are built on top of other tables (or views), and do not hold data themselves. If data is changing in the underlying table, the same change is reflected in the view.
+
+                    Create View:
+                         View:
+                            CREATE VIEW V_REGION_SALES AS SELECT A1.Region_Name REGION, SUM(A2.Sales) SALES FROM Geography A1, Store_Information A2 WHERE A1.Store_Name = A2.Store_Name GROUP BY A1.Region_Name;
+
+                        Select
+                            SELECT * FROM V_REGION_SALES;
+
+                        Drop View
+
+                            DROP VIEW ` V_REGION_SALES
+
+
+
+
+                   Exporting and Importing a Delimited File
+
+                        Exporting Data:
+                        SELECT * FROM catalog INTO OUTFILE '/var/lib/mysql-files/export.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
+                        Importing Data:
+                        LOAD DATA INFILE '/var/lib/mysql-files/export.csv' INTO TABLE catalog FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+
+
+                    Inserting Records
+
+                             INSERT INTO employee_registration VALUES (150, 'Miscellaneous'), (150, 'Miscellaneous');
+
+                    Replacing existing records
+
+
+                            REPLACE INTO `employee_registration` (id, first_name, last_name,email,contactno,gender,education,address) VALUES ('9', 'vipulreplce', 'tt1','vipul@gmail.com','96526359821','male','mca','raval');
+
+
+                      Updating existing records
+
+                                 UPDATE employee_registration SET email = REPLACE(email,'@aum.bz,'@aspl.in’) WHERE id = 6;
+
+                      Deleting records
+
+                         DELETE FROM employee_registration WHERE country = 'France' ORDER BY id LIMIT 5;
+
+
+
+
+                   Multi Statement Transactions
+
+                  String Functions
+
+                        -CONCAT()
+
+                        SELECT CONCAT(employee_registration.first_name, ' By The Beatles') FROM employee_registration WHERE id=9;
+
+                            =>vipulreplce By The Beatles
+
+                         REPLACE():
+
+                            SELECT REPLACE(employee_registration.first_name, 'replce', 'Agravat') FROM employee_registration WHERE id=9;
+
+                            // REPLACE(whole_string, to_be_replaced, replacement)
+
+                         INSERT():
+
+                         SELECT INSERT(employee_registration.first_name, 5, 5, 'Black') FROM employee_registration WHERE id=9;
+
+                         vipuBlack
+                         // INSERT(string, start_position, length, new_string)
+
+
+                         LEFT():
+
+                         SELECT LEFT(first_name, 4), first_name FROM `employee_registration`;
+
+                         // LEFT(string, length)
+
+                         RIGHT():
+
+                         SELECT RIGHT(first_name, 4), first_name FROM `employee_registration`;
+
+                         MID():
+
+                         SELECT MID(first_name, 4,3), first_name FROM `employee_registration`;
+
+
+                         SUBSTRING():
+
+                         SELECT SUBSTRING(employee_registration.first_name, 5) FROM employee_registration WHERE id=9;
+
+                         // SUBSTRING(string, position)
+
+
+                         SUBSTR():
+                         SELECT SUBSTR(employee_registration.first_name, 5, 2) FROM employee_registration WHERE id=9;
+
+                         //  SUBSTR(string, start, length)
+
+
+                         LOCATE():
+
+                         SELECT LOCATE('vipul', employee_registration.first_name) FROM employee_registration WHERE id=9;
+
+                         // LOCATE(substring, string)
+
+
+                         LENGTH():
+
+                            SELECT LENGTH(first_name), first_name FROM `employee_registration`;
+
+                         // LENGTH(string)
+
+
+                         LCASE():
+                            SELECT LCASE(first_name), first_name FROM `employee_registration`;
+                            // LCASE(string)
+                        UCASE():
+                            SELECT UCASE(first_name), first_name FROM `employee_registration`;
+
+                            // UCASE(string)
+
+                        LOWER():
+                            SELECT LOWER(first_name), first_name FROM `employee_registration`;
+
+                            // LOWER(string)
+                        UPPER():
+                            SELECT UPPER(first_name), first_name FROM `employee_registration`
+                            // UPPER(string)
+
+
+                        REVERSE():
+
+                        SELECT REVERSE(first_name), first_name FROM `employee_registration`;
+                        // REVERSE(string)
+
+
+                        FIND_IN_SET():
+
+                        SELECT * from employee_registration where FIND_IN_SET("1", categoryIds);
+
+
+                        // FIND_IN_SET(string, string_list)
+
+
+                        LPAD():
+                            SELECT LPAD(Amount, 20, "*");
+                            // LPAD(string, length, lpad_string)
+
+
+                        RPAD():
+                            SELECT RPAD(Amount, 20, "*");
+                            // RPAD(string, length, lpad_string)
+
+
+                        LTRIM():
+                            SELECT LTRIM(first_name) AS Addr from employee_registration where ID=9;
+                            // LTRIM(string)
+                        RTRIM():  S
+                            ELECT RTRIM(first_name) AS Addr from employee_registration where ID=9;
+                            // RTRIM(string)
+                        TRIM():
+                            SELECT TRIM(first_name) AS Addr from employee_registration where ID=9;
+                            // TRIM(string)
+
+
+
+                 Numeric Functions
+
+                    Add:
+
+                    SELECT first_name, (first_name + first_name + first_name) as Total FROM employee_registration;
+
+                    Subtract:
+
+                    SELECT first_name, (first_name - first_name) as Total FROM employee_registration;
+
+                    Multiply:
+
+                    SELECT first_name, (first_name * first_name ) as amount FROM employee_registration;
+
+                    Divide:
+
+                    SELECT first_name, (total / 3) as per FROM employee_registration;
+
+
+                    FLOOR():
+                    SELECT FLOOR(4.84);				// 4
+
+                    ROUND(): SELECT ROUND(14.537);			// 15
+
+                    COUNT():
+                    SELECT COUNT(first_name) AS NumberOfProducts FROM employee_registration;
+
+                    MAX():
+
+                    SELECT MAX(Price) AS LargestPrice FROM Products;
+
+                    MIN():
+
+                    SELECT MIN(Price) AS SmallestPrice FROM Products;
+
+
+                Date Functions
+
+                ADDDATE():
+
+                    SELECT ADDDATE("2017-06-15", INTERVAL 10 DAY);
+
+                ADDTIME():
+                SELECT ADDTIME("09:34:21.000001", "2:10:5");
+
+                CURRENT_DATE():
+
+                    SELECT CURRENT_DATE();
+                CURRENT_TIME():
+                    SELECT CURRENT_TIME();
+
+                CURRENT_TIMESTAMP():
+
+                    SELECT CURRENT_TIMESTAMP();	// 2020-04-06 06:06:15
+
+                 DATE():
+
+                    SELECT DATE("2017-06-15 09:34:21");		// 2017-06-15
+
+                DATEDIFF():
+
+                    SELECT DATEDIFF("2017-06-15", "2017-06-25");	// -10
+
+
+                DATE_FORMAT():
+                    SELECT DATE_FORMAT("2017-06-15", "%d - %M - %Y");
+
+                DAY():
+                    SELECT DAY("2017-06-15");		// 15
+
+                MONTH():
+
+                    SELECT MONTH("2017-06-15");
+
+                    // 06
+                YEAR():
+
+                    SELECT YEAR("2017-06-15");		// 2017
+                DAYNAME():
+                    SELECT DAYNAME("2017-06-15");
+                    // Thursday
+
+                DAYOFYEAR():
+                    SELECT DAYOFYEAR("2017-06-15");	// 166
+
+
+
+                Aggregate Functions
+
+
+                SUM():
+                    SELECT SUM(inventoryCount) AS inventory FROM inventory where prodId = 2;
+
+                    AVG():
+
+                        SELECT AVG(Price) AS AveragePrice FROM Products;
+
+                    GROUP_CONCAT():
+
+                    SELECT GROUP_CONCAT(DISTINCT country ORDER BY country SEPARATOR ';') as countryName FROM customers;
+
+
+
+               Querying Multiple Tables
+
+                Self Joins
+
+                    A self JOIN is a regular join, but the table is joined with itself. To perform a self join, you must use table aliases to not repeat the same table name twice in a single query.
+
+                        SELECT a.emp_id AS "Emp_ID",a.emp_name AS "Employee Name", b.emp_id AS "Supervisor ID",b.emp_name AS "Supervisor Name"
+
+                Left Joins
+
+                        The LEFT JOIN keyword returns all records from the left table (table1), and the matched records from the right table (table2). The result is NULL from the right side, if there is no match.
+
+                            SELECT a.id,a.name,a.class,b.mark,c.h_name
+                            FROM `student6` a
+                            LEFT JOIN (SELECT student_id, MAX(mark) as mark FROM student_mark GROUP BY student_id ) b on a.id= b.student_id
+                            LEFT JOIN student_house c on a.house_id=c.house_id
+
+
+
+
+                Right Joins
+
+                        The RIGHT JOIN keyword returns all records from the right table (table2), and the matched records from the left table (table1). The result is NULL from the left side, when there is no match.
+
+                  Inner Joins
+
+                        The INNER JOIN keyword selects records that have matching values in both tables.
+
+                            SELECT customerName, customercity, customermail, salestotal
+                                FROM onlinecustomers AS oc
+                                INNER JOIN orders AS o ON oc.customerid = o.customerid
+                                INNER JOIN sales AS s ON o.orderId = s.orderId
+
+            Stored Procedures
+                Step 1: DELIMITER $$
+
+                Step 2:
+
+                        CREATE PROCEDURE GetCatalogs(paramID INT)
+                            BEGIN
+                                SELECT ID, artist, title, year, label, DATE_FORMAT(bought, "%d - %M - %Y") as bought
+                                FROM catalog WHERE ID = paramID ORDER BY ID;
+                            END$$
+                Step 3: DELIMITER ;
+
+             Drop procedure
+
+                DROP procedure [ IF EXISTS ] procedure_name;
+
+
+
+                MySQL WHERE Clause: AND, OR, IN, NOT IN Query Example
+
+                    WHERE Clause in MySQL is a keyword used to specify the exact criteria of data or rows that will be affected by the specified SQL statement. The WHERE clause can be used with SQL statements like INSERT, UPDATE, SELECT, and DELETE to filter records and perform various operations on the data.
+
+                    SELECT * FROM tableName WHERE condition;
+
+                    SELECT * FROM `members` WHERE `membership_number` = 1;
+
+                 WHERE clause combined with – AND LOGICAL Operator
+                    The WHERE condition in MySQL when used together with the AND logical operator, is only executed if ALL filter criteria specified are met.
+
+
+                    SELECT * FROM `movies` WHERE `category_id` = 2 AND `year_released` = 2008;
+
+
+                    WHERE clause combined with – OR LOGICAL Operator
+
+                            The WHERE clause when used together with the OR operator, is only executed if any or the entire specified filter criteria is met.
+
+                        SELECT * FROM `movies` WHERE `category_id` = 1 OR `category_id` = 2;
+
+                 WHERE clause combined with – IN Keyword
+
+                    The WHERE in MySQL clause, when used together with the IN keyword only affects the rows whose values matches the list of values provided in the IN keyword.
+
+                    SELECT * FROM `members` WHERE `membership_number` IN (1,2,3);
+
+
+                    WHERE clause combined with – NOT IN Keyword
+                        SELECT * FROM `members` WHERE `membership_number` NOT IN (1,2,3);
+
+
+                    WHERE clause combined with – COMPARISON Operators
+
+                        The less than (), equal to (=), not equal to () comparison operators can be used with the WHERE Clause
+
+
+                        SELECT * FROM `members` WHERE `gender` = 'Female';
+
+
+                        > Greater than
+
+                        SELECT * FROM `payments` WHERE `amount_paid` > 2000;
+
+                        < > Not Equal To
+
+
+                        SELECT * FROM `movies` WHERE `category_id`<> 1;
+
+
+
+                MySQL INSERT INTO Query: How to add Row in Table (
+
+                INSERT INTO is used to store data in the tables. The INSERT command creates a new row in the table to store data.
+
+
+
+                    INSERT INTO `table_name`(column_1,column_2,...) VALUES (value_1,value_2,...);
+
+
+                    String data types – all the string values should be enclosed in single quotes.
+
+
+                    Numeric data types- all numeric values should be supplied directly without enclosing them in single or double-quotes.
+
+                    Date data types – enclose date values in single quotes in the format ‘YYYY-MM-DD’.
+
+
+                    Example
+
+                    INSERT INTO `customer` (`customer_name`,`customer_address`) VALUES ('Leonard Hofstadternew ','Test');
+
+
+
+                Inserting into a Table from another Table
+
+                    The INSERT command can also be used to insert data into a table from another table. The basic syntax is as shown below.
+
+                    INSERT INTO `customer`(customer_id,customer_name,customer_address)  SELECT customer_id,customer_name,customer_address FROM `customer_old`;
+
+
+        What is the DELETE Query?
+
+            MySQL Delete command is used to delete rows that are no longer required from the database tables
+
+            DELETE FROM `table_name` [WHERE condition];
+
+            DELETE FROM `customer` WHERE `customer_id` = 18;
+
+
+        What is the UPDATE Query
+
+            UPDATE MySQL command is used to modify rows in a table. The update command can be used to update a single field or multiple fields at the same time.
+
+            UPDATE `table_name` SET `column_name` = `new_value' [WHERE condition];
+
+
+            UPDATE `customer` SET `customer_name` = 'vipul' WHERE `customer_id` = 1;
+
+        ORDER BY in MySQL: DESC & ASC
+            Using the SELECT command, results were returned in the same order the records were added into the database
+
+
+
+       What is ORDER BY in MySQL
+
+        MySQL ORDER BY is used in conjunction with the SELECT query to sort data in an orderly manner
+
+        SELECT statement... [WHERE condition | GROUP BY `field_name(s)` HAVING condition] ORDER BY `field_name(s)` [ASC | DESC];\
+
+
+
+        SELECT * FROM customer ORDER BY customer_id DESC;
+
+        SELECT * FROM customer ORDER BY customer_id ASC;
+
+
+
+
+     SQL GROUP BY and HAVING Claus
+
+
+        The GROUP BY clause is a SQL command that is used to group rows that have the same values. The GROUP BY clause is used in the SELECT statement.
+
+
+      SQL GROUP BY Syntax
+
+        SELECT statements... GROUP BY column_name1[,column_name2,...] [HAVING condition];
+
+
+        SELECT `customer` FROM `customer` GROUP BY `customer`;
+
+
+      Restricting query results using the HAVING clause
+
+
+
+        SELECT * FROM `customer` GROUP BY `customer_id`,`customer_name` HAVING `customer_id` = 8;
+
+
+
+    MySQL Wildcards Tutorial: Like, NOT Like, Escape, ( % )
+
+    As you can see from the above query, the “WHERE clause” becomes complex. Using wildcards however, simplifies the query as we can use something simple like the script shown below.
+
+            SELECT * FROM  customer  WHERE Cstomer_address  like '% TX';
+
+
+            % the percentage
+                % the percentage character is used to specify a pattern of zero (0) or more characters.
+
+                  SELECT * FROM  customer  WHERE Cstomer_address  like '% TX %';
+
+             _ underscore wildcard
+
+                The underscore wildcard is used to match exactly one character.
+
+
+                SELECT * FROM customer WHERE customer_address LIKE '200_';
+
+           NOT Like
+                THe NOT logical operator can be used together with the wildcards to return rows that do not match the specified pattern.
+
+
+                SELECT * FROM customer WHERE customer_address NOT LIKE '200_';
+
+
+           Escape keyword.
+                The ESCAPE keyword is used to escape pattern matching characters such as the (%) percentage and underscore (_) if they form part of the data.
+
+
+      MYSQL Regular Expressions (REGEXP)
+
+                Regular Expressions help search data matching complex criteria. We looked at wildcards
+
+
+                SELECT statements... WHERE fieldname REGEXP 'pattern';
+
+
+                SELECT * FROM `customer` WHERE `customer_address` REGEXP '^[abcd]';
+
+
+                ‘^[abcd]’ the caret (^) means that the pattern match should be applied at the beginning and the charlist [abcd]
+
+
+
+
+       Regular expression metacharacters
+
+
+        The asterisk (*) metacharacter is used to match zero (0) or more instances of the strings preceding it
+
+
+        The plus (+) metacharacter is used to match one or more instances of strings preceding it.
+
+        The question(?) metacharacter is used to match zero (0) or one instances of the strings preceding it.
+
+        The dot (.) metacharacter is used to match any single character in exception of a new line.
+
+
+        The charlist [abc] is used to match any of the enclosed characters.
+        the charlist [^abc] is used to match any characters excluding the ones enclosed.
+
+        The [A-Z] is used to match any upper case letter.\
+
+        The [a-z] is used to match any lower case letter
+
+        The [0-9] is used to match any digit from 0 through to 9.
+
+        The caret (^) is used to start the match at beginning.
+
+        The vertical bar (|) is used to isolate alternatives.
+
+
+        The[[:<:]] matches the beginning of words.
+
+        The [[:>:]] matches the end of words.
+
+
+        The [:class:] matches a character class i.e.
+
+
+
+
+
+
+       MySQL Functions: String, Numeric, User-Defined, Stored
+       \
+
+        MySQL can do much more than just store and retrieve data. We can also perform manipulations on the data before retrieving or saving it.
+
+        Built-in functions
+
+
+
+            Strings functions – operate on string data types
+
+
+                We already looked at what string functions do.
+
+
+
+            Numeric functions
+                – operate on numeric data types
+            Date functions
+                – operate on date data types
+
+            Stored functions
+                Stored functions are just like built in functions except that you have to define the stored function yourself.
+
+             User-defined functions
+
+                MySQL also supports user defined functions that extend MySQL
+
+
+    Aggregate Functions in MySQL
+        Performing calculations on multiple rows
+        Of a single column of a table
+        And returning a single value.
+
+
+        1) COUNT
+        2) SUM
+        3) AVG
+
+
+
+        COUNT function
+            The COUNT function returns the total number of values in the specified field. I
+
+
+        DISTINCT Keyword
+            The DISTINCT keyword that allows us to omit duplicates from our results
+
+                SELECT DISTINCT `customer_id` FROM `customer`;
+        MIN function
+            The MIN function returns the smallest value in the specified table field.
+        MAX function
+            Returns the largest value from the specified table field.
+
+
+            SELECT MAX(`year_released`)  FROM `customer`;
+
+        SUM function
+            Suppose we want a report that gives total amount of payments made so far. We can use the MySQL SUM function which returns the sum of all the values in the specified column. SUM works on numeric fields only. Null values are excluded from the result returned.
+
+            SUM('amount_paid')
+         AVG function
+
+            MySQL AVG function returns the average of the values in a specified column. Just like the SUM function, it works only on numeric data types.
+
+
+            AVG('amount_paid')
+
+
+      MySQL IS NULL & IS NOT NULL T
+            In simple terms, NULL is simply a place holder for data that does not exist
+
+            What is NOT
+                    The NOT logical operator is used to test for Boolean conditions and returns true if the condition is false. The NOT operator returns false if the condition been tested is true
+
+
+             NOT NULL Values
+                Let’s suppose that we want to create a table with certain fields that should always be supplied with values when inserting new rows in a table.
+
+
+                CREATE TABLE `employees`(
+                    employee_number int NOT NULL,
+                    full_names varchar(255) ,
+                    gender varchar(6)
+                    );
+
+
+    Comparing null values
+            IS NULL”
+
+
+
+
+
+     MySQL AUTO_INCREMENT
+                Auto Increment is a function that operates on numeric data types. It automatically generates sequential numeric values every time that a record is inserted into a table for a field defined as auto increment.
+
+                CREATE TABLE `categories` (
+                `category_id` int(11) AUTO_INCREMENT,
+                `category_name` varchar(150) DEFAULT NULL,
+                `remarks` varchar(500) DEFAULT NULL,
+                PRIMARY KEY (`category_id`)
+                );
+
+                Notice the “AUTO_INCREMENT” on the category_id field.
+
+
+
+      MYSQL – ALTER, DROP, RENAME, MODIFY
+
+
+            MySQL provides the ALTER function that helps us incorporate the changes to the already existing database design.
+
+
+
+            ALTER TABLE `table_name` ADD COLUMN `column_name` `data_type`;
+
+
+
+            ADD COLUMN `column_name` `data_type`”
+
+    WHAT IS THE DROP COMMAND?
+
+        DROP
+            Delete a database from MySQL server
+
+
+            ALTER TABLE `customer` DROP COLUMN `credit_card_number`;
+
+        WHAT IS THE RENAME COMMAND?
+
+            The rename command is used to change the name of an existing database object(like Table,Column) to a new name.
+
+
+
+            RENAME TABLE `current_table_name` TO `new_table_name`;
+
+
+         CHANGE KEYWORD
+
+
+                Change Name of Column
+                Change Column Data Type
+                Change Column Constraints
+
+
+                    ALTER TABLE `customer` CHANGE COLUMN `full_names` `fullname` char(250) NOT NULL;
+
+        MODIFY KEYWORD
+
+                Modify Column Data Type
+                Modify Column Constraints
+
+                Omitting the field name from the CHANGE statement will generate an error.
+
+
+                ALTER TABLE `customer`MODIFY `fullname` char(50) NOT NULL;\
+
+
+          AFTER KEYWORD
+            Suppose that we want to add a new column at a specific position in the table
+
+            ALTER TABLE  `customer` ADD  `date_of_registration` date NULL AFTER  `credit_card_number`;
+
+
+
+
+     What is the LIMIT keyword?
+
+                The limit keyword is used to limit the number of rows returned in a query result.
+
+                SELECT {fieldname(s) | *} FROM tableName(s) [WHERE condition] LIMIT  N;
+
+
+                SELECT *  FROM customer LIMIT 2;
+
+      Using the OFF SET in the LIMIT query
+
+                The OFF SET value is also most often used together with the LIMIT keyword. The OFF SET value allows us to specify which row to start from retrieving data
+
+
+                SELECT * FROM `members` LIMIT 1, 2;
+
+
+
+
+
+   MySQL SubQuery
+
+            A sub query is a select query that is contained inside another query. The inner select query is usually used to determine the results of the outer select query.
+
+                SELECT category_name FROM categories WHERE category_id =( SELECT MIN(category_id) from movies);\
+
+
+   Sub-Queries Vs Joins!
+                When compare with Joins , sub-queries are simple to use and easy to read. They are not as complicated as Joins
+
+                Hence there are frequently used by SQL beginners.
+
+                But sub-queries have performance issues. Using a join instead of a sub-query can at times give you upto 500 times performance boost.
+
+
+
+    MySQL JOINS Tutorial: INNER, OUTER, LEFT, RIGHT, CROSS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

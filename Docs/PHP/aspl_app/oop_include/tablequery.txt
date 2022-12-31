@@ -1,0 +1,17 @@
+    create table employee_registration(
+   id INT NOT NULL AUTO_INCREMENT,
+   first_name VARCHAR(255) NOT NULL,
+   last_name VARCHAR(255) NOT NULL,
+   email varchar(255) NOT NULL,
+   contactno bigint(20) NOT NULL,
+   gender varchar(255) NOT NULL,
+   education varchar(255) NOT NULL,
+   address longtext NOT NULL,
+   brith_date timestamp NOT NULL,
+   posting_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY ( id )
+);
+
+
+ALTER TABLE employee_registration
+ADD password varchar(255);

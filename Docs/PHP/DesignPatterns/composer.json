@@ -1,0 +1,17 @@
+{
+    "name": "vipul/design-patterns-old",
+    "autoload": {
+        "psr-4": {
+            "Vipul\\DesignPatternsOld\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "vipul82agravat",
+            "email": "vipulagravat@aum.bz"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

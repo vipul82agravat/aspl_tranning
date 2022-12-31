@@ -1,0 +1,378 @@
+will explain the concept of packages and repositories, what kinds of repositories are available, and how they wor
+
+Package
+	
+	Composer is a dependency manager. It installs packages locally. A package is essentially a directory containing something. In this case it is PHP code, but in theory it could be anything. And it contains a package description which has a name and a version
+
+	the name and the version, there is useful metadata
+
+
+	Dist: The dist is a packaged version of the package data. Usually a released version, usually a stable release
+
+	Source: The source is used for development. This will usually originate from a source code repository, such as git. You can fetch this when you want to modify the downloaded package.
+
+
+
+Repository
+	
+	A repository is a package source. It's a list of packages/versions. Composer will look in all your repositories to find the packages your project requires.
+
+
+	By default, only the Packagist.org repository is registered in Composer. You can add more repositories to your project by declaring them in composer.json.
+
+
+	Repositories are only available to the root package and the repositories defined in your dependencies will not be loaded
+
+
+
+	Types
+		Composer
+			The main repository type is the composer repository
+			 It uses a single packages.json file that contains all of the package metadata.
+			 repositories": [
+	        {
+	            "type": "composer",
+	            "url": "https://example.org"
+	        }
+    	]
+    	packages	
+    		The only required field is packages
+    		packages": {
+        "vendor/package-name": {
+            "dev-master": { @composer.json },
+            "1.0.x-dev": { @composer.json },
+            "0.0.1": { @composer.json },
+            "1.0.0": { @composer.json }
+        }
+    }
+   The @composer.json marker would be the contents of the composer.json from that package version including as a minimum
+
+   {
+    "name": "smarty/smarty",
+    "version": "3.1.7",
+    "dist": {
+        "url": "https://www.smarty.net/files/Smarty-3.1.7.zip",
+        "type": "zip"
+    }
+}
+
+	notify-batch
+
+	The notify-batch field allows you to specify a URL that will be called every time a user installs a package
+	the URL can be either an absolute path (that will use the same domain as the repository), or a fully qualified URL.
+
+	  "notify-batch": "/downloads/"
+
+	  metadata-url, available-packages and available-package-patterns
+
+
+	  The metadata-url field allows you to provide a URL template to serve all packages which are in the repository. It must contain the placeholder %package%.
+
+
+	   "metadata-url": "/p2/%package%.json"
+
+	   if your repository only has a small number of packages, and you want to avoid the 404-requests, you can also specify an "available-packages" key in packages.json which should be an array with all the package names that your repository contains.
+
+	   Alternatively you can specify an "available-package-patterns" key which is an array of package name patterns (with * matching any string, e.g. vendor/* would make Composer look up every matching package name in this repository).
+
+
+	   providers-api
+
+	   The providers-api field allows you to provide a URL template to serve all packages which provide a given package name, but not the package which has that name. It must contain the placeholder %package%.
+
+	   "providers-api": "https://packagist.org/providers/%package%.json",
+
+	   list
+	   The list field allows you to return the names of packages which match a given field (or all names if no filter is present). It should accept an optional ?filter=xx query param, which can contain * as wildcards matching any substring.
+
+	   "packageNames": [
+        "a/b",
+        "c/d"
+    ]
+
+    	provider-includes and providers-url
+
+    		The provider-includes field allows you to list a set of files that list package names provided by this repository. The hash should be a sha256 of the files in this case.
+
+			The providers-url describes how provider files are found on the server. It is an absolute path from the repository root. It must contain the placeholders %package% and %hash%.
+
+	cURL or stream options
+			The repository is accessed either using cURL (Composer 2 with ext-curl enabled) or PHP streams. You can set extra options using the options parameter
+			"repositories": [
+        {
+            "type": "composer",
+            "url": "https://example.org",
+            "options": {
+                "http": {
+                    "timeout": 60
+                }
+            }
+        }
+    ],
+
+
+
+    VCS
+
+    	VCS stands for version control system. This includes versioning systems like git, svn, fossil or hg. Composer has a repository type for installing packages from these systems
+
+    	Loading a package from a VCS repository
+    		There are a few use cases for this. The most common one is maintaining your own fork of a third party library. If you are using a certain library for your project, and you decide to change something in the library, you will want your project to use the patched version. If the library is on GitHub (this is the case most of the time), you can fork it there and push your changes to your fork. After that you update the project's composer.json. All you have to do is add your fork as a repository and update the version constraint to point to your custom branch. In composer.json only, you should prefix your custom branch name with "dev-" (without making it part of the actual branch name). For version constraint naming conventions see Libraries for more information
+
+    	Note that you should not rename the package unless you really intend to fork it in the long term, and completely move away from the original package.	
+
+    	Also note that the override will not work if you change the name property in your forked repository's composer.json file as this needs to match the original for the override to work.
+
+
+
+
+    	Using private repositories
+    		Exactly the same solution allows you to work with your private repositories at GitHub and Bitbucket:
+
+    		{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@bitbucket.org:vendor/my-private-repo.git"
+        }
+    ],
+
+    "require": {
+        "vendor/my-private-repo": "dev-master"
+    }
+
+    Git alternatives
+
+    Git is not the only version control system supported by the VCS repository. 
+
+    The VCS driver to be used is detected automatically based on the URL. However, should you need to specify one for whatever reason, you can use bitbucket, github, gitlab, perforce, fossil, git, svn or hg as the repository type instead of vcs.
+
+
+    If you set the no-api key to true on a github repository it will clone the repository as it would with any other git repository instead of using the GitHub API
+
+
+
+    To let Composer choose which driver to use the repository type needs to be defined as "vcs"
+
+    If you already used a private repository, this means Composer should have cloned it in cache. If you want to install the same package with drivers, remember to launch the command composer clearcache followed by the command composer update to update Composer cache and install the package from dist.
+
+
+    VCS driver git-bitbucket is deprecated in favor of bitbucket
+
+    Package
+
+    	you can define the package yourself by using a package repository.
+
+    	Basically, you define the same information that is included in the composer repository's packages.json, but only for a single package. Again, the minimum required fields are name, version, and either of dist or source.
+
+    	{
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "smarty/smarty",
+                "version": "3.1.7",
+                "dist": {
+                    "url": "https://www.smarty.net/files/Smarty-3.1.7.zip",
+                    "type": "zip"
+                },
+                "source": {
+                    "url": "http://smarty-php.googlecode.com/svn/",
+                    "type": "svn",
+                    "reference": "tags/Smarty_3_1_7/distribution/"
+                },
+                "autoload": {
+                    "classmap": ["libs/"]
+                }
+            }
+        }
+    ],
+    "require": {
+        "smarty/smarty": "3.1.*"
+    }
+}
+
+}
+
+
+
+Git alternatives
+
+	Git is not the only version control system supported by the VCS repository. 
+
+	The VCS driver to be used is detected automatically based on the URL. However, should you need to specify one for whatever reason, you can use bitbucket, github, gitlab, perforce, fossil, git, svn or hg as the repository type instead of vcs.
+
+
+	If you set the no-api key to true on a github repository it will clone the repository as it would with any other git repository instead of using the GitHub API
+
+
+
+	To let Composer choose which driver to use the repository type needs to be defined as "vcs"
+
+	If you already used a private repository, this means Composer should have cloned it in cache. If you want to install the same package with drivers, remember to launch the command composer clearcache followed by the command composer update to update Composer cache and install the package from dist.
+
+Composer will not update the package unless you change the version field.
+
+Composer will not update the package unless you change the version field.
+
+Composer will not update the commit references, so if you use master as reference you will have to delete the package to force an update, and will have to deal with an unstable lock file.
+	VCS driver git-bitbucket is deprecated in favor of 
+
+	Hosting your own
+
+	While you will probably want to put your packages on packagist most of the time, there are some use cases for hosting your own repository.
+
+
+	Private company packages: If you are part of a company that uses Composer for their packages internally, you might want to keep those packages private.
+
+
+	Separate ecosystem: If you have a project which has its own ecosystem, and the packages aren't really reusable by the greater PHP community, you might want to keep them separate to packagist. An example of this would be WordPress plugins.bitbucket
+
+
+
+	Private Packagist
+
+		Private Packagist is a hosted or self-hosted application providing private package hosting as well as mirroring of GitHub, Packagist.org and other package repositories
+
+		Satis
+
+			Satis is a static composer repository generator. It is a bit like an ultra- lightweight, static file-based version of packagist.
+
+
+		Artifact	
+		Path	
+		In addition to the artifact repository, you can use the path one,
+
+		 which allows you to depend on a local directory, 
+
+		 "repositories": [
+        {
+            "type": "path",
+            "url": "../../packages/my-package"
+        }
+    ],
+    "require": {
+        "my/package": "*"
+    }
+    You can configure the way the package's dist reference (which appears in the composer.lock file) is built.
+
+    none - reference will be always null.
+    config - reference is built based on a hash of the package's composer.json and repo config
+
+    auto (used by default) - reference is built basing on the hash like with config, but if the package folder contains a git repository, the HEAD commit's hash is used as reference instead.
+
+
+    Disabling Packagist.org
+
+    	You can disable the default Packagist.org repository by adding this to your composer.json:
+
+    	{
+    "repositories": [
+        {
+            "packagist.org": false
+        }
+    ]
+}
+
+You can disable Packagist.org globally by using the global config flag:
+
+php composer.phar config -g repo.packagist false
+
+
+	Package
+
+		you can define the package yourself by using a package repository.
+
+		Basically, you define the same information that is included in the composer repository's packages.json, but only for a single package. Again, the minimum required fields are name, version, and either of dist or source.
+
+		{
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "smarty/smarty",
+                "version": "3.1.7",
+                "dist": {
+                    "url": "https://www.smarty.net/files/Smarty-3.1.7.zip",
+                    "type": "zip"
+                },
+                "source": {
+                    "url": "http://smarty-php.googlecode.com/svn/",
+                    "type": "svn",
+                    "reference": "tags/Smarty_3_1_7/distribution/"
+                },
+                "autoload": {
+                    "classmap": ["libs/"]
+                }
+            }
+        }
+    ],
+    "require": {
+        "smarty/smarty": "3.1.*"
+    }
+}
+Composer will not update the package unless you change the version field.
+
+Composer will not update the package unless you change the version field.
+
+Composer will not update the commit references, so if you use master as reference you will have to delete the package to force an update, and will have to deal with an unstable lock file.
+
+Hosting your own
+
+While you will probably want to put your packages on packagist most of the time, there are some use cases for hosting your own repository.
+
+
+Private company packages: If you are part of a company that uses Composer for their packages internally, you might want to keep those packages private.
+
+
+Separate ecosystem: If you have a project which has its own ecosystem, and the packages aren't really reusable by the greater PHP community, you might want to keep them separate to packagist. An example of this would be WordPress plugins.
+
+
+
+Private Packagist
+	
+	Private Packagist is a hosted or self-hosted application providing private package hosting as well as mirroring of GitHub, Packagist.org and other package repositories
+
+	Satis
+
+		Satis is a static composer repository generator. It is a bit like an ultra- lightweight, static file-based version of packagist.
+
+
+	Artifact	
+	Path	
+	In addition to the artifact repository, you can use the path one,
+
+	 which allows you to depend on a local directory, 
+
+	 "repositories": [
+        {
+            "type": "path",
+            "url": "../../packages/my-package"
+        }
+    ],
+    "require": {
+        "my/package": "*"
+    }
+    You can configure the way the package's dist reference (which appears in the composer.lock file) is built.
+
+    none - reference will be always null.
+    config - reference is built based on a hash of the package's composer.json and repo config
+
+    auto (used by default) - reference is built basing on the hash like with config, but if the package folder contains a git repository, the HEAD commit's hash is used as reference instead.
+
+
+    Disabling Packagist.org
+
+    	You can disable the default Packagist.org repository by adding this to your composer.json:
+
+    	{
+    "repositories": [
+        {
+            "packagist.org": false
+        }
+    ]
+}
+
+You can disable Packagist.org globally by using the global config flag:
+
+php composer.phar config -g repo.packagist false

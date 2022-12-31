@@ -1,0 +1,1 @@
+BEGIN { print "IP Address\tAccess Count\tNumber of sites"; } { Ip[$3]++; count[$3]+=$NF; } END{ for (var in Ip) print var,"\t",Ip[var],"\t\t",count[var]; }

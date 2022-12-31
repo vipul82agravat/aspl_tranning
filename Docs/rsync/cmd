@@ -1,0 +1,100 @@
+
+
+--rsync or remote synchronization is a software utility for Unix-Like systems that efficiently sync files and directories between two hosts or machines. One of them being the source or the local-host from which the files will be synced, the other one being the remote-host, on which synchronization will take place. There are basically two ways in which rsync can copy/sync data:
+
+
+    -Copying/syncing to/from another host over any remote shell like ssh, rsh.
+    -opying/Syncing through rsync daemon using TCP.
+
+
+        sync will first use SSH to connect as user to remote-host and will ask for user's password. Once connected, it will invoke the remote host’s rsync and then the two programs will determine what parts of the local-file needs to be copied so that the remote file matches the local one.
+        -Files that do not exist on the remote-host are copied.
+        -Files that have been updated will be synced, rsync will copy only the changed parts of files to the remote host.
+        -File that is exactly the same are not copied to the remote host at all.
+
+
+            rsync [options] source [destination]
+
+            options
+                --a, –archive: This is equivalent to using -rlptgoD. Archive mode includes all the necessary options like copying files recursively,
+
+                    -. A -H options must be explicitly specified for hard links.
+                -v, –verbose: By default, rsync works silently. A single -v will give us information about what files are being transferred and a brief summary about the data transferred at the end. Two -v options will give us information on the status of delta-transmission and on what files are up to date so as to be skipped and slightly more information at the end
+
+
+                -h, –human-readable format: Outputs in a human readable format.
+                        -h, --human-readable format
+
+                 -z, –compress: Compress file data during the transfer
+
+
+                rsync -avh foo/ bar/
+
+                all file and folder are transfer in side the destination folder
+
+                for using ssh connect
+
+                    -rsync -avhze ssh /foo user@remote-host:/tmp/
+
+                -Rsync with particucall melar file permissions: If we want to sync files to the local or remote host with the permissions of the files being changed. The following command must be used.
+
+
+                -rsync -avhe ssh --chown=USER:GROUP /foo user@remote-host:/tmp/
+
+
+
+
+                 Show Progress While Transferring Data with rsync
+
+                     rsync -avzhe ssh --progress /root/rpmpkgs root@192.168.0.141:/root/rpmpkgs
+
+
+                 Set Maximum File Size for Transfer
+
+                    -rsync -av --max-size=500k /home/test/Desktop/Dir1 192.168.56.100:/home/test/Desktop/rsync/
+
+                 . Set Minimum File Size for Transfer
+
+                    -Use --min-size=add_size with rsync when you do not want to transfer files smaller than the size you specify
+
+                        rsync -av --min-size=10k /home/test/Desktop/ 192.168.56.100:/home/test/Desktop/rsync/
+
+                  Set rsync Bandwidth Limit
+                    If you want to determine the bandwidth limit during data transfer between machines, use --bwlimit=KB/s.
+
+
+                    rsync -av --bwlimit=50 --progress /home/test/Desktop/Dir1 192.168.56.100:/home/test/Desktop/rsync/
+
+
+                  Copy Directory Structure but Skip Files
+                        Rsync allows you to transfer only directory structure if you do not need the files at another location.
+
+                        -To do so, add -f"+ */" -f"- *" before the source directory.
+
+                        -rsync -av -f"+ */" -f"- *"  /home/test/Desktop/Linux /home/test/Documents
+
+                   . Do Not Copy Source File if the Same Destination File is Modified
+                        To avoid overwriting modified destination files, use the -u option.
+
+                      rsync -avu /home/test/Desktop/Linux/ /home/test/Desktop/rsync
+
+
+                    Show the Difference Between the Source and Destination Files
+
+                    - you can use the -i flag with rsync to check if there is a difference between the source and the destination.
+
+                  Use of –delete Option
+
+                        -We can use the ‘–delete‘ option to delete files that are not there in the source directory.
+
+                Automatically Delete source Files After Successful Transfer
+                        -Now, suppose you have the main web server and a data backup server, you created a daily backup and synced it with your backup server, now you don’t want to keep that local copy of backup in your web server.
+                        -using the ‘–remove-source-files‘ option.
+
+
+                Do a Dry Run with rsync
+                    -
+
+
+
+

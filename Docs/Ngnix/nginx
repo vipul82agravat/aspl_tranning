@@ -1,0 +1,167 @@
+Install nginx
+
+
+    1.sudo apt update
+
+     Install nginx
+
+    2  sudo apt-get install nginx -y
+
+    Check install status
+
+    3  sudo systemctl status nginx
+
+
+    Conguration files
+
+         -etc/nginx/nginx.confif
+         -
+
+
+    Virtual host
+          -make Conguration detils in this files
+         -make log folder for commen
+         -include ths Conguration folder in nginx.confif
+
+    Run nginx on different port
+
+            - server {
+                listen 80; //2300
+            -save changes and run in files
+            -ip:80 //2300
+
+
+Http_Auth
+        -That password and the associated username will be stored in a file that you specify. The password will be encrypted and the name of the file can be anything you like. Here, we use the file /etc/nginx/.htpasswd and the username nginx.
+
+
+            To create the password, run the following command. You’ll need to authenticate, then specify and confirm a password.
+
+
+            sudo htpasswd -c /etc/nginx/.htpasswd nginx
+
+            cat /etc/nginx/.htpasswd
+
+
+
+
+            nginx:$apr1$ilgq7ZEO$OarDX15gjKAxuxzv0JTrO/
+
+
+         Updating the Nginx Configuration
+
+            Now that you’ve created the HTTP basic authentication credential, the next step is to update the Nginx configuration for the target website to use it.
+
+            HTTP basic authentication is made possible by the auth_basic and auth_basic_user_file directives. The value of auth_basic is any string, and will be displayed at the authentication prompt; the value of auth_basic_user_file is the path to the password file that was created in Step 2.
+
+            Both directives should be in the configuration file of the target website, which is normally located in /etc/nginx/sites-available directory. Open that file using nano or your favorite text editor.
+
+
+
+        Content Caching
+
+            -Cache both static and dynamic content from your proxied web and application servers, to speed delivery to clients and reduce the load on the servers.
+
+
+            -Enabling the Caching of Responses
+            -To enable caching, include the proxy_cache_path directive in the top‑level http {} context.
+
+
+                http {
+                    # ...
+                    proxy_cache_path /data/nginx/cache keys_zone=mycache:10m;
+                }
+
+                http {
+                # ...
+                proxy_cache_path /data/nginx/cache keys_zone=mycache:10m;
+                server {
+                    proxy_cache mycache;
+                    location / {
+                        proxy_pass http://localhost:8000;
+                    }
+                }
+            }
+
+            There are two additional NGINX processes involved in caching:
+
+                    cache manager
+
+
+                    The cache manager is activated periodically to check the state of the cache. If the cache size exceeds the limit set by the max_size parameter to the proxy_cache_path directive, the cache manager removes the data that was accessed least recently.
+
+
+                     cache loader
+
+                    The cache loader runs only once, right after NGINX starts. It loads metadata about previously cached data into the shared memory zone. Loading the whole cache at once could consume sufficient resources to slow NGINX performance during the first few minutes after startup. To avoid this, configure iterative loading of the cache by including the following parameters to the proxy_cache_path directive:
+
+
+                    Purging Content From The Cache
+
+                            NGINX makes it possible to remove outdated cached files from the cache. This is necessary for removing outdated cached content to prevent serving old and new versions of web pages at the same time. The cache is purged upon receiving a special “purge” request that contains either a custom HTTP header, or the HTTP PURGE method.
+
+
+                            server {
+                                listen      80;
+                                server_name www.example.com;
+
+                                location / {
+                                    proxy_pass  https://localhost:8002;
+                                    proxy_cache mycache;
+
+                                    proxy_cache_purge $purge_method;
+                                }
+                            }
+
+
+
+
+                Self-signed certicate
+                    -If you just need encryption for internal server connections or non-user facing sites, signing your own SSL certificates is an easy way to avoid dealing with an external certificate authority.
+
+                    - self-signed certificate will encrypt communication between your server and any clients. However, because it is not signed by any of the trusted Certificate Authorities (CA) included with web browsers, users cannot use the certificate to validate the identity of your server automatically.
+
+                    -install openssl
+
+                        - sudo apt-get install openssl
+
+                        -openssl
+
+                        Creating the SSL Certificate
+                            -sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+                            -Both of the files you created will be placed in the appropriate subdirectories of the /etc/ssl directory.
+                            -sudo openssl dhparam -out /etc/nginx/dhparam.pem 4096
+
+
+                        -Configuring Nginx to Use SSL
+                            -sudo nano /etc/nginx/snippets/self-signed.conf
+
+                            Within this file, set the ssl_certificate directive to your certificate file and the ssl_certificate_key to the associated key. This will look like the following:
+
+                            ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+
+                            ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+
+                    -Creating a Configuration Snippet with Strong Encryption Settings
+                            -will create another snippet that will define some SSL settings. This will set Nginx up with a strong SSL cipher suite and enable some advanced features that will help keep your server secure.
+
+                            -sudo nano /etc/nginx/snippets/ssl-params.conf
+
+                      -Adjusting the Nginx Configuration to Use SSL
+
+                        -We will assume in this guide that you are using a custom server block configuration file in the /etc/nginx/sites-available directory. This guide also follows the conventions from the prerequisite Nginx tutorial and uses /etc/nginx/sites-available/your_domain for this example. Substitute your configuration filename as needed.
+
+
+                        -sudo cp /etc/nginx/sites-available/your_domain /etc/nginx/sites-available/your_domain.bak
+                        -sudo nano /etc/nginx/sites-available/your_domain
+
+                        server {
+                            listen 443 ssl;
+                            listen [::]:443 ssl;
+                            include snippets/self-signed.conf;
+                            include snippets/ssl-params.conf;
+
+                            server_name your_domain.com www.your_domain.com;
+
+                      Adjusting the Firewall
+                         -you have the ufw firewall enabled, as recommended by the prerequisite guides, you’ll need to adjust the settings to allow for SSL traffic. Luckily, Nginx registers a few profiles with ufw upon installation.
