@@ -1,0 +1,31 @@
+1.create the file using cat commad
+	cat > cmd.txt
+2.create or appand new test in file
+	-cat >> cmd.txt
+
+3. disaply the file
+	cat cmd.txt
+
+4. cat -b remove blank line number
+	cat -b cmd.txt
+	cat -n cmd.txt
+
+5. cat -e $ blank line
+	cat -e cmd.txt
+
+6. disaply file form other folder
+
+	cat /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/cmd.txt
+7.If a file having a large number of content that won’t fit in the output terminal and the screen scrolls up very fast,
+	cat /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/cmd.txt | more
+	cat /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/cmd.txt | less
+8. the below output, we could see TAB space
+		cat -T  /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/cmd.txt
+
+9.Redirecting Multiple Files Contain in a Single File
+	 cat test1.txt  test2.txt > testresponse.txt
+	 cat test1.txt test2.txt  | sort > test4.txt
+10. open all select file
+
+	 cat *.txt
+

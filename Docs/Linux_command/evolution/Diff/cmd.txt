@@ -1,0 +1,54 @@
+1.create this command use diff work
+    diff stands for difference
+
+    diff [options] File1 File2
+
+    1.applying diff command without any option
+
+        -diff a.txt b.txt
+
+    Options
+
+    -c (context) : To view differences in context mode, use the -c option.
+
+        diff -c a.txt b.txt
+
+
+        *** a.txt       2022-12-29 22:00:14.427017444 +0530
+        --- b.txt       2022-12-29 22:00:44.106844539 +0530
+        ***************
+        *** 1,5 ****
+        vipul
+        ! raju
+        vipul
+        ! anil
+        ! janak
+        --- 1,5 ----
+        vipul
+        ! raju1
+        vipul
+        ! anil1
+        ! janak123
+        vipula@aum18
+
+
+       -u (unified) : To view differences in unified mode, use the -u option
+
+
+
+         diff -u a.txt b.txt
+
+            --- a.txt       2022-12-29 22:00:14.427017444 +0530
+            +++ b.txt       2022-12-29 22:00:44.106844539 +0530
+            @@ -1,5 +1,5 @@
+            vipul
+            -raju
+            +raju1
+            vipul
+            -anil
+            -janak
+            +anil1
+            +janak1
+
+
+          -i : By default this command is case sensitive.

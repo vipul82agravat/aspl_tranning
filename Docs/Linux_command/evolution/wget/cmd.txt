@@ -1,0 +1,92 @@
+1.create wget commnd use wget work
+Wget is a free command-line utility and network file downloader, which comes with many features that make
+
+
+    wget [option] [URL]
+
+inbstall Wget
+    -sudo apt install wget -y
+
+ 1.Download a File with Wget
+
+    - wget http://ftp.gnu.org/gnu/wget/wget2-2.0.0.tar.gz
+
+
+ 2.Wget Download File with Different Name
+
+    -o and filename
+
+    wget -o mycustomfile.zip  http://ftp.gnu.org/gnu/wget/wget2-2.0.0.tar.gz
+
+3.Wget Download Multiple Files with HTTP and FTP Protocol
+
+        wget http://ftp.gnu.org/gnu/wget/wget2-2.0.0.tar.gz ftp://ftp.gnu.org/gnu/wget/wget2-2.0.0.tar.gz.sig
+
+         it get one by one file and Download
+         make zip folder
+         show in current direcory
+ 4.Wget Download Multiple Files From a File
+        -To download multiple files at once, use the -i option with the location of the file that contains the list of URLs to be downloaded.
+       1.create new file for list url
+        cat > file_list.txt
+
+       2.run command
+
+       wget -i file_list.txt
+
+   5.Wget Resume Uncompleted Download
+
+        -In case of big file download, it may happen sometimes to stop download in that case we can resume downloading the same file where it was left off with -c option.
+
+        wget -c url
+
+
+        wget -c https://releases.ubuntu.com/20.04.3/ubuntu-20.04.3-desktop-amd64.iso
+
+
+    6.Wget Mirror Entire Website (with js,css,view)
+
+        -wget --recursive --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --domains yoursite.com --no-parent outwest.com
+
+    7.Wget Download Files in Background
+
+        -wget -b wget.log https://releases.ubuntu.com/20.04.3/ubuntu-20.04.3-desktop-amd64.iso
+
+    8.Wget Set File Download Speed Limits
+
+        With option --limit-rate=100k,
+
+            $ wget -c --limit-rate=100k -b wget.log https://releases.ubuntu.com/20.04.3/ubuntu-20.04.3-desktop-amd64.isotail
+
+      -check the log file
+      -get the file list
+      -get tail to easy find record
+        tail -f wget-log ll
+        ll
+
+    9.Wget Download Password Protected Files via FTP and HTTP
+
+        ---ftp-user=username and --ftp-password=password
+
+        --http-user=username and --http-password=password
+
+         wget --ftp-user=narad --ftp-password=password http://http.example.com/filename.tar.gz
+         wget --http-user=narad --http-password=password http://http.example.com/filename.tar.gz
+
+
+    10.-a
+         -a : This option is used to append the output messages to the current output log file without overwriting the file as in -o option the output log f
+
+            wget -a logfile [URL]
+     11.-i
+         -i : This option is used to read URLs from file.
+     12.-t
+            -t number / –tries=number : This option is used to set number of retries to a specified number of times.
+            wget -t 3 url
+
+     13 -w
+        -w : This option is used to set the system to wait the specified number of seconds between the retrievals.
+
+           wget -w 12 url
+    14 -r
+         -r : this option is used to turn on the recursive retrieving of the link specified in case of fatal errors also

@@ -1,0 +1,95 @@
+
+Copy a file
+
+    1. create the new folder
+
+        ->mkdir cpFile
+
+    2. create one soruce folder
+        ->mkdir SFolder
+
+
+    3. create one Destination folder
+
+        ->mkdir DFolder
+
+    4. create once file in cpFile folder
+
+        ->cat > cmd.txt
+
+    5. copy cmd.txt file to another folder like Dfolder
+
+        ->cp cmd.txt DFolder/
+
+    6. check the cmd file in Dfolder
+
+        ->cd Dfolder // ls -l
+
+    7. Copy one file contect in other file in same dir
+
+        ->cp cmd.txt cmd1.txt
+
+    7. Copy one file contect in other file in other dir
+
+        ->cp cmd.txt DFolder/cmd1.txt
+
+        ->cp cmd1.txt /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile
+
+
+Copy a folder
+
+         use cp --recursive (or -r for short),
+
+    1.Copy all folder to other folder
+
+        ->cp -r SFolder DFolder
+
+            it coply Sfolder inside the Dfolder
+
+    2. Copy Only file for Sfolder to Dfolder
+
+       ->cp -r SFolder/s1.txt  DFolder
+
+         Only File is Copy inside the Dfolder
+     3. the -v switch adds "verbosity" t
+
+            ->cp -r --verbose  SFolder/s1.txt  DFolder
+
+                SFolder/s1.txt' -> 'DFolder'
+
+   4. Copy all file and folder  to other new folder
+
+        ->cp * /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/DFolder/
+
+   5. Copy two diffrent folder of file on antoher dir folder
+
+        ->cp -i  /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/SFolder/s11.txt /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/DFolder/
+        ->cp r -i  /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/SFolder/s11.txt /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/DFolder/
+            for confimation y n
+   6. check the .txt file on folder
+        ->ls -l *.txt
+
+        ->ls -l /home/vipula/ *.txt
+
+            Archive files and directory during copy (-a)
+               confimation (-i)
+              versore info (-v)
+
+        cp -avi SFolder/s111.txt DFolder/
+
+   7.copy contain with no foler and backup also
+
+    cp -r  /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/SFolder  /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/DFolder
+    cp -rb  /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/SFolder  /home/vipula/staff/vipul/AsplTraning/Linux_command/evolution/cpFile/DFolder
+
+
+
+
+    8.If you want to preserve the file attributes like mode, ownership and timestamps while copying then use -p option in cp command, example is demonstrated below,
+
+        ->cp -p devops.txt /DFolder
+
+     cp -r SFolder/* DFolder/
+
+
+

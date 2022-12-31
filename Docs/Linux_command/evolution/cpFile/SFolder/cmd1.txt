@@ -1,0 +1,48 @@
+
+Copy a file
+
+    1. create the new folder
+
+        ->mkdir cpFile
+
+    2. create one soruce folder
+        ->mkdir SFolder
+
+
+    3. create one Destination folder
+
+        ->mkdir DFolder
+
+    4. create once file in cpFile folder
+
+        ->cat > cmd.txt
+
+    5. compay cmd.txt file to another folder like Dfolder
+
+        ->cp cmd.txt DFolder/
+
+    6. check the cmd file in Dfolder
+
+        ->cd Dfolder // ls -l
+
+Copy a folder
+
+         use cp --recursive (or -r for short),
+    1.Copy all folder to other folder
+
+        ->cp -r SFolder DFolder
+
+            it coply Sfolder inside the Dfolder
+
+    2. Copy Only file for Sfolder to Dfolder
+
+       ->cp -r SFolder/s1.txt  DFolder
+
+         Only File is Copy inside the Dfolder
+     3. the -v switch adds "verbosity" t
+
+            ->cp -r --verbose  SFolder/s1.txt  DFolder
+                SFolder/s1.txt' -> 'DFolder'
+
+
+
