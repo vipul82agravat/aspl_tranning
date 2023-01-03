@@ -1057,8 +1057,12 @@ Non Client Programs
 
 
 
-
-
+1.Normalization
+2.Exporting and importing a script
+3.Multistatement Transactions
+4.Modifying Data from an Applicattion
+5.backdata based
+6.MySQL Workbench
 
 
 
