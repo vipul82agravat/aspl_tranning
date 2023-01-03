@@ -212,7 +212,47 @@ class MasterClass {
                 return $e."error on update time";
             }
         }
-        public function leftjoinData(){
+        public function leftJoinData(){
+            try {
+
+               return true;
+            }
+            catch(Exception $e){
+                return $e.'mysql_error';
+
+            }
+        }
+        public function rightJoinData(){
+            try {
+
+               return true;
+            }
+            catch(Exception $e){
+                return $e.'mysql_error';
+
+            }
+        }
+        public function crossJoinData(){
+            try {
+
+               return true;
+            }
+            catch(Exception $e){
+                return $e.'mysql_error';
+
+            }
+        }
+        public function InnerJoinData(){
+            try {
+
+               return true;
+            }
+            catch(Exception $e){
+                return $e.'mysql_error';
+
+            }
+        }
+        public function outerJoinData(){
             try {
 
                return true;

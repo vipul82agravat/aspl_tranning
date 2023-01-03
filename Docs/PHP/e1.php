@@ -13,13 +13,13 @@ class Demo extends Test
     public function demo(){
         return $this->v=5;
     }
-    public function testpro($v,$v1)
+    public function testpro($v=null,$v1=null,$v2=null)
     {
-       return "pro-val1-".$v;
+       return "pro-val1-".$v.'-'.$v1.'v3'.$v2;
     }
 }
 
 $demo =new Demo();
-print_r($demo->testpro(12,1,123));
+print_r($demo->testpro(12));
 
 ?>
