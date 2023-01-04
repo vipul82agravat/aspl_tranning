@@ -1,0 +1,339 @@
+DataType
+
+    -data type that not only defines what data can be stored in the table column but also what influence it may have on database performance.
+    -data types that are grouped in numeric (integer, float, boolean, etc.), date and time (DATETIME, DATE, etc.), string (CHAR, VARCHAR, etc.), spatial, and JSON
+
+
+ Data Types in MySQL
+        . Each column can contain only one data type. In MySQL, data types are grouped in different categories:
+
+        Numeric
+        Date and time
+        String
+        Spatial
+        JSON
+
+
+      MySQL String Data Types (Text Formats)
+
+
+        -In MySQL, string data types usually store data as long strings of text
+        -Strings can consist of letters, numbers, or binary media files such as images, photos, or audio files.
+
+
+        The MySQL string data types are divided into:
+
+          -TEXT
+          -BLOB
+          -CHAR and VARCHAR
+          -BINARY and VARBINARY
+
+          -ENUM
+          -SET
+
+
+
+          TEXT Data Type
+
+              -The MySQL TEXT data type is used to store long-text strings to display information about the table object, such as product descriptions, blog comments.
+              -The storage size of the TEXT data type varies from 1 byte to 4 GB.
+
+
+               different TEXT data types: TINYTEXT, TEXT, MEDIUMTEXT, and LONGTEX
+
+                TINYTEXT
+
+                  - 255 storage
+                  -To store short-text strings such as links, product description or summary
+
+               TEXT
+                  -max charter 65535
+
+                  -To store texts such as articles that do not exceed the specified length of characters
+
+              MEDIUMTEXT
+                   -16 MB store max characters  16777215
+                   -	To store large texts such as whitepapers or books
+
+              LONGTEXT
+                  -4 GB	storage max  4294967295
+                  -To store huge texts such as computer programs or applications
+
+
+          -BLOB Datatype in MySQL
+
+            -the BLOB data types are binary strings.
+            -MySQL, the BLOB data type represents a binary large object and can be used to store binary media data, such as audio or video links, images, or files.
+
+
+            -The BLOB data types, including
+                TINYBLOB,
+                BLOB,
+                MEDIUMBLOB, and
+                LONGBLOB,
+              have a variable length, i.e. additional bytes (from 1 to 4) are required to store a value length in the column.]
+
+              TINYBLOB => 255 bytes + 1 byte
+
+              BLOB => 65535 + 2 bytes
+
+              MEDIUMBLOB => 16777215 + 3 bytes
+
+              LONGBLOB => 4294967295 + 4 bytes
+
+        -CHAR and VARCHAR data type
+            -the CHAR data types store non-binary strings with a fixed length that reaches 255 characters,
+            -while the VARCHAR data types store non-binary strings with a variable length having a maximum size of up to 65535 characters.
+            -The main distinction between the CHAR and VARCHAR data types is a way of storing data
+            -It should be noted that when defining a datatype for a phone number in MySQL, VARCHAR is more preferable to integers as sometimes there may be special symbols or characters. In addition, VARCHAR simplifies validation.
+
+        -BINARY and VARBINARY Types
+
+          Though CHAR and VARCHAR seem to be similar to BINARY and VARBINARY data types, they have some differences. BINARY and VARBINARY store binary strings, and length is measured in bytes.
+
+       -ENUM Data Type in MySQL
+
+          -The MySQL ENUM data types are strings with enumeration values.
+          -ENUM allows you to set a list of predefined values and then choose any of them. If you add an invalid value that is not included in the list, you will get an empty string.
+
+      -SET Data Type
+
+            -The MySQL SET data types allow you to store zero or multiple values (separated by comma) you specified in a list of predefined values when creating a table.
+
+
+       Diff Set and ENUM
+        -An ENUM value must be one of those listed in the column definition, or the internal numeric equivalent thereof. The value cannot be the error value (that is, 0 or the empty string).
+        -A SET value must be the empty string or a value consisting only of the values listed in the column definition separated by commas. For a column defined as SET('a','b','c'), values such as 'd' or 'a,b,c,d' are illegal and are rejected.
+        -Enum and Set totally depends on requirements, like if you have a list of radio button where only one can be chosen at a time, use Enum. And if you have a list of checkbox where at a time more then one item can be chosen, use se
+
+
+
+    MySQL Numeric Data Types (Number Formats)
+
+
+
+        MySQL supports numeric data types such as integers, decimals, and floating-point data types:
+
+
+          Integers represent numbers without fractions and can have SIGNED and UNSIGNED attributes. Usually, they may be used for IDs or counting numbers.
+          Decimals represent numbers with fractions and store exact numeric values in the column. They can be signed and unsigned and are usually used for columns that store monetary values. In the comparison with the floating-point numbers, decimals are more accurate.
+          Floating-point represent numbers with fractions but do not store exact numeric values. They can be signed and unsigned.
+
+
+        Integer Data Types
+
+          TINYINT
+              -128  to 127
+              -TINYINT is a very small integer. The minimum and maximum SIGNED values are -128 and 127 respectively, while for UNSIGNED values TINYINT range is from 0 to 255.
+              -TINYINT uses 1 byte per row. It is the best option when you want to save space on your disk and enhance performance.
+              Grade tinyint(4) UNSIGNED,
+
+               VALUES (1, 'John', 'Smith', -5);
+
+               we’ll get the error ‘Out of range value for column ‘Grade’ at row 12′.
+
+          SMALLINT
+            -32768 to 32767
+            -SMALLINT is a small integer. The SMALLINT range for SIGNED values is from -32768 to 32767.
+            -the minimum and maximum values for SMALLINT UNSIGNED are 0 and 65535 respectively.
+            -The size is 2 bytes per row
+
+            value_2 smallint(6) UNSIGNED,
+
+          INT
+          -2147483648 to  2147483647
+          MEDIUMINT
+
+            -8388608 to 8388607
+
+              MEDIUMINT is a medium-sized integer. T
+              The minimum and maximum values for MEDIUMINT SIGNED are -8388608 and 8388607 respectively
+
+              The range for minimum and maximum UNSIGNED values equals 0 and 16777215 respectively.
+
+              size is 3 bytes per row.
+          BIGINT
+
+            -263 too 263-1
+            BIGINT is a large integer.
+            . The minimum and maximum values for SIGNED are – -263 and 263-1 respectively. The range for minimum and maximum values for UNSIGNED equals 0 and 264-1 respectively.
+              value_2 bigint(20) UNSIGNED,
+
+
+            https://blog.devart.com/mysql-int-data-type.html#what_is_mysql_integer
+
+
+          UNSIGNED can store only zero and positive numbers in a column.
+
+
+          SIGNED can allow zero, positive, and negative numbers. With the MySQL value as SIGNED, one bit is taken for the sign symbol as opposed to the unsigned ones, when they do not have signs preceding the value.
+
+
+          When we set the MySQL INT UNSIGNED column, it means that negative values cannot be inserted in this column
+
+          while the minimum one is 0.
+
+          ex total_amount as the INT UNSIGNED data type.
+
+
+
+       MySQL INT with the ZEROFILL attribute
+
+        If you need to replace spaces with zeros, you can use the ZEROFILL attribute for the MySQL INT UNSIGNED column.
+        For example, for the INT(3) ZEROFILL column with the value 1, the result you retrieve will be 001.
+         weight int(2) ZEROFILL,
+
+        review int(3) ZEROFILL,
+        e: Keep in mind that UNSIGNED is automatically added to the numeric column.
+
+
+
+   MySQL Date & Time Data Types
+
+
+      MySQL Data Types: Full List with Examples (2023)
+
+        DATE
+          Stores only date information in the table column
+          YYYY-MM-DD format (year, month, and date)
+      TIME
+        Displays only time
+        HH:MM:SS format (hours, minutes, and seconds)
+      DATETIME
+
+        Stores both date and time in the column
+
+        YYYY-MM-DD HH:MM:SS ( year, month, and date, and hours, minutes, and seconds)
+
+    TIMESTAMP
+
+      stores both date and time values in the column. Conversion of the value from the zone of the connection server to UTC takes place.
+      YYYY-MM-DD HH:MM:SS ( year, month, and date, and hours, minutes, and seconds)
+      -
+
+    YEAR
+
+      Stores only year values in the column
+
+
+      YYYY (year)
+
+    DATETIME and TIMESTAMP seem to be similar, though they have some differences. The DATETIME data type needs 4 bytes to store data, while the TIMESTAMP data type requires 8 bytes.
+
+    Date and time
+    ============================
+    INSERT INTO student_work (student_id, work_name, work_status, work_date)
+  VALUES (1, 'John test', 'Done', '2000-01-19');
+
+  UPDATE student_work
+SET
+    work_date = '2020-11-18 10:00:00'
+WHERE id = 1;
+-----------------------------
+TIME
+==========================
+
+  ALTER TABLE student_work
+  ADD COLUMN start_to_work time;
+
+  ALTER TABLE student_work
+  ADD COLUMN end_to_work time;
+
+
+    ALTER TABLE student_work
+  ADD COLUMN number_of_task int;
+
+
+  UPDATE student_work
+
+  SET
+    work_date = '2020-11-18 10:00:00'
+  WHERE id = 1;
+
+  SELECT * FROM student_work e;
+
+
+  Year Data Type
+
+  ALTER TABLE student_work
+  ADD COLUMN certified_year;
+
+
+UPDATE student_work
+SET
+    certified = '2021'
+WHERE id = 1;
+
+
+
+
+=====================================
+  MySQL Spatial Data Types
+
+      -Spatial data types store geometry and geography values in the table column
+      -MySQL supports single geometry values (GEOMETRY, POINT, LINESTRING, POLYGON) and multiple values grouped in a set (MULTIPOINT, MULTILINESTRING, MULTIPOLYGON, and GEOMETRYCOLLECTION).
+
+      GEOMETRY
+
+        -Stores any type of the geometry value
+
+      POINT
+
+        -Stores a MySQL single X and Y coordinate value
+
+      LINESTRING
+
+        -Stores a set of points that form a curve
+
+      POLYGON
+
+        -Stores a set of points in the multisided geometry
+
+      MULTIPOINT
+
+        -Stores a set of multiple point values
+
+      MULTILINESTRING
+
+          -Stores a set of multiple LINESTRING values
+
+      MULTIPOLYGON
+
+        Stores a set of multiple POLYGON values
+     GEOMETRYCOLLECTION
+      Stores a set of multiple GEOMETRY values
+
+
+JSON Data Type
+
+
+    Starting with version 5.7.8, MySQL supports JSON data types that store JSON documents in the JSON column and provide access to document elements easily and quickly.
+
+    the JSON format allows for a quick search of values within the document using a key or array index,
+     turn, will improve overall performance and optimize storage.
+
+
+Add clounm in table
+
+  ALTER TABLE student_work
+  ADD COLUMN work_data json;
+
+  update records in table to add clounm
+
+  UPDATE student_work
+
+  SET
+    work_data = '{ "name": "Google Chrome", "OS": "Windows", "resolution": {"x": 1920, "y": 1080} }'
+  WHERE id = 1;
+
+
+How to Change Data Type in MySQL
+
+
+ALTER TABLE table_name
+MODIFY COLUMN column_name datatype;
+
+
+
+
+

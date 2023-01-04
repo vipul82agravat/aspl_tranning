@@ -1,0 +1,315 @@
+DISTINCT
+
+MySQL DISTINCT clause is used to remove duplicate records from the table and fetch only the unique records. The DISTINCT clause is only used with the SELECT statement.
+
+
+The SELECT DISTINCT statement is used to return only distinct (different) values.
+
+Inside a table, a column often contains many duplicate values; and sometimes you only want to list the different (distinct) values.
+
+
+SELECT DISTINCT column1, column2, ...
+FROM table_name;
+
+
+SELECT DISTINCT work_name FROM `student_work`;
+
+
+   DISTINCT with multiple field list
+
+==========================================================
+
+
+Full text index
+
+
+    you will learn how to define the full-text index for performing various full-text searches in MySQL.
+
+    MySQL allows you to define the FULLTEXT index by using the CREATE TABLEstatement when you create the table or ALTER TABLE or CREATE INDEX statement for the existing tables.
+    To create the FULLTEXT index, you place a list of comma-separated column names in parentheses after the FULLTEXT keyword.
+
+
+
+    Search engines use Full-Text Search to find results in databases.
+
+    To use full-text search in MySQL you need to use full-text indexes and the MATCH () function. The full-text index is FULLTEXT.
+
+
+    Mysql supports full-text indexes on MyISAM tables. InnoDB support has been added since version 5.6.4.
+
+
+    The MATCH () function executes a language search. It compares a string to the text content. By content I mean the combination of one or more columns included in the FULLTEXT index.
+
+
+    alert full text in table
+
+    ALTER TABLE table_name
+        ADD FULLTEXT(column_name1, column_name2,…)
+
+
+Like seraching
+
+
+
+ELECT work_name FROM `student_work` WHERE work_name LIKE '%test' HAVING COUNT(work_name);
+
+
+The LIKE operator is used in a WHERE clause to search for a specified pattern in a column.
+
+    There are two wildcards often used in conjunction with the LIKE operat
+
+        The percent sign (%) represents zero, one, or multiple characters
+
+         underscore sign (_) represents one, single character
+
+
+         SELECT column1, column2, ...
+            FROM table_name
+            WHERE columnN LIKE pattern;
+
+        WHERE CustomerName LIKE 'a%' =>	Finds any values that start with "a"
+        WHERE CustomerName LIKE '%a'    =>Finds any values that end with "a"
+        WHERE CustomerName LIKE '%or%' =>Finds any values that have "or" in any position
+        WHERE CustomerName LIKE '_r%' =>Finds any values that have "r" in the second position
+
+        WHERE CustomerName LIKE 'a_%' Finds any values that start with "a" and are at least 2 characters in length
+        WHERE CustomerName LIKE 'a__%' =>Finds any values that start with "a" and are at least 3 characters in length
+
+        WHERE ContactName LIKE 'a%o' 	Finds any values that start with "a" and ends with "o"
+
+
+
+        Example
+
+        SELECT * FROM `student_work` WHERE work_name LIKE 'J%'
+
+        SELECT * FROM `student_work` WHERE work_name LIKE '%test%';
+
+        SELECT * FROM `student_work` WHERE work_name LIKE '%test';
+
+        SELECT * FROM `student_work` WHERE work_name LIKE 'vi__%';
+
+
+        SELECT * FROM `student_work` WHERE work_name LIKE 'v%test';
+        SELECT * FROM `student_work` WHERE work_name LIKE 'j%tes't;'
+
+
+  Concat Query
+
+    Add several strings together:
+
+    CONCAT(expression1, expression2, expression3,...)
+
+
+    SELECT CONCAT(price,'VIPL')FROM `student_work`;
+
+    MySQL | Group_CONCAT() Function
+
+
+        The GROUP_CONCAT() function in MySQL is used to concatenate data from multiple rows into one field.
+
+            SELECT col1, col2, ..., colN
+            GROUP_CONCAT ( [DISTINCT] col_name1
+            [ORDER BY clause]  [SEPARATOR str_val] )
+            FROM table_name GROUP BY col_name2;
+
+
+            SELECT id, fname, lname, dept_id,
+    GROUP_CONCAT ( strength ) as "strengths"
+    FROM employee group by emp_id;
+
+    SELECT work_name,work_status, GROUP_CONCAT(work_status) FROM student_work GROUP BY number_of_task;
+
+
+ ==================================================================================================
+
+  MySQL MIN() and MAX() Functions
+
+
+
+        The MIN() function returns the smallest value of the selected column.
+
+        The MAX() function returns the largest value of the selected column.
+
+        SELECT MIN(column_name)
+            FROM table_name
+            WHERE condition;
+
+
+                SELECT MIN(number_of_task),work_name FROM `student_work`;
+
+
+
+          SELECT MAX(column_name)
+        FROM table_name
+        WHERE condition;
+
+                SELECT MAX(number_of_task),work_name FROM `student_work`;\
+
+
+
+     SQL COUNT(), AVG() and SUM() Functions
+
+
+
+        The COUNT() function returns the number of rows that matches a specified criterion.
+            SELECT COUNT(column_name)
+                FROM table_name
+                WHERE condition;
+
+                SELECT COUNT(column_name)
+                    FROM table_name
+                    WHERE condition;
+
+                    Example
+                            SELECT COUNT(number_of_task) FROM `student_work`;
+
+     =====
+
+        The AVG() function returns the average value of a numeric column.
+
+            SELECT AVG(column_name)
+            FROM table_name
+            WHERE condition;
+
+            SELECT AVG(price) FROM `student_work`;
+
+                        => how to get two digit after avg in results
+
+
+        The SUM() function returns the total sum of a numeric column.
+
+
+        SELECT SUM(column_name)
+            FROM table_name
+            WHERE condition;
+
+
+            SELECT SUM(number_of_task) FROM `student_work`;
+            SELECT SUM(price) FROM `student_work`;
+
+
+
+
+  ========================
+  MySQL REPLACE() Function
+
+    Replace "SQL" with "HTML":
+
+
+        SELECT REPLACE("SQL Tutorial", "SQL", "HTML");
+
+
+        REPLACE(string, from_string, new_string)
+
+
+        SELECT REPLACE(work_name,'VIPUL','AGRAVAT') FROM student_work;
+
+        SELECT REPLACE(work_name,'VIPUL test','AGRAVAT') FROM student_work;
+
+
+
+
+
+
+
+
+    ============================
+  MySQL - Regexps
+
+            need to example and again..................
+            fine not in side the serach results................
+
+        You have seen MySQL pattern matching with LIKE ...%. MySQL supports another type of pattern matching operation based on the regular expressions and the REGEXP operator.
+
+
+        Following is the table of pattern, which can be used along with the REGEXP operator.
+
+        ^ =>Beginning of string
+        $=>End of string
+        .=>Any single character
+
+        [...]=>Any character listed between the square brackets
+        [^...]=>Any character not listed between the square brackets
+        p1|p2|p3=>  Alternation; matches any of the patterns p1, p2, or p3
+        *=>Zero or more instances of preceding element
+        +=>One or more instances of preceding element
+        {n}=>n instances of preceding element
+        {m,n}=>m through n instances of preceding element
+
+
+        SELECT * FROM tbl WHERE COL REGEXP '^st';
+
+        Example
+                SELECT * FROM `student_work` WHERE work_name REGEXP '^J';
+
+                SELECT * FROM `student_work` WHERE work_name REGEXP '.t';
+
+                SELECT * FROM `student_work` WHERE work_name REGEXP '[vipul]';
+
+
+=====================================================================
+                 Sql query
+
+    SELECT * FROM `Students` WHERE num_feilds BETWEEN 3 AND 5 ORDER BY num_feilds ASC;
+    SELECT * FROM `Students` WHERE num_feilds IN(3,10);
+
+
+    SELECT COUNT(student_id),num_feilds FROM `Students` GROUP BY num_feilds ORDER BY student_id DESC;
+
+    SELECT COUNT(student_id),num_feilds FROM `Students` GROUP BY num_feilds HAVING count(student_id)=1 ORDER BY student_id DESC;
+
+    =>order by count of id
+
+    SELECT COUNT(student_id),num_feilds FROM `Students` GROUP BY num_feilds HAVING count(student_id) > 0 ORDER BY count(student_id) DESC;
+
+
+    SQL Date Data Types
+
+        SELECT * FROM `student_work` WHERE work_date='2020-11-18 10:00:00';
+
+
+       LAst 7 days
+
+
+        SELECT * FROM `student_work` WHERE work_date >DATE(NOW()) - INTERVAL 7 DAY;
+
+
+
+    before the lase 7 days
+
+    SELECT * FROM `student_work` WHERE work_date < DATE(NOW()) - INTERVAL 7 DAY;
+
+
+    Further
+
+        SELECT * FROM `student_work` WHERE work_end_date BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY);
+
+
+
+
+Left join
+
+
+SELECT * FROM `Students` LEFT JOIN student_work ON Students.student_id=student_work.student_id;
+
+
+SELECT * FROM `Students` RIGHT JOIN student_work ON Students.student_id=student_work.student_id;
+
+SELECT * FROM `Students` INNER JOIN student_work ON Students.student_id=student_work.student_id;
+
+SELECT * FROM `Students` CROSS JOIN student_work ON Students.student_id=student_work.student_id;
+
+
+
+
+
+SERAVFH JOIN
+
+
+SELECT * FROM `Students` CROSS JOIN student_work ON Students.student_id=student_work.student_id WHERE student_work.work_name LIKE '%VIPUL';
+
+SELECT * FROM `Students` CROSS JOIN student_work ON Students.student_id=student_work.student_id WHERE student_work.work_name LIKE '%test%';
+
+SELECT Students.student_id,student_work.work_date FROM `Students` CROSS JOIN student_work ON Students.student_id=student_work.student_id WHERE student_work.work_name LIKE '%test%';
+
