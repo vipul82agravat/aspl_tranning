@@ -1,0 +1,47 @@
+Attributes  iid
+BINARY
+    -basically the same as a text with the binary attribute.
+    The BINARY attribute in character column definitions has a different effect. A character column defined with the BINARY attribute is assigned the binary collation of the column's character set.
+
+    CHAR(10) BINARY
+    CHAR(10) CHARACTER SET latin1 COLLATE latin1_bin
+    Here MySQL performs a byte-by-byte comparison
+
+UNSIGNED
+
+    UNSIGNED is an optional attribute for integers in MySQL used to define only positive numbers
+    Always use UNSIGNED to represent whole values that will never be negative.
+    AUTO_INCREMENT that starts at 1 will never be negative.
+
+    The main advantage of using this attribute is that MySQL will not allocate unnecessary space for negative numbers from -2147483648 to zero, and will double the space for positive numbers from zero to 4294967295
+
+
+ZEROFILL
+    The role of the ZEROFILL attribute is only to indicate to MySQL how the information should be shown.
+    If you need to do a WHERE 0001=1, SQL will still work as expected.
+    ZEROFILL is used to fill an integer with zeros so that all the numbers in the column have the same number of digits.
+    As stated above, when a column has ZEROFILL it automatically has UNSIGNED checked.
+
+    ALTER TABLE student_work
+  ADD COLUMN complated_task int(5) ZEROFILL;
+
+
+ZEROFILL and UNSIGNED
+
+update on CURRENT_TIMESTAMP
+
+
+    -An auto-updated column is automatically updated to the current timestamp when the value of any other column in the row is changed from its current value. An auto-updated column remains unchanged if all other columns are set to their current values.
+
+
+    ALTER TABLE student_work
+  ADD COLUMN update_at TIMESTAMP NOT NULL
+                           DEFAULT CURRENT_TIMESTAMP
+                           ON UPDATE CURRENT_TIMESTAMP;
+
+
+
+
+ALTER TABLE student_work
+  ADD COLUMN create_at TIMESTAMP NOT NULL
+                           DEFAULT CURRENT_TIMESTAMP;
