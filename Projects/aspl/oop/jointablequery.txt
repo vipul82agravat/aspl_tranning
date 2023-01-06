@@ -1,0 +1,39 @@
+1.
+
+CREATE TABLE employee_attendance (
+  id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  type ENUM('checkin','checkout'),
+  emp_id INT NOT NULL,
+  emp_date datetime,
+  note VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  Foreign Key (emp_id) REFERENCES employee_registration(id)
+);
+
+2..
+
+                    CREATE TABLE `employee_worktracker` (
+                    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                    `task_names` varchar(150) DEFAULT NULL,
+                    `task_description` varchar(255) DEFAULT NULL,
+                    `task_start_date` datetime DEFAULT NULL,
+                    `task_end_date`  datetime DEFAULT NULL,
+                    `task_start_time` datetime DEFAULT NULL,
+                    `task_end_time` datetime DEFAULT NULL,
+                    `task_details` json DEFAULT NULL,
+                    `complated_task` INT(10) NULL,
+                    `number_task` INT(10) NULL,
+                    `emp_id` INT NOT NULL,
+                    `task_status` 	enum('Done', 'Pending','proccssing') DEFAULT NULL,
+                    `work_image` blob DEFAULT NULL,
+                     INDEX(task_names),
+                      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                      Foreign Key (emp_id) REFERENCES employee_registration(id)
+                    ) ENGINE=InnoDB;
+
+
+
+
+                    ALTER TABLE `employee_registration` ADD `permission` JSON NULL DEFAULT NULL AFTER `auth_token`;

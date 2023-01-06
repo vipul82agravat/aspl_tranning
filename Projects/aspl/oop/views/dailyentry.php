@@ -1,3 +1,21 @@
+<?php
+use Helper\Master\MasterClass as Mastercls;
+include_once('../Helper/MasterClass.php');
+        session_start();
+        $id=$_SESSION['user_id'];
+        $getDetails =new Mastercls;
+		$table='employee_registration';
+        $getResponse=$getDetails->ShowIdBaseDetails($table,$id);
+
+        if($getResponse['status']==1){
+                    $res=$getResponse['data'];
+                    if (mysqli_num_rows($res) > 0) {
+                      $row = mysqli_fetch_assoc($res);
+                    //
+                  }
+
+        }
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,7 +33,7 @@
 	<body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="navbar-header">
-        <a class="navbar-brand" rel="home" href="#">ASPL HRM Login</a>
+        <a class="navbar-brand" rel="home" href="checkinoutlist.php">ASPL HRM Daily Entry</a>
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 		<span class="sr-only">Toggle navigation</span>
 		<span class="icon-bar"></span>a
@@ -40,16 +58,17 @@
     <div class="row">
       <div class="col-xs-12">
 <!--         <h3>Insert Data In Databse using PHP OOPS Concept</h3> -->
-		<form name="login" action="../Controller/LoginData.php" method="post">
+		<form name="login" action="../Controller/AttendanceData.php" method="post">
        <table width="100%"  border="0">
 
   <tr>
-    <th height="60" scope="row">Email :</th>
-    <td><input type="email" name="email" value="" class="form-control" required /></td>
+    <th height="60" scope="row">Welcome  :</th>
+    <td><?php echo $row['first_name'] ?>-<?php echo $row['last_name'] ?></td>
   </tr>
-  <tr>
-    <th height="60" scope="row">Password:</th>
-    <td><input type="password" name="password" value="" minlength="6" class="form-control" required /></td>
+   <tr>
+    <th height="60" scope="row">Note :</th>
+    <td><textarea name="note" class="form-control">
+	</textarea></td>
   </tr>
 
 <!--  <tr>
@@ -59,7 +78,7 @@
   </tr>-->
   <tr>
     <th height="60" scope="row">&nbsp;</th>
-    <td><input type="submit" value="Login" name="submit" class="btn-primary" /></td>
+    <td><input type="submit" value="submit" name="submit" class="btn-primary" /></td>
   </tr>
 </table>
 

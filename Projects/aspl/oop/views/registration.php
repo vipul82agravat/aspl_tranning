@@ -15,7 +15,7 @@
 	<body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="navbar-header">
-        <a class="navbar-brand" rel="home" href="https://phpgurukul.com/">ASPL HRM Registration</a>
+        <a class="navbar-brand" rel="home" href="index.php">ASPL HRM Registration</a>
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 		<span class="sr-only">Toggle navigation</span>
 		<span class="icon-bar"></span>a
@@ -32,7 +32,10 @@
   <div class="alert alert-success" role="alert">
    <?php echo $_GET['message']; ?>
   </div>
-<?php } ?>
+<?php }
+
+ $education=['10th','12th','Graduate','Post Graduate'];
+?>
  <!--/left-->
 
   <!--center-->
@@ -40,7 +43,7 @@
     <div class="row">
       <div class="col-xs-12">
 <!--         <h3>Insert Data In Databse using PHP OOPS Concept</h3> -->
-		<form name="insert" action="../Controller/InsertData.php" method="post">
+		<form name="insert" action="../Controller/InsertData.php" method="post" enctype="multipart/form-data">
        <table width="100%"  border="0">
   <tr>
     <th width="26%" height="60" scope="row">Frist Name :</th>
@@ -72,14 +75,19 @@
     <td><input type="date" name="date_of_birth" value="" class="form-control" required /></td>
   </tr>
    <tr>
+    <th height="60" scope="row">Select Profile Image:</th>
+    <td><input type="file" name="image" value="" class="form-control" /></td>
+  </tr>
+   <tr>
     <th height="60" scope="row">Education :</th>
     <td><select name="education" class="form-control">
-	<option value="">Select</option>
-	<option value="10th">10th</option>
-	<option value="12th">12th</option>
-	<option value="Graduate">Graduate</option>
-	<option value="Post Graduate">Post Graduate</option>
-	</select> </td>
+		<option value="">Select</option>
+      <?php foreach($education as $key=>$val) {
+
+        echo '<option value='.$val.'>'.$val.'</option>';
+
+      }?>
+  </select></td>
   </tr>
   <tr>
     <th height="60" scope="row">Address :</th>

@@ -15,7 +15,6 @@ include_once('../Helper/MasterClass.php');
                   }
 
         }
-        $education=['10th','12th','Graduate','Post Graduate'];
 ?>
 
 <!DOCTYPE html>
@@ -56,23 +55,23 @@ include_once('../Helper/MasterClass.php');
  <!--/left-->
 
   <!--center-->
-  <form name="insert" action="../Controller/UpdateData.php" method="post" enctype="multipart/form-data">
-  <div class="col-sm-6">
-    <div class="row">
-      <div class="col-xs-12">
+  <div class="col-sm-6" styles='margin-left: 40%;'>
+    <div class="row" >
+      <div class="col-xs-12" >
 <!--         <h3>Insert Data In Databse using PHP OOPS Concept</h3> -->
-
+		<form name="insert" action="../Controller/UpdateData.php" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="id" value="<?php echo $row['id'] ?>" class="form-control" required />
        <table width="100%"  border="0" >
-
-        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>"  styles="margin-left:70%"/>
+        <div class='img'styles='padding-left: 33%;'>
+        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>"  styles="margin-left:100%"/>
+        <div>
   <tr>
     <th width="26%" height="60" scope="row">Frist Name :</th>
-    <td width="74%"><input type="text" name="fname" value="<?php echo $row['first_name'] ?>" class="form-control" required /></td>
+    <td width="74%"><input type="text" name="fname" value="<?php echo $row['first_name'] ?>" class="form-control" required readonly/></td>
   </tr>
   <tr>
     <th width="26%" height="60" scope="row">Last Name :</th>
-    <td width="74%"><input type="text" name="lname" value="<?php echo $row['last_name'] ?>" class="form-control" required /></td>
+    <td width="74%"><input type="text" name="lname" value="<?php echo $row['last_name'] ?>" class="form-control" required readonly/></td>
   </tr>
   <tr>
     <th height="60" scope="row">Email :</th>
@@ -80,13 +79,13 @@ include_once('../Helper/MasterClass.php');
   </tr>
   <tr>
     <th height="60" scope="row">Contact no. :</th>
-    <td><input type="text" name="contact" value="<?php echo $row['contactno'] ?>" maxlength="10" class="form-control" required /></td>
+    <td><input type="text" name="contact" value="<?php echo $row['contactno'] ?>" maxlength="10" class="form-control" required readonly/></td>
   </tr>
   <tr>
     <th height="60" scope="row">Gender :</th>
     <?php if($row['gender']=="Male") { ?>
-    <td><input type="radio" name="gender" value="Male" required  checked/> Male  &nbsp;
-	<input type="radio" name="gender" value="Female" required /> Female</td>
+    <td><input type="radio" name="gender" value="Male" required  checked readonly/> Male  &nbsp;
+	<input type="radio" name="gender" value="Female" required readonly /> Female</td>
 	<?php } else { ?>
     <td><input type="radio" name="gender" value="Male" required  /> Male  &nbsp;
 	<input type="radio" name="gender" value="Female" required checked /> Female</td>
@@ -97,31 +96,27 @@ include_once('../Helper/MasterClass.php');
   </tr>
    <tr>
     <th height="60" scope="row">Date of Brith :</th>
-
-    <td><input type="date" name="date_of_birth" value="<?php echo date('dd-mm-yyyy',strtotime($row['brith_date'])); ?>" class="form-control" required /></td>
+    <td><input type="date" name="date_of_birth" value="<?php echo $row['brith_date'] ?>" class="form-control" required readonly /></td>
   </tr>
   <tr>
     <th height="60" scope="row">Select Profile Image:</th>
 
-    <td><input type="file" name="image" value="" class="form-control" /></td>
+    <td><input type="file" name="image" value="" class="form-control" required /></td>
   </tr>
    <tr>
     <th height="60" scope="row">Education :</th>
-    <td><select name="education" class="form-control">
+    <td><select name="education" readonly class="form-control">
 	<option value="">Select</option>
-	<?php foreach($education as $key=>$val) {
-      if($row['education']==$val){
-        echo '<option value='.$val.' selected>'.$val.'</option>';
-      }else{
-        echo '<option value='.$val.'>'.$val.'</option>';
-      }
 
-    }?>
-  </select> </td>
+	<option value="10th">10th</option>
+	<option value="12th">12th</option>
+	<option value="Graduate">Graduate</option>
+	<option value="Post Graduate">Post Graduate</option>
+	</select> </td>
   </tr>
   <tr>
     <th height="60" scope="row">Address :</th>
-    <td><textarea name="address" class="form-control"><?php echo $row['address'] ?>
+    <td><textarea name="address" class="form-control" readonly><?php echo $row['address'] ?>
 	</textarea></td>
   </tr>
 <!--  <tr>
@@ -135,62 +130,14 @@ include_once('../Helper/MasterClass.php');
   </tr>
 </table>
 
-
-
-      </div>
-    </div>
-    <hr>
-
-
-  </div>
-    <div class="col-sm-6" style="margin-top: 12%; padding-left: 20%;">
-    <div class="row">
-      <div class="col-xs-12">
-<!--         <h3>Insert Data In Databse using PHP OOPS Concept</h3> -->
-
-   <tr>
-    <th height="60" scope="row">Permission :</th>
-    <td><br>
-    <?php
-    $permission= $row['permission'];
-    if($permission!=""){
-    $array_permission=json_decode($permission,true);
-
-    foreach($array_permission as $key=>$role){
-     if($role==1){
-       echo '<input type="checkbox" id="" name="permission['.$key.'];" value="1" checked><label for=""> '.ucfirst(str_replace('_',' ',$key)).'</label><br>';
-
-      }else{
-      echo '<input type="checkbox" id="" name="permission['.$key.'];" value="1"><label for=""> '.ucfirst(str_replace('_',' ',$key)).'</label><br>';
-      }
-
-    }
-    }
-    ?>
-    </td>
-  </tr>
-
-<!--  <tr>
-    <th height="60" scope="row">Hobbies :</th>
-    <td><input type="checkbox" name="hobbies" value="Read" required /> Read  &nbsp;
-	<input type="checkbox" name="hobbies" value="traveling" required /> Traveling</td>
-  </tr>-->
-  <tr>
-    <th height="60" scope="row">&nbsp;</th>
-
-  </tr>
-</table>
-
-
+     </form>
 
       </div>
     </div>
     <hr>
-   </form>
 
-  </div>
 
-  <!--/center-->
+  </div><!--/center-->
 </div><!--/container-fluid-->
 	<!-- script references -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>

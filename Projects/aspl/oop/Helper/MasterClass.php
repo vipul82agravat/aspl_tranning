@@ -14,6 +14,7 @@ class MasterClass {
 
         function __construct(){
 
+            //session_start();
            $response= $this->sqlconnection();
            $this->connection=$response['connection'];
            $this->status=$response['status'];
@@ -212,41 +213,172 @@ class MasterClass {
                 return $e."error on update time";
             }
         }
-        public function leftJoinData(){
+         public function employeeCheckInOutStatus($table){
             try {
+               // session_start();
+               $user_id=$_SESSION['user_id'];
+               $date=date('y-m-d');
+               $data="`emp_id` = ".$user_id." AND `emp_date` = '".$date."'";
 
-               return true;
+               $response= $this->sqlconnection();
+               $this->connection=$response['connection'];
+               $connection=$this->connection;
+
+              $query='SELECT * FROM '.$table.' WHERE '.$data;
+
+                    $res=mysqli_query($connection,$query);
+
+//
+
+                    if (mysqli_num_rows($res) == 0) {
+                        $row = mysqli_fetch_assoc($res);
+
+                        $type='checkin';
+                        $arr=['status'=>1,
+                                'message'=>'Check In Successfully',
+                                'data'=>$type,
+                            ];
+
+
+                    }else if(mysqli_num_rows($res)==1 and mysqli_num_rows($res) < 2){
+                        $type='checkout';
+
+                        $arr=['status'=>1,
+                                'message'=>'Check Out Successfully',
+                                'data'=>$type,
+                            ];
+
+                    }else{
+                         $arr=['status'=>0,
+                                'message'=>'Already checkout',
+                                'data'=>$type,
+                            ];
+                    }
+                    return $arr;
+
             }
             catch(Exception $e){
                 return $e.'mysql_error';
 
             }
         }
-        public function rightJoinData(){
+
+        public function leftJoinData($table1,$table2,$tab1key,$tab2key,$data,$selectData){
             try {
 
-               return true;
+            $connection=$this->connection;
+            $query='SELECT '.$selectData.' FROM '.$table1.' LEFT JOIN '.$table2.' ON '.$table1.'.'.$tab1key.'='.$table2.'.'.$tab2key.' '.$data;
+//             $query='SELECT * FROM '.$table1.' INNER JOIN '.$table2.' ON '.$table1.'.'.$tab1key.'='.$table2.'.'.$tab2key.' '.$data;
+            $res=mysqli_query($connection,$query);
+            if(mysqli_num_rows($res) >1 ){
+
+               return $arr=['status'=>1,
+                        'message'=>'Records List Successfully',
+                        'data'=>$res,
+                        ];
+
+            }else{
+
+            return $arr=['status'=>0,
+                        'message'=>'Records Not Found',
+                        'data'=>$res,
+                        ];
+
             }
+
+
+        }
             catch(Exception $e){
                 return $e.'mysql_error';
 
             }
         }
-        public function crossJoinData(){
+
+        public function rightJoinData($table1,$table2,$tab1key,$tab2key,$data,$selectData){
             try {
 
-               return true;
+            $connection=$this->connection;
+            $query='SELECT '.$selectData.' FROM '.$table1.' RIGHT JOIN '.$table2.' ON '.$table1.'.'.$tab1key.'='.$table2.'.'.$tab2key.' '.$data;
+//             $query='SELECT * FROM '.$table1.' INNER JOIN '.$table2.' ON '.$table1.'.'.$tab1key.'='.$table2.'.'.$tab2key.' '.$data;
+            $res=mysqli_query($connection,$query);
+            if(mysqli_num_rows($res) >1 ){
+
+               return $arr=['status'=>1,
+                        'message'=>'Records List Successfully',
+                        'data'=>$res,
+                        ];
+
+            }else{
+
+            return $arr=['status'=>0,
+                        'message'=>'Records Not Found',
+                        'data'=>$res,
+                        ];
+
             }
+
+
+        }
             catch(Exception $e){
                 return $e.'mysql_error';
 
             }
         }
-        public function InnerJoinData(){
+        public function crossJoinData($table1,$table2,$tab1key,$tab2key,$data,$selectData){
             try {
 
-               return true;
+            $connection=$this->connection;
+            $query='SELECT '.$selectData.' FROM '.$table1.' CROSS JOIN '.$table2;
+//             $query='SELECT * FROM '.$table1.' INNER JOIN '.$table2.' ON '.$table1.'.'.$tab1key.'='.$table2.'.'.$tab2key.' '.$data;
+            $res=mysqli_query($connection,$query);
+            if(mysqli_num_rows($res) >1 ){
+
+               return $arr=['status'=>1,
+                        'message'=>'Records List Successfully',
+                        'data'=>$res,
+                        ];
+
+            }else{
+
+            return $arr=['status'=>0,
+                        'message'=>'Records Not Found',
+                        'data'=>$res,
+                        ];
+
             }
+
+
+        }
+            catch(Exception $e){
+                return $e.'mysql_error';
+
+            }
+        }
+        public function InnerJoinData($table1,$table2,$tab1key,$tab2key,$data,$selectData){
+            try {
+
+            $connection=$this->connection;
+            $query='SELECT '.$selectData.' FROM '.$table1.' INNER JOIN '.$table2.' ON '.$table1.'.'.$tab1key.'='.$table2.'.'.$tab2key.' '.$data;
+//             $query='SELECT * FROM '.$table1.' INNER JOIN '.$table2.' ON '.$table1.'.'.$tab1key.'='.$table2.'.'.$tab2key.' '.$data;
+            $res=mysqli_query($connection,$query);
+            if(mysqli_num_rows($res) >1 ){
+
+               return $arr=['status'=>1,
+                        'message'=>'Records List Successfully',
+                        'data'=>$res,
+                        ];
+
+            }else{
+
+            return $arr=['status'=>0,
+                        'message'=>'Records Not Found',
+                        'data'=>$res,
+                        ];
+
+            }
+
+
+        }
             catch(Exception $e){
                 return $e.'mysql_error';
 
