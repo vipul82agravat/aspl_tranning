@@ -30,7 +30,12 @@ $check_auth->verifyAuthToken();
 	ASPL HRM Registration
 </h1>
 <!-- <h3>DataTables order Option</h3> -->
-    <a href="../views/registration.php">NewRegistration</a>
+    <a href="../views/registration.php">NewRegistration</a>|
+    <a href="../views/index.php">EmployeeList</a>|
+    <a href="../views/dailyentry.php">DailyCheckOut</a>|
+    <a href="../views/checkinoutlist.php">CheckInOutList</a>|
+    <a href="../views/webtracker_index.php">WebTracker</a>|
+	<a href="../views/addtask.php">AddTask</a>|
     <a href="../views/logout.php">Logout</a>
 <!-- HTML table with random data -->
 <?php if(isset($_GET['message'])) { ?>
@@ -64,7 +69,7 @@ $check_auth->verifyAuthToken();
               echo "<td>".$row['email']."</td>";
               echo "<td>".$row['contactno']."</td>";
               echo "<td>".$row['gender']."</td>";
-              echo "<td> <a href='edit.php?id=".$row['id']."'>View</a> |<a href='edit.php?id=".$row['id']."'>Edit</a> |  <a  href='../Controller/DeleteData.php?id=".$row['id']."' onclick='return confirm('Are you sure you want to delete this item?');'>Delete</a></td>";
+              echo "<td> <a href='view.php?id=".$row['id']."'>View</a> |<a href='edit.php?id=".$row['id']."'>Edit</a> |  <a  href='../Controller/DeleteData.php?id=".$row['id']."' onclick='return confirm('Are you sure you want to delete this item?');'>Delete</a></td>";
               echo "</tr>";
           }?>
 

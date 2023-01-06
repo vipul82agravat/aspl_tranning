@@ -1,0 +1,321 @@
+REGEXP
+
+
+    ->Regular Expressions allow MariaDB to perform complex pattern matching on a string
+    ->In many cases, the simple pattern matching provided by LIKE is sufficient. LIKE performs two kinds of matches:
+        _ - the underscore, matching a single character
+        % - the percentage sign, matching any number of characters.
+
+    Regular expression-based matching is possible in MariaDB through the REGEXP Operator.
+
+
+
+    expression REGEXP pattern
+
+            Special Regex Characters: These characters have special meaning in regex (to be discussed below): ., +, *, ?, ^, $, (, ), [, ], {, }, |, \.
+
+            1.Escape Sequences (\char)
+
+                    You also need to use regex \\ to match "\" (back-slash).
+                    Regex recognizes common escape sequences such as \n for newline, \t for tab, \r for carriage-return, \nnn for a up to 3-digit octal number, \xhh for a two-digit hex code, \uhhhh for a 4-digit Unicode, \uhhhhhhhh for a 8-digit Unicode.
+            2.A Sequence of Characters (or String):
+                    -Strings can be matched via combining a sequence of characters (called sub-expressions). E.g., the regex Saturday matches "Saturday". The matching, by default, is case-sensitive, but can be set to case-insensitive via modifier.
+             3.OR Operator (|):
+
+                        regex four|4 accepts strings "four" or "4".
+             4.Character class (or Bracket List)
+                -[...]: Accept ANY ONE of the character within the square bracket, e.g., [aeiou] matches "a", "e", "i", "o" or "u"
+                -[.-.] (Range Expression): Accept ANY ONE of the character in the range, e.g., [0-9] matches any digit; [A-Za-z] matches any uppercase or lowercase letters.
+                -[^...]: NOT ONE of the character, e.g., [^0-9] matches any non-digit.
+                -Only these four characters require escape sequence inside the bracket list: ^, -, ], \.
+
+
+             5.Occurrence Indicators (or Repetition Operators)
+
+                +: one or more (1+), e.g., [0-9]+ matches one or more digits such as '123', '000'.
+                *: zero or more (0+), e.g., [0-9]* matches zero or more digits. It accepts all those in [0-9]+ plus the empty string.]
+                ?: zero or one (optional), e.g., [+-]? matches an optional "+", "-", or an empty string.
+                {m,n}: m to n (both inclusive)
+                {m}: exactly m times
+                {m,}: m or more (m+)
+
+            6.Metacharacters: matches a characte
+
+                . (dot): ANY ONE character except newline. Same as [^\n]
+                 \d, \D: ANY ONE digit/non-digit character. Digits are [0-9]
+                \w, \W: ANY ONE word/non-word character. For ASCII, word characters are [a-zA-Z0-9_]
+                \s, \S: ANY ONE space/non-space character. For ASCII, whitespace characters are [ \n\r\t\f]
+
+
+             7.Position Anchors:
+
+                does not match character, but position such as start-of-line, end-of-line, start-of-word and end-of-word.
+
+                -^, $: start-of-line and end-of-line respectively. E.g., ^[0-9]$ matches a numeric string.
+                \b: boundary of word, i.e., start-of-word or end-of-word. E.g., \bcat\b matches the word "cat" in the input string.
+                \B: Inverse of \b, i.e., non-start-of-word or non-end-of-word. \Bcat\B
+
+                \<, \>: start-of-word and end-of-word respectively, similar to \b. E.g., \<cat\> matches     word "cat" in the input string.
+
+                \A, \Z: start-of-input and end-of-input respectively.
+
+             8.Parenthesized Back References:
+                Use parentheses ( ) to create a back reference.
+                Use $1, $2, ... (Java, Perl, JavaScript) or \1, \2, ... (Python) to retreive the back references in sequential order.
+
+            9
+            Laziness (Curb Greediness for Repetition Operators): *?, +?, ??, {m,n}?, {m,}?
+
+
+
+
+            Example: Numbers [0-9]+ or \d+  =>(^\d+$)
+
+                A regex (regular expression) consists of a sequence of sub-expressions. In this example, [0-9] and +.
+                The [...], known as character class (or bracket list), encloses a list of characters. It matches any SINGLE character in the list. In this example, [0-9] matches any SINGLE character between 0 and 9 (i.e., a digit), where dash (-) denotes the range.
+                he +, known as occurrence indicator (or repetition operator), indicates one or more occurrences (1+) of the previous sub-expression. In this case, [0-9]+ matches one or more digits.
+
+                A regex may match a portion of the input (i.e., substring) or the entire input. In fact, it could match zero or more substrings of the input (with global modifier).
+
+                This regex matches any numeric substring (of digits 0 to 9)
+                    If the input is "abc123xyz", it matches substring "123".
+                    IF  the input is "abcxyz", it matches nothing.
+                    If the input is "abc00123xyz456_0", it matches substrings "00123", "456" and "0" (three matcheS
+
+
+
+                    You can also write \d+, where \d is known as a metacharacter that matches any digit (same as [0-9]).
+
+
+
+
+
+         Example: Full Numeric Strings ^[0-9]+$ or ^\d+$
+
+                    The leading ^ and the trailing $ are known as position anchors, which match the start and end positions of the line, respectively.\\
+
+
+
+
+           Example: Positive Integer Literals [1-9][0-9]*|0 or [1-9]\d*|0
+
+
+                            [1-9][0-9]*|0
+
+                                    [1-9] matches any character between 1 to 9; [0-9]* matches zero or more digits. The * is an occurrence indicator representing zero or more occurrences.
+                                    | represents the OR operator; which is used to include the number 0.
+
+
+
+                            [1-9]\d*|0
+                                    You can replace [0-9] by metacharacter \d, but not [1-9].
+
+
+
+                                    If the input string is "abc123xyz", it matches the substring "123".
+                                    If the input string is "abc123xyz456_0", it matches substrings "123", "456" and "0" (three matches).
+
+
+             Example: Full Integer Literals ^[+-]?[1-9][0-9]*|0$ or ^[+-]?[1-9]\d*|0$
+
+
+                [+-] matches either + or - sign. ? is an occurrence indicator denoting 0 or 1 occurrence, i.e. optional. Hence, [+-]? matches an optional leading + or - sign.
+                We have covered three occurrence indicators: + for one or more, * for zero or more, and ? for zero or one.
+
+             Example: Identifiers (or Names) [a-zA-Z_][0-9a-zA-Z_]* or [a-zA-Z_]\w*
+
+                    Begin with one letters or underscore, followed by zero or more digits, letters and underscore.
+                    You can use metacharacter \w for a word character [a-zA-Z0-9_]. Recall that metacharacter \d can be used for a digit [0-9].
+
+
+               Example: Image Filenames ^\w+\.(gif|png|jpg|jpeg)$
+
+                -the position anchors ^ and $ match the beginning and the ending of the input string,
+                -\w+ matches one or more word characters (same as [a-zA-Z0-9_]+).
+                -\. matches the dot (.) character. We need to use \. to represent . as . has special meaning in regex.
+                -(gif|png|jpg|jpeg) matches either "gif", "png", "jpg" or "jpeg". The | denotes "OR" operator. T
+
+
+             Example: Email Addresses ^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$
+                     ^\w+([.-]?\w+)
+                     *@\w+([.-]?\w+)
+                     *(\.\w{2,3})+$
+
+
+                    -The position anchors ^ and $ match the beginning and the ending of the input string, respectively. That is, this regex shall match the entire input string, instead of a part of the input string (substring).
+                    -\w+ matches 1 or more word characters (same as [a-zA-Z0-9_]+).
+                    -([.-]?\w+)* matches 0 or more occurrences of [.-]?\w+.
+
+                    The sub-expression \w+([.-]?\w+)* is used to match the username in the email, before the @ sign
+                    -It begins with at least one word character [a-zA-Z0-9_], followed by more word characters or . or -. However, a . or - must follow by a word character [a-zA-Z0-9_].
+                    -The @ matches itself. In regex, all characters other than those having special meanings matches itself, e.g., a matches a, b matches b, and etc.
+                    -Again, the sub-expression \w+([.-]?\w+)* is used to match the email domain name, with the same pattern as the username described above.
+                    -The sub-expression \.\w{2,3} matches a . followed by two or three word characters, e.g., ".com", ".edu", ".us", ".uk", ".co".
+                    -(\.\w{2,3})+ specifies that the above sub-expression could occur one or more times, e.g., ".com", ".co.uk", ".edu.sg" etc.
+
+
+               Example: Swapping Words using Parenthesized Back-References ^(\S+)\s+(\S+)$ and $2 $1
+\
+
+                         ^(\S+)\s+(\S+)$ and $2 $1
+
+                            The ^ and $ match the beginning and ending of the input string, respectively.
+                            -The \s (lowercase s) matches a whitespace (blank, tab \t, and newline \r or \n). On the other hand, the \S+ (uppercase S) matches anything that is NOT matched by \s, i.e., non-whitespace. In regex, the uppercase metacharacter denotes the inverse of the lowercase counterpart, for example, \w for word character and \W for non-word character; \d for digit and \D or non-digit.
+                            -To swap the two words, you can access the special variables, and print "$2 $1" (via a programming language); or substitute operator "s/(\S+)\s+(\S+)/$2 $1/"
+
+
+
+                    Example: HTTP Addresses ^http:\/\/\S+(\/\S+)*(\/)?$
+
+
+                            Followed by \S+, one or more non-whitespaces, for the domain name.
+                            Followed by (\/\S+)*, zero or more "/...", for the sub-directories.
+                            Fllowed by (\/)?, an optional (0 or 1) trailing /, for directory request
+
+
+           Metacharacters ., \w, \W, \d, \D, \s, \S
+
+                    The metacharacter dot (.) matches any single character except newline \n (same as [^\n]).
+
+                    \w (word character) matches any single letter, number or underscore (same as [a-zA-Z0-9_]).
+
+                    The uppercase counterpart \W (non-word-character) matches any single character that doesn't match by \w (same as [^a-zA-Z0-9_]).
+                    \d (digit) matches any single digit (same as [0-9]).
+                    he uppercase counterpart \D (non-digit) matches any single character that is not a digit (same as [^0-9]).
+                    \s (space) matches any single whitespace (same as [ \t\n\r\f],
+                    . The uppercase counterpart \S (non-space) matches any single character that doesn't match by \s (same as [^ \t\n\r\f]).
+
+
+
+
+                    \s\s      # Matches two spaces
+                    \S\S\s    # Two non-spaces followed by a space
+                    \s+       # One or more spaces
+                    \S+\s\S+  # Two words (non-spaces) separated by a space
+
+
+             Backslash (\) and Regex Escape Sequences
+                -for metacharacters such as \d (digit), \D (non-digit), \s (space), \S (non-space), \w (word), \W (non-word).
+                - You also need to write \\ for \ in regex to avoid ambiguity.
+
+
+                ing$           # ending with 'ing'
+
+
+                \bcat\b        # matches the word "cat" in input string "This is a cat."
+                 The \< and \> match the start-of-word and end-of-word, respectively (compared with \b, which can match both the start and end of a word).
+
+
+
+                 parentheses ( ) can be used to group sub-expressions for overriding the precedence or applying a repetition operator.
+                 (abc)+ (accepts abc, abcabc, abcabcabc, ...)
+
+
+                 Range
+                    -SELECT * FROM `student_work` WHERE work_name REGEXP '[a-c]';
+
+                         containing exactly 5 characters.
+
+                    SELECT * FROM `student_work` WHERE work_name REGEXP '^.{5}$';
+
+
+                    SELECT * FROM `student_work` WHERE work_name REGEXP '^(r|v|i)';
+
+
+                    https://www.guru99.com/regular-expressions.html
+
+
+
+                    SELECT statements... WHERE fieldname REGEXP 'pattern';
+
+
+                    1.
+                    SELECT * FROM `student_work` WHERE work_name REGEXP 'vipul';
+
+                    2. that start with a, b, c or d ,
+                    SELECT * FROM `student_work` WHERE work_name REGEXP '^[vipul]';
+                    SELECT * FROM `student_work` WHERE work_name REGEXP '^[123]';
+
+                    3 *
+                        The asterisk (*) metacharacter is used to match zero (0) or more instances of the strings preceding it
+
+                        SELECT * FROM `student_work` WHERE work_name REGEXP 'test*';
+
+
+                   4. +
+                    The plus (+) metacharacter is used to match one or more instances of strings preceding it.
+
+                        will give all movies containing characters vip
+
+                        SELECT * FROM `student_work` WHERE work_name REGEXP gfh+';
+
+                        SELECT * FROM `student_work` WHERE work_name REGEXP 'vip+';
+
+                  5.?
+                    The question(?) metacharacter is used to match zero (0) or one instances of the strings preceding it.
+
+                    SELECT * FROM `student_work` WHERE work_name REGEXP 'test?';
+
+
+                 6 .
+
+                    The dot (.) metacharacter is used to match any single character in exception of a new line.
+
+                    SELECT * FROM `student_work` WHERE work_name REGEXP 'vipul.';
+
+                7.[abc]
+                        The charlist [abc] is used to match any of the enclosed characters.
+                        SELECT * FROM `student_work` WHERE work_name REGEXP '[v]';
+                8.[^abc]
+
+                    The charlist [^abc] is used to match any characters excluding the ones enclosed
+
+                    SELECT * FROM `student_work` WHERE work_name REGEXP '[^g  f]';
+
+                 9.[A-Z]
+                    The [A-Z] is used to match any upper case letter.
+                    SELECT * FROM `student_work` WHERE work_name REGEXP '[A-V]';
+                 10.[a-z]
+                    The [a-z] is used to match any lower case letter
+
+                    SELECT * FROM `student_work` WHERE work_name REGEXP '[a-v]';
+
+                  11.[0-9]
+                        The [0-9] is used to match any digit from 0 through to 9.
+
+                        SELECT * FROM `student_work` WHERE work_name REGEXP '[0-9]';
+
+                  12.^
+                    The caret (^) is used to start the match at beginning.
+
+                    SELECT * FROM `student_work` WHERE work_name REGEXP '^[r]';
+
+                  13.|
+                    The vertical bar (|) is used to isolate alternatives.
+
+                    SELECT * FROM `student_work` WHERE work_name REGEXP '^[r]|^[v]';
+
+
+                  14.[[:>:]]
+                        The [[:>:]] matches the end of words.
+                        SELECT * FROM `student_work` WHERE work_name REGEXP 'test[[:>:]]';
+                15. [[:<:]]
+                        The[[:<:]] matches the beginning of words.
+                         SELECT * FROM `student_work` WHERE work_name REGEXP vipul[[:<:]]';
+                  15.[:class:]
+                    :alpha:] to match letters, [:space:] to match white space, [:punct:] is match punctuations and [:upper:] for upper class letters.
+
+
+
+
+
+                The backslash (\) is used to as an escape character. If we want to use it as part of the pattern in a regular expression, we should use double backslashes (\\)
+
+
+
+
+
+
+
+
+
