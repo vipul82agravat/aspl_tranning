@@ -1,10 +1,40 @@
 {% import "forms.html" as forms %}
 {% from 'forms.html' import input as input_field, textarea %}
+
+    {% block title %}
+    hiii this my main title
+    <br>
+    {% endblock %}
+    {% block head %}
+      <u> <b> sample html for load</b></u>
+    {% endblock %}
+
+    {% block body %}
+        <h4>Dyanmic form</h4>
+        <br><hr>
+    {% endblock%}
+
+     {% block img %}
+       <marquee><img src="https://www.gstatic.com/webp/gallery3/1.png" alt="Girl in a jacket" width="100" height="100"></marquee>
+        <hr>
+    {% endblock%}
+
 <p>{{ forms.input('username') }}</p>
-<p>{{ forms.input('password', null, 'password') }}</p>
+
 <p>{{ forms.input('email') }}</p>
+<p>{{ forms.input('password', null, 'password') }}</p>
+<p>{{ forms.image('img') }}</p>
 <p>{{ textarea('comment') }}</p>
 
+<p>{{ forms.input('gender','male','radio') }}
+{{ forms.radio('gender','female','radio') }}</p>
+
+
+<p>{{ forms.input('hobbies','read','checkbox') }}
+{{ forms.checkox('hobbies','teaching') }}</p>
+
+
+<p>{{ forms.button('submit', 'Submit', 'submit') }}</p>
 
 {% if macros.forms is defined -%}
     OK
@@ -13,3 +43,99 @@
 {% macro input() %}
     ...
 {% endmacro input %}
+
+{% block footer %}
+        <center><h4>All copy right @ 2023-01-09 </h4> </center>
+        <br><hr>
+        {% for item in 0..4 %}
+            {{ item }}
+            {% if(item == 4) %}
+            <br>
+             <b> 4 is coming </b>
+            <br>
+            {% endif %}
+
+        {% else %}
+        count not found
+        {% endfor%}
+
+
+        {% set val="vipultest" %}
+        {{ val|upper }}
+
+        <br>
+
+        {% apply lower %}
+         {{ val }}
+        {% endapply %}
+
+
+
+
+
+{% endblock%}
+
+{% block test %}
+
+    <hr>
+    Custom check
+    <hr>
+
+        <b>Tag check <br>
+
+           {% apply customtagcount %}
+            <br>
+            {{ val }}
+            {% endapply %}
+
+    <hr>
+
+
+        <b>function check <br>
+
+           {{ CustomFunctionReturn('vipul') }}
+
+
+    <hr>
+    Test check
+    <hr>
+        {% set color='red' %}
+
+
+        {% if (color is customTestColor) %}
+            color found...
+        {% endif %}
+    <hr>
+    Filter check
+    <br>
+        {{ 'Twig'|customFilterUpperCase }}
+
+
+{% endblock %}
+{% block arraytest %}
+
+    <hr> Array test
+    {% set v=1 %}
+    {% set arr=[1,32,4] %}
+    {% for i in arr %}
+        <br> ->{{ i }}  <br>
+      sum is {{ i + v }} <br>
+    {% endfor %}
+
+{% endblock %}
+
+
+{% block content %}
+    <hr>embed <br>
+    {% embed "vertical_boxes_skeleton.twig" %}
+        {% block top %}
+            Some content for the top box
+        {% endblock %}
+
+        {% block bottom %}
+            Some content for the bottom box
+        {% endblock %}
+    {% endembed %}
+
+    {% endblock %}
+
