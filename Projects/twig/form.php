@@ -8,8 +8,8 @@
 
  // Render our view
 //echo $twig->render('tag.html.twig', $parameters);
- echo $twig->render('TESTtest.html.twig', $parameters);
-//echo $twig->render('form.twig', $parameters);
+// echo $twig->render('TESTtest.html.twig', $parameters);
+echo $twig->render('form.twig', $parameters);
 
 //echo $twig->render('use.twig', $parameters);
 

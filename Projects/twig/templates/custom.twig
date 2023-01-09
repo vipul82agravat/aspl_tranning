@@ -6,8 +6,30 @@
 
 
 {{ now|date('d/m/Y') }}
-
 <br>
-{{ 'Twig'|vipul }}
+<br>======customFilterUpperCase============<br>
+{{ 'Twig'|customFilterUpperCase }}
 
-{{ vip(1312) }}
+<br>CustomFunctionReturn=======<br>
+{{ CustomFunctionReturn(1312) }}
+
+<br> ==customTestColor======<br>
+
+{% set foo='red' %}
+{{ foo }}
+{% if foo is customTestColor %}
+    ...
+{% endif %}
+
+
+<br>=======customtagcount=====<br>
+
+{% apply customtagcount %}
+Title
+=====
+
+Much better than creating a tag as you can **compose** filters.
+1
+{% endapply %}
+
+
