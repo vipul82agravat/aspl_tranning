@@ -1,0 +1,42 @@
+==============constant=============<br>
+{% set foo='bar' %}
+
+{% if foo is defined %}
+    ...
+{% endif %}
+<br>==============empty=============<br>
+{% set foo='' %}
+
+{% if foo is empty %}
+    ...
+{% endif %}
+
+<br>==============even=============<br>
+{% set foo='1231' %}
+
+{{ foo is even }}
+
+<br>==============odd=============<br>
+{% set foo='123' %}
+
+{{foo is odd}}
+
+
+<br>==============iterable=============<br>
+{% set foo=[1,2,3] %}
+{% if foo is  iterable%}
+yes
+{% else %}
+ no
+{% endif %}
+
+<br>==============null=============<br>
+{% set foo=[1,2,3] %}
+{{ foo is null }}
+
+<br>==============same as=============<br>
+{% set foo=12 %}
+{% set bar=12 %}
+{% if foo.attribute is same as(false) %}
+    the foo attribute really is the 'false' PHP value
+{% endif %}

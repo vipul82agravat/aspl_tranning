@@ -1,0 +1,48 @@
+constant
+    constant checks if a variable has the exact same value as a constant. You can use either global constants or class constants
+
+    {% if post.status is constant('Post::PUBLISHED') %}
+    the status attribute is exactly the same as Post::PUBLISHED
+    {% endif %}
+
+ defined
+
+    defined checks if a variable is defined in the current context. This is very useful if you use the strict_variables option:
+    {% if foo is defined %}
+    ...
+    {% endif %}
+
+    divisible by
+
+        divisible by checks if a variable is divisible by a number:
+
+        {% if loop.index is divisible by(3) %}
+            ...
+        {% endif %}
+
+     empty
+        empty checks if a variable is an empty string, an empty array, an empty hash, exactly false, or exactly null.
+
+            {% if foo is empty %}
+                ...
+            {% endif %}
+
+       even
+            even returns true if the given number is even:
+
+            {{ var is even }}
+
+
+        iterable
+            iterable checks if a variable is an array or a traversable object:
+
+            {% if users is iterable %}
+
+
+            null
+                null returns true if the variable is null:
+                {{ var is null }}
+
+         same as
+            same as checks if a variable is the same as another variable. This is equivalent to === in
+            {% if foo.attribute is same as(false) %}

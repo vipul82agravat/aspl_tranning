@@ -1,0 +1,212 @@
+<br>===================abs==========</br>
+
+{% set number = -5 %}
+
+{{ number|abs }}
+<br>===================batches==========</br>
+
+{% set items = ['a', 'b', 'c', 'd'] %}
+
+<table>
+    {% for row in items|batch(3, 'No item') %}
+        <tr>
+            {% for column in row %}
+                <td>{{ column }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+<br>===================capitalize==========</br>
+
+{{ 'my first car'|capitalize }}
+
+<br>===================column==========</br>
+
+{% set items = [{ 'fruit' : 'apple'}, {'fruit' : 'orange' }] %}
+
+{% set fruits = items|column('fruit') %}
+
+{% for row in fruits%}
+    {{row}}
+{% endfor%}
+
+<br>===================convert_encoding==========</br>
+{% set data=1 %}
+{{ data|convert_encoding('UTF-8', 'iso-2022-jp') }}
+
+<br>===================country_name==========</br>
+{#'FR'|country_name #}
+
+<br>===================currency_name==========</br>
+        {# 'EUR'|currency_name #}
+
+<br>===================currency_symbol==========</br>
+        {# 'EUR'|currency_symbol #}
+
+
+<br>===================date==========</br>
+       {{ "now"|date("m/d/Y") }}
+       <br>
+       {{ post.published_at|date("F jS \\a\\t g:ia") }}
+       <br>Timezone<br>
+       {{ post.published_at|date("m/d/Y", "Europe/Paris") }}
+
+
+<br>===================date_modify==========</br>
+       {{ "now"|date("m/d/Y") }}
+       <br>
+        {{ post.published_at|date_modify("+1 day")|date("m/d/Y") }}
+
+
+
+<br>===================default==========</br>
+      {{ var|default('var is not defined') }}
+      <br>
+      {{ var.foo|default('foo item on var is not defined') }}<br>
+      {{ ''|default('passed var is empty')  }}
+
+
+<br>===================escape==========</br>
+     <p>
+     {% set strategy = 'html' %}
+    {{ strategy|escape }}
+    </p>
+
+
+
+<br>===================filter==========</br>
+     <p>
+    {% set sizes2 = [34, 36, 38, 40, 42] %}
+    {% set sizes = [34, 36, 38, 40, 42] %}
+
+    {{ sizes|filter(v => v > 38)|join(', ') }} <br>
+    {{ sizes2|filter(v => v < 38)|join(', ') }}
+    </p>
+
+
+    <br>===================first==========</br>
+     <p>
+    {{ [1, 2, 3, 4]|first }}<br>
+    {{ { a: 1, b: 2, c: 3, d: 4 }|last }}
+    </p>
+ <br>===================format==========</br>
+     <p>
+    {{ "I like %s and %s."|format(foo, "bar") }}
+    </p>
+
+<br>===================replace==========</br>
+     <p>
+    {{ "I like %this% and %that%."|replace({'%this%': fruit, '%that%': "oranges"}) }}
+    </p>
+<br>===================format_datetime==========</br>
+  {# Aug 7, 2019, 11:39:12 PM #}
+    {{ '2019-08-07 23:39:12' }}
+
+<br>===================join==========</br>
+
+
+    {{ [1, 2, 3]|join }}
+
+ <br>===================json_encode==========</br>
+
+
+   {{ data|json_encode() }}
+
+
+ <br>===================key==========</br>
+
+{% set array=[1,2] %}
+ {% for key in array|keys %}
+    {{key}}
+{% endfor %}
+ <br>===================language_name==========</br>
+
+
+ <br>===================length==========</br>
+
+    {{ [1, 2, 3, 4]|length  }}
+  <br>===================lower==========</br>
+
+    {{ 'WELCOME'|lower }}
+
+   <br>===================map==========</br>
+
+    {% set people = {
+    "Bob": "Smith",
+    "Alice": "Dupond",
+} %}
+    {{ people|map((value, key) => "#{key} #{value}")|join('| ') }}
+
+
+   <br>===================merge==========</br>
+
+    {% set values = [1, 2] %}
+    {% set values = values|merge(['apple', 'orange']) %}
+
+
+    <br>
+    {% set items = { 'apple': 'fruit', 'orange': 'fruit', 'peugeot': 'unknown' } %}
+
+    {% set items = items|merge({ 'peugeot': 'car', 'renault': 'car' }) %}
+    {{items}}
+
+    <br>===================nl2br==========</br>
+
+        {{ "I like Twig.\nYou will like it too."|nl2br }}
+
+    <br>===================reduce==========</br>
+
+       {% set numbers = [1, 2, 3] %}
+
+        {{ numbers|reduce((carry, v) => carry + v +v) }}
+
+    <br>===================reverse==========</br>
+        {% for user in users|reverse %}
+            ...
+        {% endfor %}
+
+        {{ '1234'|reverse }}
+
+
+    <br>===================round==========</br>
+        {{ 42.55|round }}
+
+   <br>===================slice==========</br>
+        {{ '12345'|slice(1, 3) }}
+
+
+   <br>===================slug==========</br>
+       {{ 'Wôrķšƥáçè ~~sèťtïñğš~~' }}
+
+   <br>===================sort==========</br>
+       {% set fruits = [
+        { name: 'Apples', quantity: 5 },
+        { name: 'Oranges', quantity: 2 },
+        { name: 'Grapes', quantity: 4 },
+        ] %}
+
+        {% for fruit in fruits|sort(name)|column('name') %}
+            {{ fruit }}
+        {% endfor %}
+      <br>===================spaceless==========</br>
+        {{
+        "<div>
+            <strong>foo</strong>
+        </div>
+        "|spaceless }}
+
+        <br>===================split==========</br>
+        {% set foo = "123"|split('') %}
+        {{foo}}
+         <br>===================striptags==========</br>
+       {{ some_html|striptags('<br><p>') }}
+
+<br>===================title==========</br>
+       {{'some html'|title }}
+
+<br>===================trim==========</br>
+       {{'some html'|trim}}
+
+ <br>===================url_encode==========</br>
+      {{ "string with spaces"|url_encode }}
