@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% use "blocks.html" with sidebar as base_sidebar, title as base_title %}
+
+{% block sidebar %}{% endblock %}
+{% block title %}{% endblock %}
+{% block content %}{% endblock %}

@@ -1,0 +1,216 @@
+
+Twig Operators
+
+    -The operator precedence is as follows, with the lowest-precedence operators listed first: b-and, b-xor, b-or, or, and, ==, !=, <, >, >=, <=, in, matches, starts with, ends with, .., +, -, ~, *, /, //, %, is, **, |, and [ ]
+
+    Miscellaneous operators
+
+        |
+            The pipe charactor | applies a filter.
+
+                {{ profile.firstName|capitalize }}
+
+        ..
+            The .. operator creates a sequence based on the value before and after the operator.
+
+                {{ 1..5 }} is the same as {{ range(1, 5) }}
+                {% for i in 0..10 %}
+                    {{ i }}<br>
+                {% endfor %}
+
+
+          ~
+
+                The ~ operator converts the value to the left and right of it to strings and concatenates them.
+                {{ "Hello " ~ profile.firstName ~ "!" }}
+
+
+          ?:
+                ?: is the ternary operator. It can be used in it's long-form or short-form.
+
+
+                {{ variable ? variable : 'Variable does not exist' }}
+
+                {{ variable ?: 'Variable does not exist' }}\
+
+
+        ??
+                ?? is the null-coalescing operator.
+
+                    If the left value is defined and not null then it will be returned, otherwise returne the value on the right.
+
+                    {{ variable ?? "value does not exist or is null" }}
+
+
+
+        Comparison
+                The following comparison operators are supported in any expression: ==, !=, <, >, >=, and <=.
+
+                {% if variableA == variableB %}
+                {% endif %}
+
+             ==
+                    Compares the left value equals the right value.
+                    {% if value1 == value2 %}
+                    {% endif %}
+
+             !=
+                Compares the left value to the right value to see if they are not equal.
+                    {% if 3 != 5 %}
+                    {% endif %}
+
+
+             <
+                Compares the left value with the right value to see if the left value is less than the right value.
+                    {% if 3 < 4 %}
+                    {% endif %}
+
+            <=
+                Compares the left value with the right value to see if the left value is less than or equal to the right value.
+                    {% if 3 <= 4 %}
+
+                    {% endif %}
+
+
+              >
+                Compares the left value with the right value to see if the left value is greater than the right value.
+                {% if 4 > 2 %}
+
+                {% endif %}
+              >=
+                Compares the left value with the right value to see if the left value is greater than or equal to the right value.
+
+                {% if 4 >= 2 %}
+                {% endif %}
+
+            starts with
+                    Checks to see if a string starts with a certain value.
+
+                        {% if 'BranchCMS' starts with 'Bran' %}
+                        {% endif %  }\\
+
+
+               ends with
+                    Checks to see if a string ends with a certain value.\
+
+                    {% if 'BranchCMS' ends with 'CMS' %}
+                    {% endif %}\\
+
+
+
+           matches
+
+                    Use a regular expression to check a value.  \
+
+                    {% if phone matches '/^[\\d\\.]+$/' %}
+                    {% endif %}
+
+
+
+
+
+
+        Containment
+            The in operator lets you see if the left value is contained in the right value.
+
+            in
+                =>  The in operator performs a containment test.
+                -it returns true if the left operand is contained in the right.
+
+
+                {% if 1 in [1, 2, 3] %}
+                {% endif %}
+
+                {% if 1 not in [1, 2, 3] %}
+                {% endif %}
+
+
+        Logic
+
+            and
+
+                    Returns true if the left and the right operands are both true. Alternate syntax to &&.
+                    {% if 1 > 2 and 3 == 3 %}
+                    {% endif %}
+
+             &&
+                    Returns true if the left and the right operands are both true. Alternate syntax to and.
+                    {% if 1 > 2 && 3 == 3 %}
+
+                    {% endif %}
+            or
+                    Returns true if the left or the right operand is true. Alternate syntax to ||.
+
+                    {% if 1 > 2 or 3 == 3 %}
+
+                    {% endif %}
+             ||
+                Returns true if the left or the right operand is true. Alternate syntax to or.
+
+                    {% if 1 > 2 || 3 == 3 %}
+                    {% endif %}\
+
+            not
+                    Negates a statement. It can be used with any of the tests. Below are a few examples.
+                    {% if 1 not in [1, 2, 3] %}
+                    {% endif %}
+
+
+        Math
+                Twig allows you to calculate with values.
+
+
+                +
+
+                    Adds two numbers together. If the values are not numbers they are cast as numbers
+
+                    {{ 1 + 1 }} is 2.
+
+                -
+                    Subtracts the second number from the first one.
+                    {{ 3 - 2 }} is 1.
+                /
+                    Divides two numbers. The returned value will be a floating point number.
+
+                        {{ 1 / 2 }} is {{ 0.5 }}.
+
+
+                %
+                    Calculates the remainder of an integer division.
+
+                    {{ 11 % 7 }} is 4.
+
+                //
+                    Divides two numbers and returns the floored integer result.
+
+                    {{ 20 // 7 }} is 2, {{ -20 // 7 }} is -3
+
+
+                *
+                    Multiplies the left value with the right one.
+
+                    {{ 2 * 2 }} = 4
+                **
+
+                    Raises the left value to the power of the right value.
+                    {{ 2 ** 3 }} = 8
+
+          Tests
+
+                The is operator performs tests. Tests can be used to test a variable against a common expression.
+
+
+
+                is
+                    The is operator test a variable against a common expression.
+
+                    {% if number is odd %}
+
+                    {% endif %}
+
+                    {% if foo.attribute is same as(false) %}
+                            the foo attribute really is false.
+                        {% endif %}
+
+                    {% if count is not even %}
+                    {% endif %}

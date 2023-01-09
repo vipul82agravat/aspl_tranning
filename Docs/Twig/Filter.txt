@@ -1,0 +1,265 @@
+abs
+        The abs filter returns the absolute value.
+
+        {{ number|abs }}
+
+ batch
+    The batch filter "batches" items by returning a list of lists with the given number of items. A second parameter can be provided and used to fill in missing items:
+    % for row in items|batch(3, 'No item') %}
+
+  capitalize
+        -The capitalize filter capitalizes a value. The first character will be uppercase, all others lowercase:
+
+            {{ 'my first car'|capitalize }}
+
+
+   column
+        The column filter returns the values from a single column in the input array.
+
+    convert_encoding
+        The convert_encoding filter converts a string from one encoding to another. The first argument is the expected output charset and the second one is the input charset
+            {{ data|convert_encoding('UTF-8', 'iso-2022-jp') }}
+
+     country_name
+        The country_name filter returns the country name given its ISO-3166 two-letter co
+-       {{ 'FR'|country_name }}
+
+        composer require twig/intl-extra
+
+     currency_name
+        The currency_name filter returns the currency name given its three-letter code:
+        https://twig.symfony.com/doc/3.x/filters/currency_name.html
+
+      currency_symbol
+
+            The currency_symbol filter returns the currency symbol given its three-letter code:
+
+            {{ 'EUR'|currency_symbol }}
+
+       data_uri
+            The data_uri filter generates a URL using the data scheme as defined i
+            {{ image_data|data_uri }}
+
+
+        date
+            date filter formats a date to a given format:
+            { post.published_at|date("m/d/Y") }}
+
+            {{ "now"|date("m/d/Y") }}
+
+        date_modify
+                the date_modify filter modifies a date with a given modifier string:
+                {{ post.published_at|date_modify("+1 day")|date("m/d/Y") }}
+         default
+            The default filter returns the passed default value if the value is undefined or empty, otherwise the value of the variable:
+                {{ var|default('var is not defined') }}
+
+          escape
+            -The escape filter escapes a string using strategies that depend on the context.
+
+                <p>
+                        {{ user.username|escape }}
+                    </p>
+
+            filter
+                The filter filter filters elements of a sequence or a mapping using an arrow function.
+
+                {% for k, v in sizes|filter((v, k) => v > 38 and k != "xl") -%}
+                    {{ k }} = {{ v }}
+                {% endfor %}
+
+            first
+                the first filter returns the first "element" of a sequence, a mapping, or a string:
+                        {{ [1, 2, 3, 4]|first }}
+
+             format
+                    The format filter formats a given string by replacing the placeholders
+
+             replace
+                {{ "I like %this% and %that%."|replace({'%this%': fruit, '%that%': "oranges"}) }}
+
+
+             format_currency
+                The format_currency filter formats a number as a currency:
+                {# €1,000,000.00 #}
+                \{{ '1000000'|format_currency('EUR') }}
+
+              format_date
+
+            The format_date filter formats a date.
+                    https://twig.symfony.com/doc/3.x/filters/format_date.html
+
+               format_datetime
+
+                The format_datetime filter formats a date time:
+
+                    {{ '2019-08-07 23:39:12'|format_datetime() }}
+
+              format_number
+                    The format_number filter formats a number:
+
+               format_time
+                    The format_time filter is part of the IntlExtension which is not installed by default. Install it first:
+
+               html_to_markdown
+                    The html_to_markdown filter converts a block of HTML to Markdown:
+                    {% apply html_to_markdown %}
+                        <html>
+                            <h1>Hello!</h1>
+                        </html>
+                    {% endapply %}
+
+
+                inline_css
+
+                The inline_css filter inline CSS styles in HTML documents:
+
+                {% apply inline_css %}
+                    <html>
+                        <head>
+                            <style>
+                                p { color: red; }
+                            </style>
+                        </head>
+                        <body>
+                            <p>Hello CSS!</p>
+                        </body>
+                    </html>
+                {% endapply %}
+
+                {% apply inline_css(source("some_styles.css"), source("another.css")) %}
+                <html>
+                    <body>
+                        <p>Hello CSS!</p>
+                    </body>
+                </html>
+            {% endapply %}
+
+
+            inky_to_html
+                {% apply inky_to_html %}
+                    <row>
+                        <columns large="6"></columns>
+                        <columns large="6"></columns>
+                    </row>
+                {% endapply %}
+                {{ include('some_template.inky.twig')|inky_to_html }}
+
+
+               join
+                    The join filter returns a string which is the concatenation of the items of a sequence:
+
+                    {{ [1, 2, 3]|join }}
+               json_encode
+                    The json_encode filter returns the JSON representation of a value
+
+
+               keys
+                    The keys filter returns the keys of an array. It is useful when you want to iterate over the keys of an array:
+
+                    {% for key in array|keys %}
+                        ...
+                    {% endfor %}
+
+              language_name
+                The language_name filter returns the language name given its two-letter code:
+               {{ 'de'|language_name }}
+
+               length
+                    The length filter returns the number of items of a sequence or mapping, or the length of a string.
+                     {{ [1, 2, 3, 4]|length  }}
+
+                locale_name
+                    The locale_name filter returns the locale name given its two-letter code:
+
+                lower
+                    The lower filter converts a value to lowercase:
+
+                        {{ 'WELCOME'|lower }}
+                 mapping
+                 =>The map filter applies an arrow function to the elements of a sequence or a mapping
+
+                    {% set people = [
+                            {first: "Bob", last: "Smith"},
+                            {first: "Alice", last: "Dupond"},
+                        ] %}
+                markdown_to_html
+                    The markdown_to_html filter converts a block of Markdown to HTML:
+
+                        {% apply markdown_to_html %}
+                        Title
+                        ======
+
+                        Hello!
+                        {% endapply %}
+
+                merge
+                    {% set values = [1, 2] %}
+
+                    {% set values = values|merge(['apple', 'orange']) %}
+
+                nl2br
+                    The nl2br filter inserts HTML line breaks before all newlines in a string:
+
+                reduce
+                    The reduce filter iteratively reduces a sequence or a mapping to a single value using an arrow function, so as to reduce it to a single value. The arrow function receives the return value of the previous iteration and the current value of the sequence or mapping:
+
+                 reverse
+                        The reverse filter reverses a sequence, a mapping, or a string
+
+
+                 round
+                        The round filter rounds a number to a given precision:
+
+                        {{ 42.55|round }}
+                 slice
+                        The slice filter extracts a slice of a sequence, a mapping, or a string:
+
+                            {% for i in [1, 2, 3, 4, 5]|slice(1, 2) %}
+                            {# will iterate over 2 and 3 #}
+                            {% endfor %}
+
+                            {{ '12345'|slice(1, 2) }}
+
+                  slug
+                        The slug filter transforms a given string into another string that only includes safe ASCII characters.
+                        {{ 'Wôrķšƥáçè ~~sèťtïñğš~~'|slug }}
+                        Workspace-settings
+
+                   sort
+                        The sort filter sorts an array:
+
+                    spaceless
+                        Use the spaceless filter to remove whitespace between HTML tags, not whitespace within HTML tags or whitespace in plain text:
+                                            {{
+                        "<div>
+                            <strong>foo</strong>
+                        </div>
+                        "|spaceless }}
+
+                  split
+                        The split filter splits a string by the given delimiter and returns a list of strings:
+
+                        "{% set foo = "one,two,three"|split(',') %}
+
+                   striptags
+                        The striptags filter strips SGML/XML tags and replace adjacent whitespace by one space:
+                        {{ some_html|striptags }}
+
+                    title
+                            The title filter returns a titlecased version of the value. Words will start with uppercase letters, all remaining characters are lowercase:
+
+                            {{ 'my first car'|title }}
+                      trim
+                        The trim filter strips whitespace (or other characters) from the beginning and end of a
+                        {{ '  I like Twig.  '|trim }}
+                      u
+                        -The u filter wraps a text in a Unicode object
+
+                    url_encode
+
+                        The url_encode filter percent encodes a given string as URL segment or an array as query string:
+                        {{ "path-seg*ment"|url_encode }}
+
+
+

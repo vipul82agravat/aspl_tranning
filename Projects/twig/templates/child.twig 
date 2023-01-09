@@ -1,0 +1,9 @@
+{% extends "base.twig" %}
+
+{% block post %}
+  {{ parent() }}
+    <article>
+        <header>11{{ post.title }}</header>
+        <section>{{ post.text }}</section>
+    </article>
+{% endblock %}

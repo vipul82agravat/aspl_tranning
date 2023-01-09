@@ -1,0 +1,84 @@
+<br>===================include==========</br>
+
+{% apply upper %}
+    {% include 'base.html' %}
+{% endapply %}
+<br>===================if==========</br>
+{% if online == false %}
+    <p>Our website is in maintenance mode. Please, come back later.</p>
+{% endif %}
+
+
+<br>===================with==========</br>
+{% with %}
+    {% set foo = 42 %}
+    {{ foo }} {# foo is 42 here #}
+{% endwith %}
+
+<br>=======================<br>
+{% verbatim %}
+    <ul>
+    {% for item in seq %}
+        <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+{% endverbatim %}
+
+
+<br>
+=======Set===============<br>
+{% set foo = 'bar' %}
+{% set foo1 = [1, 2] %}
+{% set foo2 = {'foo': 'bar'} %}
+{% set foo3 = 'foo' ~ 'bar' %}
+{{ foo }}<br>
+{{ foo3 }}<br>
+<br>===</br>
+{% set foo, bar = 'foo', 'bar' %}
+{{foo}}
+{{bar}}
+<br>==========for loop===================<br>
+{% set foo = "" %}
+{% for item in foo1 %}
+
+    {% set foo = item %}
+
+{% endfor %}
+{{foo}}
+<br>===========for loop int=================
+<br>
+{% for i in 0..10 %}
+    * {{ i }}
+{% endfor %}
+
+<br>
+=======  for loop letter ==============<br>
+{% for letter in 'a'..'z' %}
+    * {{ letter }}
+{% endfor %}
+
+<br>======= letter==============<br>
+
+{% for letter in 'a'|upper..'z'|upper %}
+    {{ letter }}
+{% endfor %}
+
+<br>======= loop==============<br>
+
+{% for user in users %}
+    {{ loop.index }} - {{ user.username }}
+{% endfor %}
+
+
+<br>======= The `else` Clause==============<br>
+
+{% for user in users %}
+    {{ loop.index }} - {{ user.username }}
+{% else %}
+        <li><em>no user found</em></li>
+{% endfor %}
+
+<br>======= The `over a Subset`==============<br>
+  {% for user in users|slice(0, 10) %}
+        <li>{{ user.username|e }}</li>
+    {% endfor %}

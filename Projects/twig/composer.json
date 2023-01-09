@@ -1,0 +1,7 @@
+{
+    "require": {
+        "twig/twig": "^3.0",
+        "twig/cache-extra": "^3.5",
+        "twig/intl-extra": "^3.5"
+    }
+}

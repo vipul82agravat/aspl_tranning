@@ -1,0 +1,7 @@
+{% if posts is empty %}
+    {% block head %}
+        {{ parent() }}
+
+        <meta name="robots" content="noindex, follow">
+    {% endblock head %}
+{% endif %}

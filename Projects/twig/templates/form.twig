@@ -1,0 +1,15 @@
+{% import "forms.html" as forms %}
+{% from 'forms.html' import input as input_field, textarea %}
+<p>{{ forms.input('username') }}</p>
+<p>{{ forms.input('password', null, 'password') }}</p>
+<p>{{ forms.input('email') }}</p>
+<p>{{ textarea('comment') }}</p>
+
+
+{% if macros.forms is defined -%}
+    OK
+{% endif %}
+
+{% macro input() %}
+    ...
+{% endmacro input %}
