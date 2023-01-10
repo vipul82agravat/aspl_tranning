@@ -36,7 +36,7 @@
 
 <p>{{ forms.button('submit', 'Submit', 'submit') }}</p>
 
-{% if macros.forms is defined -%}
+{% if macros.forms is defined %}
     OK
 {% endif %}
 
@@ -49,11 +49,11 @@
         <br><hr>
         {% for item in 0..4 %}
             {{ item }}
-            {% if(item == 4) %}
-            <br>
-             <b> 4 is coming </b>
-            <br>
-            {% endif %}
+                {% if(item == 4) %}
+                <br>
+                <b> 4 is coming </b>
+                <br>
+                {% endif %}
 
         {% else %}
         count not found
@@ -126,6 +126,7 @@
 
 
 {% block content %}
+
     <hr>embed <br>
     {% embed "vertical_boxes_skeleton.twig" %}
         {% block top %}
@@ -137,5 +138,13 @@
         {% endblock %}
     {% endembed %}
 
+    {% set ans=0 %}
+    {% for i in arr %}
+       {{i}}
+       {% set ans=i+1 %}
+    {%endfor%}
+    {{ ans }}
+
+        <a href="new123.php?ans={{ans}}" traget='_balnk'>move</a>
     {% endblock %}
 
