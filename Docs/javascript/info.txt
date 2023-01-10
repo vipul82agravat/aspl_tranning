@@ -1,0 +1,296 @@
+What is JavaScript?
+
+-Javascript is a dynamic computer programming language. It is lightweight and most
+commonly used as a part of web pages, whose implementations allow client-side
+script to interact with the user and make dynamic pages.
+
+
+
+    -JavaScript is a lightweight, interpreted programming language.
+    -Designed for creating network-centric applications.
+    -Complementary to and integrated with Java.
+    -Complementary to and integrated with HTML.
+    -Open and cross-platform.
+
+
+
+    Client-Side JavaScript
+
+        -It means that a web page need not be a static HTML, but can include programs that interact with the user, control the browser, and dynamically create HTML content
+
+
+     Advantages of JavaScrip
+
+        -Less server interaction
+        -Immediate feedback to the visitors:
+        -Increased interactivity:
+        -Richer interfaces
+
+    Limitations of JavaScrip
+        --Client-side JavaScript does not allow the reading or writing of files. This has   been kept for security reason.
+        -JavaScript cannot be used for networking applications because there is no such support available
+        -JavaScript doesn't have any multithreading or multiprocessor capabilities
+
+
+     JavaScript Development Tools
+            no neee
+
+
+            JAVASCRIPT – SYNTAX
+
+
+                -JavaScript can be implemented using JavaScript statements that are placed within the <script>... </script> HTML tags in a web page.
+                -You can place the <script> tags, containing your JavaScript, anywhere within you web page, but it is normally recommended that you should keep it within the <head>tags.
+
+
+                    <script ...>
+                    JavaScript code
+                    </script>
+
+                        -Language: This attribute specifies what scripting language you are using.
+                            Typically, its value will be javascript. Although recent versions of HTML (and
+                            XHTML, its successor) have phased out the use of this attribute.
+                        -Type: This attribute is what is now recommended to indicate the scripting
+                        language in use and its value should be set to "text/javascrip
+
+
+                        <script language="javascript" type="text/javascript">
+                            JavaScript code
+                        </script>
+
+
+            Your First JavaScriptCode
+                    The comment ends with a "//-->".
+
+                    -we call a function document.write which writes a string into our HTML document.
+                    example
+                        <html>
+                        <body>
+                        <script language="javascript" type="text/javascript">
+                        <!--
+                        document.write ("Hello World!")
+                        //-->
+                        </script>
+                        </body>
+                        </html>
+
+
+             Whitespace and Line Breaks
+                ignore it
+
+            Semicolons are Optional
+
+            var1 = 10; var2 = 20; (RIGHT)
+            var1 = 10 var2 = 20
+
+
+           Case Sensitivity
+
+                    JavaScript is a case-sensitive language.
+
+            Comments in JavaScript
+
+                -Any text between the characters /* and */ is treated as a comment
+                - JavaScript also recognizes the HTML comment opening sequence <!--.
+                    JavaScript treats this as a single-line comment, just as it does the // comment.
+                     The HTML comment closing sequence --> is not recognized by JavaScript so it
+                    should be written as //-->.
+                <!--
+                // This is a comment. It is similar to comments in C++
+                /*
+                * This is a multiline comment in JavaScript
+                * It is very similar to comments in C Programming
+                */
+                //-->
+
+
+
+
+    -JAVASCRIPT – ENABLING
+                Click the Chrome menu at the top right hand corner of your browser.
+                 Select Settings.
+                 Click Show advanced settings at the end of the page.
+                 Under the Privacy section, click the Content settings button.
+                 In the "Javascript" section, select "Do not allow any site to run JavaScript"
+                or "Allow all sites to run JavaScript (recommended)".
+
+
+    JAVASCRIPT – PLACEMENT
+
+            Script in <head>...</head> section.
+             Script in <body>...</body> section.
+             Script in <body>...</body> and <head>...</head> sections.
+
+
+            EXAMPLE
+
+                <html>
+                <head>
+                <script type="text/javascript">
+                <!--
+                function sayHello() {
+                alert("Hello World")
+                }
+                //-->
+                </script>
+                </head>
+                <body>
+                Click here for the result
+                <input type="button" onclick="sayHello()" value="Say Hello" />
+
+
+
+
+
+    JavaScript in External File
+
+        -file and then include it into your HTML files.
+
+        -Here is an example to show how you can include an external JavaScript file in your HTML code using script tag and its src attribute.
+        -<script type="text/javascript" src="filename.js" ></script>
+
+        For example, you can keep the following content in filename.js file and then you can use sayHello function in your HTML file after including the filename.js file.
+
+        function sayHello() {
+        alert("Hello World")
+        }
+
+
+    JAVASCRIPT – VARIABLES
+        -JavaScript Datatypes
+            -One of the most fundamental characteristics of a programming language is the set of data types it supports
+            -JavaScript allows you to work with three primitive data types:
+                Numbers, e.g., 123, 120.50 etc.
+
+                Strings of text, e.g. "This text string" etc.
+
+                 Boolean, e.g. true or false.
+
+      JavaScript Variables
+
+        -Before you use a variable in a JavaScript program, you must declare it. Variables are declared with the var keyword as follows.
+        -var money;
+        -o declare multiple variables with the same var keyword as follows:
+        -vat ne,two;
+
+        -Storing a value in a variable is called variable initialization
+
+
+-JavaScript Variable Scope
+        -Global Variables
+        -Local Variables:
+
+        Global Variables: A global variable has global scope which means it can be defined anywhere in your JavaScript code.
+
+         Local Variables: A local variable will be visible only within a function where it is defined. Function parameters are always local to that function.
+
+
+            var myVar = "global";
+                // Declare a global variable
+
+            function checkscope( ) {
+            var myVar = "local";
+            // Declare a local variable
+            document.write(myVar);
+            }
+    JavaScript Variable Names
+
+        -JavaScript variable names should not start with a numeral (0-9). T
+        -begin with a letter or an underscore character
+        -JavaScript variable names are case-sensitive. For example, Name and name are two different variable
+
+  JavaScript Reserved Words
+
+        A list of all the reserved words in JavaScript are given in the following table. They
+cannot be used as JavaScript variables, functions, methods, loop labels, or any object
+names.
+
+        -abstract
+            boolean
+            break
+            byte
+            case
+            catch
+            char
+            class
+            const
+            continue
+            debugger
+            default
+            delete
+            do
+            double
+
+            -else
+            enum
+            export
+            extends
+            false
+            final
+            finally
+            float
+            for
+            function
+            goto
+            if
+            implements
+            import
+            in
+
+                Instanceof
+                int
+                interface
+                long
+                native
+                new
+                null
+                package
+                private
+                protected
+                public
+                return
+                short
+                static
+                super
+
+               switch
+                synchronized
+                this
+                throw
+                throws
+                transient
+                true
+                try
+                typeof
+                var
+                void
+                volatile
+                while
+                with
+
+
+
+           6.JAVASCRIPT – OPERATORS
+
+           -Let us take a simple expression 4 + 5 is equal to 9. Here 4 and 5 are called operands and ‘+’ is called the operator.
+
+            Arithmetic Operators (+,-,*,/,%,++,--)
+             Comparison Operators (==,!=,>,<,<=,>=)
+             Logical (or Relational) Operators (&&,||,!,)
+             Assignment Operators(=,+=,-=,*=,/=,%=)
+             Conditional (or ternary) Operators(?)
+
+
+
+            typeof Operator
+                The typeof operator is a unary operator that is placed before its single operand, which can be of any type. Its value is a string indicating the data type of the operand.
+                Number,
+                String,
+                Boolean,
+                Object,
+                Function,
+                Undefined,
+                Null,
+
+
+

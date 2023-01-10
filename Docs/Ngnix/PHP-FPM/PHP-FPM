@@ -46,3 +46,23 @@ PHP -FPM
             fastcgi_index index.php;
             include fastcgi.conf;
     }
+
+
+
+    pool
+        -Each site is also deployed with a PHP-FPM resource pool, which is owned by the site user. This prevents PHP scripts from reading or modifying files outside of the current site’s root directory. Meaning, if a malicious user were to gain access to a site on your server, they would be unable to infect other sites.
+
+        -The system creates a pool when the /var/cpanel/userdata/[user]/[domain].php_fpm.yaml configuration file exists in the domain. This file must include the following lines:
+
+        _is_present: 1
+
+
+        create a pool
+
+        -To create a pool, run the Cpanel::PHPFPM::rebuild_files() function.
+
+        You may also run the /scripts/php_fpm_config --rebuild script to create a pool.
+
+        The system scans for the /var/cpanel/ApachePHPFPM/system.yaml and /var/cpanel/ApachePHPFPM/system_pool_defaults.yaml files and then generates a system configuration for each of the PHP versions.
+
+        -The system searches for the domain’s yaml files.
