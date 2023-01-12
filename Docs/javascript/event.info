@@ -1,0 +1,44 @@
+-HTML events are "things" that happen to HTML elements.
+-The change in the state of an object is known as an Event
+
+HTML Events
+    An HTML web page has finished loading
+    An HTML input field was changed
+    An HTML button was clicked
+
+
+    elements
+        <element event='some JavaScript'>
+        <element event="some JavaScript">
+
+
+
+                <button onclick="document.getElementById('demo').innerHTML=Date()">The time is?</button>
+
+                <p id="demo"></p>
+
+
+         Common HTML Events
+
+            onchange	An HTML element has been changed
+            onclick	    The user clicks an HTML element
+            onmouseover	The user moves the mouse over an HTML element
+            onmouseout	The user moves the mouse away from an HTML element
+            onkeydown	The user pushes a keyboard key
+            onload	    The browser has finished loading the page
+
+        Keyboard events:
+            Keydown & Keyup
+
+        Form events:
+
+            focus   When the user focuses on an element
+            submit	onsubmit	When the user submits the form
+            blur	onblur	When the focus is away from a form element
+            change	onchange	When the user modifies or changes the value of a form element
+
+       Window/Document events
+
+            load	onload	When the browser finishes the loading of the page
+            unload	onunload	When the visitor leaves the current webpage, the browser unloads it
+            resize	onresize	When the visitor resizes the window of the browser

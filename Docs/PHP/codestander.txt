@@ -1,0 +1,83 @@
+    https://www.php-fig.org/psr/psr-1/
+
+PSR-1: Basic Coding Standard
+
+        This section of the standard comprises what should be considered the standard coding elements that are required to ensure a high level of technical interoperability between shared PHP code.
+
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
+
+            -Files MUST use only <?php and <?= tags.
+            -Files MUST use only UTF-8 without BOM for PHP code.
+            -Files SHOULD either declare symbols (classes, functions, constants, etc.) or cause side-effects (e.g. generate output, change .ini settings, etc.) but SHOULD NOT do both.
+            -Namespaces and classes MUST follow an "autoloading" PSR: [PSR-0, PSR-4].
+            -Class names MUST be declared in StudlyCaps.
+            -Class constants MUST be declared in all upper case with underscore separators.
+            -Method names MUST be declared in camelCase.
+
+
+            Example
+                <?php
+                // side effect: change ini settings
+                ini_set('error_reporting', E_ALL);
+
+                // side effect: loads a file
+                include "file.php";
+
+                // side effect: generates output
+                echo "<html>\n";
+
+                // declaration
+                function foo()
+                {
+                    // function body
+                }
+
+
+         Namespace and Class Names
+            -This means each class is in a file by itself, and is in a namespace of at least one level: a top-level vendor name
+            -Class names MUST be declared in StudlyCaps.
+
+
+                <?php
+                // PHP 5.3 and later:
+                namespace Vendor\Model;
+
+                class Foo
+                {
+                }
+
+        Class Constants, Properties, and Methods
+
+            -Class constants MUST be declared in all upper case with underscore separators
+
+
+                <?php
+                    namespace Vendor\Model;
+
+                    class Foo
+                    {
+                        const VERSION = '1.0';
+                        const DATE_APPROVED = '2012-06-01';
+                    }
+         Properties
+
+            -This guide intentionally avoids any recommendation regarding the use of $StudlyCaps, $camelCase, or $under_score property names.
+
+
+        Methods
+
+            Method names MUST be declared in camelCase().
+
+
+
+
+   -====================================================================
+
+https://www.php-fig.org/psr/psr-2/
+
+
+            PSR-2: Coding Style Guide
+
+                -This guide extends and expands on PSR-1, the basic coding standard.
+
+https://www.php-fig.org/psr/psr-3/

@@ -11,6 +11,32 @@
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<link href="css/styles.css" rel="stylesheet">
+		<script>
+            function saveDetails() {
+
+                // Creating the XMLHttpRequest object
+                var request = new XMLHttpRequest();
+
+                // Instantiating the request object
+                request.open("POST", "http://aspl.webapp.aum/oop/Controller/InsertData.php?ajax=1");
+
+                // Defining event listener for readystatechange event
+                request.onreadystatechange = function() {
+                    // Check if the request is compete and was successful
+                    if(this.readyState === 4 && this.status === 200) {
+                        // Inserting the response from server into an HTML element
+                        document.getElementById("result").innerHTML = this.responseText;
+                    }
+                };
+
+                // Retrieving the form data
+                var myForm = document.getElementById("myForm");
+                var formData = new FormData(myForm);
+
+                // Sending the request to the server
+                request.send(formData);
+        }
+</script>
 	</head>
 	<body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -43,7 +69,7 @@
     <div class="row">
       <div class="col-xs-12">
 <!--         <h3>Insert Data In Databse using PHP OOPS Concept</h3> -->
-		<form name="insert" action="../Controller/InsertData.php" method="post" enctype="multipart/form-data">
+		<form name="insert" action="../Controller/InsertData.php" method="post" enctype="multipart/form-data" id="myForm">
        <table width="100%"  border="0">
   <tr>
     <th width="26%" height="60" scope="row">Frist Name :</th>
@@ -100,13 +126,16 @@
 	<input type="checkbox" name="hobbies" value="traveling" required /> Traveling</td>
   </tr>-->
   <tr>
-    <th height="60" scope="row">&nbsp;</th>
-    <td><input type="submit" value="Submit" name="submit" class="btn-primary" /></td>
+    <th height="60" scope="row">&nbsp;</th><td>
+     <button type="button" onclick="saveDetails()">Submit With Ajax</button>|
+     <input type="submit" value="Submit" name="submit" class="btn-primary" />|<input type="submit" value="Reset" name="submit" class="btn-primary" /></td>
   </tr>
 </table>
 
      </form>
- 
+     <div id="result">
+        <p></p>
+    </div>
       </div>
     </div>
     <hr>

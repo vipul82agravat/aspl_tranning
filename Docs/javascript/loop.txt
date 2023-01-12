@@ -1,0 +1,178 @@
+JavaScript For Loop
+
+    -Loops can execute a block of code a number of times.
+    -Loops are handy, if you want to run the same code over and over again, each time with a different value. in code
+    -Often this is the case when working with arrays:
+
+    text += cars[0] + "<br>";
+    text += cars[1] + "<br>";
+    text += cars[2] + "<br>";
+
+    example
+        for (let i = 0; i < cars.length; i++) {
+            text += cars[i] + "<br>";
+    }
+
+
+    Different Kinds of Loops
+
+        for - loops through a block of code a number of times
+        for/in - loops through the properties of an object
+        for/of - loops through the values of an iterable object
+        while - loops through a block of code while a specified condition is true
+        do/while - also loops through a block of code while a specified condition is true
+
+    The For Loop
+
+        -nitialization, condition, and increment/decrement in one line thereby providing a shorter, easy-to-debug structure of looping. Syntax:
+
+        -The for statement creates a loop with 3 optional expressions:
+
+        Expression 1 is executed (one time) before the execution of the code block.
+
+        Expression 2 defines the condition for executing the code block.
+
+        Expression 3 is executed (every time) after the code block has been executed.
+
+
+        Example
+
+            for (let i = 0; i < 5; i++) {
+            text += "The number is " + i + "<br>";
+            }
+
+            Expression 1 sets a variable before the loop starts (let i = 0).
+
+            Expression 2 defines the condition for the loop to run (i must be less than 5).
+
+            Expression 3 increases a value (i++) each time the code block in the loop has been executed.
+
+
+        Loop Scope
+
+            var
+            let
+            Using var in a loop:
+
+            for (var i = 0; i < 10; i++) {
+            // some code
+            }
+
+            Using let in a loop:
+
+                let i = 5;
+
+                for (let i = 0; i < 10; i++) {
+                }
+
+
+             var
+                -In the first example, using var, the variable declared in the loop redeclares the variable outside the loop.
+
+             let
+                -When let is used to declare the i variable in a loop, the i variable will only be visible within the loop.
+
+                -n the second example, using let, the variable declared in the loop does not redeclare the variable outside the loop.
+
+         The For In Loop
+
+            -The JavaScript for in statement loops through the properties of an Object:
+
+                for (key in object) {
+                // code block to be executed
+                }
+
+                example
+
+                const person = {fname:"John", lname:"Doe", age:25};
+                let text = "";
+                for (let x in person) {
+                text += person[x];
+
+                }
+
+                For In Over Arrays
+
+                    -The JavaScript for in statement can also loop over the properties of an Array:
+
+                    for (variable in array) {
+                        code
+                        }
+
+
+                 Array.forEach()
+
+                    -numbers.forEach(myFunction);
+                    -
+                        function myFunction(value, index, array) {
+                        txt += value;
+                        }
+
+            The For Of Loop
+
+                -The JavaScript for of statement loops through the values of an iterable object.
+
+                    const cars = ["BMW", "Volvo", "Mini"];
+
+                        let text = "";
+                        for (let x of cars) {
+                        text += x;
+                        }
+
+
+
+         While Loops
+            -the while loop loops through a block of code as long as a specified condition is true.
+            - while loop is a control flow statement that allows code to be executed repeatedly based on a given Boolean condition.
+            while (condition) {
+            // code block to be executed
+            }
+            while (i < 10) {
+                text += "The number is " + i;
+                i++;
+            }
+
+
+            while (boolean condition)
+            {
+                loop statements...
+            }
+            -While loop starts with checking the condition. If it is evaluated to be true, then the loop body statements are executed otherwise first statement following the loop is executed. For this reason, it is also called the Entry control loop
+
+            -Once the condition is evaluated to be true, the statements in the loop body are executed. Normally the statements contain an update value for the variable being processed for the next iteration.
+
+            -When the condition becomes false, the loop terminates which marks the end of its life cycle.
+        The Do While Loop
+            -The do while loop is a variant of the while loop. This loop will execute the code block once, before checking if the condition is true, then it will repeat the loop as long as the condition is true.
+
+            do {
+            // code block to be executed
+            }
+            while (condition);
+
+
+            -The example below uses a do while loop. The loop will always be executed at least once, even if the condition is false, because the code block is executed before the condition is tested:
+
+            Exanple
+
+                    do {
+                text += "The number is " + i;
+                i++;
+                }
+                while (i < 10);
+
+
+           do-while:
+                The do-while loop is similar to the while loop with the only difference that it checks for the condition after executing the statements, and therefore is an example of an Exit Control Loop
+                do
+                {
+                    statements..
+                }
+                while (condition);
+
+                -The do-while loop starts with the execution of the statement(s). There is no checking of any condition for the first time.
+                -After the execution of the statements, and update of the variable value, the condition is checked for a true or false value. If it is evaluated to be true, the next iteration of the loop starts.
+
+
+            Infinite loop:
+                One of the most common mistakes while implementing any sort of looping is that it may not ever exit, that is the loop runs for infinite times. This happens when the condition fails for some reason.

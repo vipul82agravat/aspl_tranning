@@ -1,0 +1,167 @@
+ 
+-Namespace
+-Singleton
+-Module
+-Prototype
+
+
+
+    Namespace
+
+        -Namespacing in JavaScript
+
+            - Static Namespacing
+
+                -using static namespacing as an umbrella term for solutions in which the namespace label is effectively hard coded.
+                -you could re-assign one namespace to another but the new namespace will reference the same objects as the old one.
+
+
+
+                 1 By Direct Assignment
+
+                    -var myApp = {}
+                    myApp.id = 0;
+
+                    myApp.next = function() {
+                        return myApp.id++;
+                    }
+
+                    myApp.reset = function() {
+                        myApp.id = 0;
+                    }
+
+                    window.console && console.log(
+                        myApp.next(),
+                        myApp.next(),
+                        myApp.reset(),
+                        myApp.next()
+                    ); //0, 1, undefined, 0
+
+                  -You could make future maintenance a little easier by using this to reference sibling properties – but this is a little risky since there is nothing to stop your namespaced functions from being reassigned:
+
+
+
+             -2 Using Object Literal Notation
+
+                -Now we need only refer to the namespace name once, so switching the name later is a little easier (assuming you haven’t already referenced the namespace too often). There is still a danger that the value of this might throw a surprise – but its a little safer to assume that objects defined within an object literal construct will not be reassigned.
+
+
+
+                var myApp = {
+
+                    id: 0,
+
+                    next: function() {
+                        return this.id++;
+                    },
+
+                    reset: function() {
+                        this.id = 0;
+                    }
+                }
+
+                window.console && console.log(
+                    myApp.next(),
+                    myApp.next(),
+                    myApp.reset(),
+                    myApp.next()
+                )
+
+            -3 The Module Pattern
+                he logic is shielded from the global scope by a function wrapper (usually self-invoking) which returns an object representing the module’s public interface
+
+                var myApp = (function() {
+
+                    var id= 0;
+
+                    return {
+                        next: function() {
+                            return id++;
+                        },
+
+                        reset: function() {
+                            id = 0;
+                        }
+                    };
+                })();
+
+
+
+           Dynamic Namespacing
+
+                --We could also call this section namespace injection
+                - which means we no longer have to bundle up a return value to assign to the namespace
+                -. This makes namespace definition more flexible and makes it very easy to have multiple independent instances of a module existing in separate namespaces (or even in the global context).
+                -Dynamic namespacing supports all the features of the module pattern with the added advantage of being intuitive and readable.
+
+           4 Supply a Namespace Argument
+
+                Here we simply pass the namespace as an argument to a self-invoking function. The id variable is private because it does not get assigned to the context.
+
+
+                var myApp = {};
+                    (function(context) {
+                        var id = 0;
+
+                        context.next = function() {
+                            return id++;
+                        };
+
+                        context.reset = function() {
+                            id = 0;
+                        }
+                    })(myApp);
+
+                  window.console && console.log(
+                    myApp.next(),
+                    myApp.next(),
+                    myApp.reset(),
+                    myApp.next()
+                )
+
+                    We can even set the context to the global object (with a one word change!).
+                    var myApp = {};
+                    (function(context) {
+                        var id = 0;
+
+                        context.next = function() {
+                            return id++;
+                        };
+
+                        context.reset = function() {
+                            id = 0;
+                        }
+                    })(this);
+                    window.console && console.log(
+                        next(),
+                        next(),
+                        reset(),
+                        next()
+                    )
+
+                5  Use this as a Namespace Proxy
+                    -The beauty of the pattern is that it simply uses the language as designed – nothing more, nothing less, no tricks, no sugar.
+                    -Moreover because the namespace is injected via the this keyword (which is static within a given execution context) it cannot be accidentally modified.
+
+
+                    var myApp = {};
+                        (function() {
+                            var id = 0;
+
+                            this.next = function() {
+                                return id++;
+                            };
+
+                            this.reset = function() {
+                                id = 0;
+                            }
+                        }).apply(myApp);
+                        window.console && console.log(
+                            myApp.next(),
+                            myApp.next(),
+                            myApp.reset(),
+                            myApp.next()
+                        );
+
+
+                      - apply (and call) APIs provide natural separation of context and arguments – so passing additional arguments to the module creator is very clean.

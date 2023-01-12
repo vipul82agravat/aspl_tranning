@@ -1,0 +1,123 @@
+AJAX Introduction
+    AJAX = Asynchronous JavaScript And XML.
+
+    -   Read data from a web server - after the page has loaded
+    -   Update a web page without reloading the page
+    -   Send data to a web server - in the background
+
+
+        1. An event occurs in a web page (the page is loaded, a button is clicked)
+        2. An XMLHttpRequest object is created by JavaScript
+        3. The XMLHttpRequest object sends a request to a web server
+        4. The server processes the request
+        5. The server sends a response back to the web page
+        6. The response is read by JavaScript
+        7. Proper action (like page update) is performed by JavaScript
+
+        -Ajax stands for Asynchronous Javascript And Xml. Ajax is just a means of loading data from the server and selectively updating parts of a web page without reloading the whole page.
+
+        -Basically, what Ajax does is make use of the browser's built-in XMLHttpRequest (XHR) object to send and receive information to and from a web server asynchronously, in the background, without blocking the page or interfering with the user's experience.
+
+        -can send and receive information in various formats, including JSON, XML, HTML, and text files
+       Sending Request and Retrieving the Response
+
+            -Before you perform Ajax communication between client and server, the first thing you must do is to instantiate an XMLHttpRequest object, as shown below:
+                var request = new XMLHttpRequest();
+            -Now, the next step in sending the request to the server is to instantiating the newly-created request object using the open() method of the XMLHttpRequest objec
+            -The GET method is generally used to send small amount of data to the server. Whereas, the POST method is used to send large amount of data, such as form data.
+
+
+
+            Performing an Ajax GET Request
+
+
+                UNSENT
+                    0 An XMLHttpRequest object has been created, but the open() method hasn't been called yet (i.e. request not initialized).
+                OPENED
+
+                    The open() method has been called (i.e. server connection established).
+               HEADERS_RECEIVED
+                    The send() method has been called (i.e. server has received the request).
+               LOADING
+
+                    The server is processing the request.
+
+               DONE
+                -The request has been processed and the response is ready
+
+
+
+
+                Response code
+
+                    200 — OK. The server successfully processed the request.
+                    404 — Not Found. The server can't find the requested page.
+                    503 — Service Unavailable. The server is temporarily unavailable.
+
+
+
+
+
+        Step 1 – How to make an HTTP request
+
+            const httpRequest = new XMLHttpRequest();
+
+
+            After making a request, you will receive a response back. At this stage, you need to tell the XMLHttpRequest object which JavaScript function will handle the response, by setting the onreadystatechange property of the object to the function called when the request changes state, like this:
+
+
+            httpRequest.onreadystatechange = () => {
+                // Process the server response here.
+            };
+
+            Next, after declaring what happens when you receive the response, you need to actually make the request, by calling the open() and send() methods of the HTTP request object, like this
+
+            httpRequest.open('GET', 'http://www.example.org/some.file', true);
+
+            httpRequest.send();
+
+            The first parameter of the call to open() is the HTTP request method – GET, POST, HEAD, or another method supported by your server. Keep the method all-capitals as per the HTTP standard, otherwise some browsers (like Firefox) might not process the request.
+
+            The second parameter is the URL you're sending the request to.
+
+            The optional third parameter sets whether the request is asynchronous. If true (the default), JavaScript execution will continue and the user can interact with the page while the server response has yet to arrive
+
+
+        Step 2 – Handling the server response
+            httpRequest.onreadystatechange = nameOfTheFunction;
+
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                // Everything is good, the response was received.
+            } else {
+                // Not ready yet.
+            }
+
+            0 (uninitialized) or (request not initialized)
+            1 (loading) or (server connection established)
+            2 (loaded) or (request received)
+            3 (interactive) or (processing request)
+            4 (complete) or (request finished and response is ready)
+
+
+
+            -httpRequest.responseText – returns the server response as a string of text
+
+            -httpRequest.responseXML – returns the response as an XMLDocument object you can traverse with JavaScript DOM functions
+
+            https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started
+
+
+        Step 3 – A Simple Example
+
+
+        Step 5 – Working with data
+
+        function makeRequest(url, userName) {
+
+                // …
+
+                httpRequest.onreadystatechange = alertContents;
+                httpRequest.open('POST', url);
+                httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                httpRequest.send(`userName=${encodeURIComponent(userName)}`);
+                }

@@ -4,9 +4,19 @@
 
 {% block head %}
     {{ parent() }}
+
     <style type="text/css">
+
         .important { color: #336699; }
+
     </style>
+    {% if bgcolor==1 %}
+    <style type="text/css">
+        body {
+            background-color: coral;
+        }
+    </style>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -24,6 +34,8 @@
 
 {% block footer %}
     &copy; Copyright 2011 by <a href="http://domain.invalid/">you</a>.
+    <br><a href="tagdemo.php" target="_blank">Back to Normal</a>
+    <br><a href="tagdemo.php?color=1" target="_blank">Change background color</a>
 {% endblock %}
 
 {% deprecated 'The "base.twig" template is deprecated, use "layout.twig" instead.' %}
