@@ -1,0 +1,28 @@
+
+JavaScript Singleton
+
+--The Singleton Pattern limits the number of instances of a particular object to just one. This single instance is called the singleton.
+
+
+Using Singleton
+
+    -Singletons are useful in situations where system-wide actions need to be coordinated from a single central place.
+
+    -An example is a database connection pool. The pool manages the creation, destruction, and lifetime of all database connections for the entire application ensuring that no connections are 'lost'.
+
+    -Several other patterns, such as, Factory, Prototype, and Façade are frequently implemented as Singletons when only one instance is needed.x
+
+
+
+    Participants
+
+        -defines getInstance() which returns the unique instance.
+        -responsible for creating and managing the instance object.
+
+
+     Example
+        -the Singleton object is implemented as an immediate anonymous function.
+        -mmediately by wrapping it in brackets followed by two additional brackets. It is called anonymous because it doesn't have a name.
+
+        -The getInstance method is Singleton's gatekeeper. It returns the one and only instance of the object
+        -The getInstance method demonstates another design pattern called Lazy Load. Lazy Load checks if an instance has already been created; if not, it creates one and stores it for future reference. All subsequent calls will receive the stored instance.

@@ -49,7 +49,9 @@ class InsertData extends Mastercls{
 
       $saveResponse=$insertData->SaveDetails($table,$column,$data);
       if($saveResponse['status']==1){
-
+           if(isset($_GET['ajax']) and $_GET['ajax']!=null);{
+            echo "You regisitraion details save successfully";exit;
+            }
           header('Location:../views/index.php?message='.$Saveresponse['message']);
       }
 

@@ -1,0 +1,68 @@
+{% import "reg_forms.html" as forms %}
+{% from 'forms.html' import input as input_field, textarea %}
+
+    {% block head %}
+      <u> <b> Registration html for load</b></u>
+
+        <script language="javascript" type="text/javascript">
+            function saveDetails() {
+
+             var request = new XMLHttpRequest();
+
+              request.open("POST", "ajaxreq.php");
+
+              // Defining event listener for readystatechange event
+                                 request.onreadystatechange = function() {
+                    // Check if the request is compete and was successful
+                    if(this.readyState === 4 && this.status === 200) {
+                        // Inserting the response from server into an HTML element
+                        document.getElementById("result").innerHTML = this.responseText;
+                    }
+                };
+
+                // Retrieving the form data
+                var myForm = document.getElementById("myForm");
+                var formData = new FormData(myForm);
+
+                // Sending the request to the server
+                request.send(formData);
+           }
+
+        </script>
+    {% endblock %}
+
+    {% block body %}
+        <h4>Dyanmic form</h4>
+        <br><hr>
+    {% endblock%}
+<p>{{ forms.form('form') }}</p>
+<p>{{ forms.input('username') }}</p>
+
+<p>{{ forms.input('email',null,'email') }}</p>
+<p>{{ forms.input('password', null, 'password') }}</p>
+<p>{{ forms.image('img') }}</p>
+<p>{{ textarea('comment') }}</p>
+
+<p>{{ forms.input('gender','male','radio') }}
+{{ forms.radio('gender','female','radio') }}</p>
+
+
+<p>{{ forms.input('hobbies','read','checkbox') }}
+{{ forms.checkox('hobbies','teaching') }}</p>
+
+
+<p>{{ forms.button('submit', 'Submit', 'submit') }}</p>
+
+{% if macros.forms is defined %}
+    OK
+{% endif %}
+
+{% macro input() %}
+    ...
+{% endmacro input %}
+{% block footer %}
+
+ <div id="result">
+        <p></p>
+    </div>
+{% endblock%}

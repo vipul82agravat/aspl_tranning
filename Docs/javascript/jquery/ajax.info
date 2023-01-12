@@ -1,0 +1,134 @@
+ 
+    AJAX is the art of exchanging data with a server, and updating parts of a web page - without reloading the whole page.
+    In short; AJAX is about loading data in the background and display it on the webpage, without reloading the whole page.
+    Examples of applications using AJAX: Gmail, Google Maps, Youtube, and Facebook tabs.
+
+
+    jQuery ajax() Method
+
+    $.ajax(url);
+
+
+
+    The following table list all the options available for configuring Ajax request.
+
+    accepts
+        The content type sent in the request header that tells the server what kind of response it will accept in return.
+    async
+        By default, all requests are sent asynchronously. Set it false to make it synchronous.
+
+    beforeSend
+
+        A callback function to be executed before Ajax request is sent.
+
+    cache
+        A boolean indicating browser cache. Default is true.
+
+    complete
+
+        A callback function to be executed when request finishes.
+
+    contentType
+
+            A string containing a type of content when sending MIME content to the server.Default is "application/x-www-form-urlencoded; charset=UTF-8"
+
+    crossDomain
+            A boolean value indicating whether a request is a cross-domain.
+
+    data
+
+        A data to be sent to the server. It can be JSON object, string or array.
+
+    dataType
+        The type of data that you're expecting back from the server.
+
+    error
+         A callback function to be executed when the request fails.
+     global
+
+         Boolean indicating whether to trigger a global Ajax request handler or not. Default is true.
+
+
+    headers
+        an object of additional header key/value pairs to send along with request.
+
+     ifModified
+
+        Allow the request to be successful only if the response has changed since the last request. This is done by checking the Last-Modified header. Default value is false.
+
+    isLocal
+            Allow the current environment to be recognized as local.
+
+    jsonp
+
+        -Override the callback function name in a JSONP request. This value will be used instead of 'callback' in the 'callback=?' part of the query string in the url.
+
+     jsonpCallback
+
+        String containing the callback function name for a JSONP request.
+
+     mimeType
+        String containing a mime type to override the XMLHttpRequest mime type.
+     password
+        A password to be used with XMLHttpRequest in response to an HTTP access authentication request.
+
+
+    processData
+        A Boolean indicating whether data assigned to data option will be converted to a query string. Default is true.
+
+   statusCode
+
+        A JSON object containing numeric HTTP codes and functions to be called when the response has the corresponding code.
+
+    success
+        A callback function to be executed when Ajax request succeeds.
+
+    timeout
+        A number value in milliseconds for the request timeout.
+    type
+        A type of http request e.g. POST, PUT and GET. Default is GET.
+
+
+     url
+        A string containing the URL to which the request is sent.
+
+    username
+
+            A username to be used with XMLHttpRequest in response to an HTTP access authentication request.
+    xhr
+            A callback for creating the XMLHttpRequest object.
+
+    xhrFields
+            An object of fieldName-fieldValue pairs to set on the native XMLHttpRequest object.
+
+
+
+
+            Exmaple
+
+                $.ajax('/jquery/getdata',   // request url
+                    {
+                        success: function (data, status, xhr) {// success callback function
+                            $('p').append(data);
+                    }
+                });
+
+           Send Http POST request using ajax()
+
+            $.ajax('/jquery/submitData', {
+                type: 'POST',  // http method
+                data: { myData: 'This is my data.' },  // data to submit
+                success: function (data, status, xhr) {
+                    $('p').append('status: ' + status + ', data: ' + data);
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                        $('p').append('Error' + errorMessage);
+                }
+        });
+            <p></p>
+
+
+
+
+
+            =>Then, within the <script> tag write jQuery's ready() function, and write the ajax() method in its body. Now, we can pass the parameters to the ajax() function.

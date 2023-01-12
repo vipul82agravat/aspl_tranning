@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <title>Date piker </title>
+<link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
+rel='stylesheet'>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" >
+    </script>
+    <script>
+$(document).ready(function(){
+ $('#new_date_picker').hide();
+
+  $(function(){
+
+   $('#my_date_picker').datepicker();
+
+  });
+
+});
+    function openDate(){
+    alert('d');
+    $('#new_date_picker').show();
+    $('#new_date_picker').datepicker();
+    $('p').html('New datepicker is load when button is click by some one');
+  }
+</script>
+</head>
+<body>
+Date: <input type="date" id="date">
+<br>
+Date picker: <input type="text" id="my_date_picker">
+
+
+
+<input type="submit" value="show datepicker" onclick="openDate()">
+<br>
+New Date picker: <input type="text" id="new_date_picker">
+<br>
+<p id='res'> data is:</p>
+</body>
+
+</html

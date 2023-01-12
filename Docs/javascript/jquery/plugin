@@ -1,0 +1,9 @@
+jQuery UI | Date Picker
+
+
+    A date-picker of jQuery UI is used to provide a calendar to the user to select the date from a Calendar. This date picker usually connected to a text-box so user selection of date from the calendar can be transferred to the textbox,
+
+    We will use the CDN link for different libraries and styles.
+
+
+    https://bxslider.com/install/

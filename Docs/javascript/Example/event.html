@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<!-- <body> -->
+<body onload="window.alert('Page successfully loaded');">
+
+<button onclick="document.getElementById('demo').innerHTML=Date()">The time is?</button>
+<button onclick="displayDate()">The time is used By function?</button>
+<p id="demo"></p>
+<p id="demo1"></p>
+
+
+<p onmouseover="mouseoverevent()"> Keep cursor over me</p>
+
+<input type="text" id="input1" onfocus="focusevent()"/>
+
+<input type="text" id="input1" onkeydown="keydownevent()"/>
+</body>
+</html>
+
+
+<script>
+function displayDate() {
+  document.getElementById("demo1").innerHTML = Date();
+}
+ function mouseoverevent()
+    {
+        alert("This is Mouse change");
+    }
+
+    function focusevent()
+    {
+        document.getElementById("input1").style.background=" aqua";
+    }
+     function keydownevent()
+    {
+        document.getElementById("input1");
+        alert("Pressed a key!");
+    }
+</script>
+​

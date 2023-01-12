@@ -1,0 +1,485 @@
+-jQuery is fast becoming a must-have skill for front-end developers.
+
+    $(document).ready()
+
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("p").slideToggle();
+            });
+        });
+
+        sort way for this
+            // Shorthand for $( document ).ready()
+            $(function() {
+                console.log( "ready!" );
+            });
+         function readyFn( jQuery ) {
+            // Code to run when the document is ready.
+        }
+
+        $( document ).ready( readyFn );
+
+        -the ready event occurs when the DOM (document object model) has been loaded.
+        -Because this event occurs after the document is ready, it is a good place to have all other jQuery events and functions
+        -The ready() method specifies what happens when a ready event occurs.
+        Tip: The ready() method should not be used together with <body onload="">.
+
+        Syntax
+                $(document).ready(function)
+
+
+         -$( document ).ready() will only run once the page Document Object Model (DOM) is ready for JavaScript code to execute.
+
+=============================
+       Selecting Elements
+
+            The most basic concept of jQuery is to "select some elements and do something with them." jQuery supports most CSS3 selectors, as well as some non-standard selectors.
+
+            Selecting Elements by ID
+
+                $( "#myId" );
+
+            Selecting Elements by Class Name
+                $( ".myClass" );
+
+             Selecting Elements by Attribute
+
+                $( "input[name='first_name']" );
+
+
+             Selecting Elements by Compound CSS Selector
+
+             $( "#contents ul.people li" );
+
+            Selecting Elements with a Comma-separated List of Selectors
+
+                $( "div.myClass, ul.people" );
+
+            Pseudo-Selectors
+                / Select all input-like elements in a form (more on this below).
+                    $( "#myForm :input" );
+                    $( "div:visible" );
+
+                    // All except the first three divs.
+                    $( "div:gt(2)" );
+
+                    // All currently animated divs.
+                    $( "div:animated" );
+
+
+            Choosing Selectors
+                -Choosing good selectors is one way to improve JavaScript's performance.
+                -#myTable th.special will get the job done.
+
+            Saving Selections
+                    -you should save the selection in a variable rather than making the selection repeatedly.
+
+                    var divs = $( "div" );
+
+             Refining & Filtering Selections
+                Sometimes the selection contains more than what you're after. jQuery offers several methods for refining and filtering selections.
+
+                $( "div.foo" ).has( "p" );         // div.foo elements that contain <p> tags
+                $( "h1" ).not( ".bar" );           // h1 elements that don't have a class of bar
+                $( "ul li" ).filter( ".current" ); // unordered list items with class of current
+                $( "ul li" ).first();              // just the first unordered list item
+                $( "ul li" ).eq( 5 );              // the sixth
+
+
+
+             Selecting Form Elements
+
+                -jQuery offers several pseudo-selectors that help find elements in forms. These are especially helpful because it can be difficult to distinguish between form elements based on their state or type using standard CSS selectors.
+
+                link:checked
+
+                    $( "form :checked" );
+                        The :checked pseudo-selector works when used with checkboxes, radio buttons and selects.
+
+                link:disabled
+                    Using the :disabled pseudo-selector targets any <input> elements with the disabled attribute:
+                    $( "form :disabled" );
+                enabled
+                    $( "form :enabled" );
+
+                 link:input
+                 using the :input selector selects all <input>, <textarea>, <select>, and <button> elements
+
+                 $( "form :input" );
+
+
+                 :selected
+
+                    Using the :selected pseudo-selector targets any selected items in <option> elements:
+
+                    $( "form :selected" );
+
+
+                    :password
+                    :reset
+                    :radio
+                    :text
+                    :submit
+                    :checkbox
+                    :button
+                    :image
+                    :file
+
+                    $("*")	Selects all elements
+                    $(this)	Selects the current HTML element
+                    $("p.intro")	Selects all <p> elements with class="intro"
+                    $("p:first")	Selects the first <p> element
+                    $("ul li:first")	Selects the first <li> element of the first <ul>
+                    $("ul li:first-child")	Selects the first <li> element of every <ul>
+                    $("[href]")	Selects all elements with an href attribute
+                    $("a[target='_blank']")	Selects all <a> elements with a target attribute value equal to "_blank"
+                    $(":button")	Selects all <button> elements and <input> elements of type="button"
+                    $("tr:even")	Selects all even <tr> elements
+                    $("tr:odd")	    Selects all odd <tr> elements
+
+                    Functions In a Separate File
+
+                        <script src="my_jquery_functions.js"></script>\\
+                        $("p").hide();
+       ===============================
+       Working with Selections
+      =================================
+
+        ->Some jQuery methods can be used to either assign or read some value on a selection
+
+
+        // The .html() method sets all the h1 elements' html to be "hello world":
+        $( "h1" ).html( "hello world" );
+
+        / The .html() method returns the html of the first h1 element:
+            $( "h1" ).html();
+            // > "hello world"
+
+
+
+    add new classs in current div using jQuery
+
+        $( "h1" ).html().addClass( "test" );
+
+
+
+
+
+  Chaining
+        if you call a method on a selection and that method returns a jQuery object, you can continue to call jQuery methods on the object without pausing for a semicolon.
+
+        ( "#content" ).find( "h3" ).eq( 2 ).html( "new text for the third h3!" );
+
+        jQuery also provides the .end() method to get back to the original selection should you change the selection in the middle of a chain
+
+=======================
+        CSS, Styling, & Dimensions
+=============================
+
+
+        -jQuery includes a handy way to get and set CSS properties of elements:
+            Example
+
+            $( "h1" ).css( "fontSize" ); // Returns a string such as "19px".
+
+            $( "h1" ).css( "font-size" ); // Also works.
+
+
+            $( "h1" ).css( "fontSize", "100px" ); // Setting an individual property
+
+            // Setting multiple properties.
+            $( "h1" ).css({
+                fontSize: "100px",
+                color: "red"
+            });
+            it's not recommended to use .css() as a setter in production-ready code, but when passing in an object to set CSS, CSS properties will be camelCased instead of using a hyphen.
+
+
+==============Using CSS Classes for Styling
+
+
+        / Working with classes.
+
+        var h1 = $( "h1" );
+
+        h1.addClass( "big" );
+        h1.removeClass( "big" );
+        h1.toggleClass( "big" );
+
+        if ( h1.hasClass( "big" ) ) {
+            ...
+        }
+
+
+   =============Dimensions ===================
+
+   jQuery offers a variety of methods for obtaining and modifying dimension and position information about an element.
+
+
+
+   / Basic dimensions methods.
+
+        // Sets the width of all <h1> elements.
+        $( "h1" ).width( "50px" );
+
+        // Gets the width of the first <h1> element.
+        $( "h1" ).width();
+
+        // Sets the height of all <h1> elements.
+        $( "h1" ).height( "50px" );
+
+        // Gets the height of the first <h1> element.
+        $( "h1" ).height();
+
+
+        // Returns an object containing position information for
+        // the first <h1> relative to its "offset (positioned) parent".
+        $( "h1" ).position();
+
+
+===================================
+
+    Utility Methods
+
+        Query offers several utility methods in the $ namespace
+        these methods are helpful for accomplishing routine programming tasks.
+
+        Removes leading and trailing whitespace:
+            $.trim( "    lots of extra whitespace    " );
+
+        .each()
+
+            $.each([ "foo", "bar", "baz" ], function( idx, val ) {
+                console.log( "element " + idx + " is " + val );
+            });
+
+
+         -The method .each() can be called on a selection to iterate over the elements contained in the selection. .each(), not $.each(), should be used for iterating over elements in a selection.
+
+
+         $.inArray()
+            -Returns a value's index in an array, or -1 if the value is not in the array:
+
+            var myArray = [ 1, 2, 3, 5 ];
+
+                if ( $.inArray( 4, myArray ) !== -1 ) {
+                    console.log( "found it!" );
+                }
+
+        .extend()
+            Changes the properties of the first object using the properties of subsequent objects:
+
+            var firstObject = { foo: "bar", a: "b" };
+                var secondObject = { foo: "baz" };
+
+                var newObject = $.extend( firstObject, secondObject );
+
+                console.log( firstObject.foo ); // "baz"
+                console.log( newObject.foo ); // "baz"
+
+
+
+                Sometimes the typeof operator can be confusing or inconsistent, so instead of using typeof, jQuery offers utility methods to help determine the type of a value.
+
+
+
+        $.isArray([]); // true
+        $.isFunction(function() {}); // true
+        $.isNumeric(3.14); // true
+
+
+     ================
+
+     jQuery ajax() Method
+
+     $("button").click(function(){
+        $.ajax({url: "demo_test.txt", success: function(result){
+            $("#div1").html(result);
+    }});
+});
+
+
+    Definition and Usage
+
+    The ajax() method is used to perform an AJAX (asynchronous HTTP) request.
+
+    All jQuery AJAX methods use the ajax() method. This method is mostly used for requests where the other methods cannot be used.
+
+    syantx
+
+    $.ajax({name:value, name:value, ... })
+
+
+    async	A Boolean value indicating whether the request should be handled asynchronous or not. Default is true
+
+    beforeSend(xhr)	A function to run before the request is sent
+
+    cache	A Boolean value indicating whether the browser should cache the requested pages. Default is true
+
+    contentType	The content type used when sending data to the server. Default is: "application/x-www-form-urlencoded"
+
+    context	Specifies the "this" value for all AJAX related callback functions
+
+    data	Specifies data to be sent to the server
+    dataType  The data type expected of the server response.
+    error(xhr,status,error)  	A function to run if the request fails.
+
+    ifModified	A Boolean value specifying whether a request is only successful if the response has changed since the last request. Default is: false.
+
+    jsonp	A string overriding the callback function in a jsonp request
+
+    jsonpCallback	Specifies a name for the callback function in a jsonp request
+
+    processData	A Boolean value specifying whether or not data sent with the request should be transformed into a query string. Default is true
+
+
+    password	Specifies a password to be used in an HTTP access authentication request.
+
+    scriptCharset S
+    pecifies the charset for the request
+
+    success(result,status,xhr)	A function to be run when the request succeeds
+
+    timeout	The local timeout (in milliseconds) for the request
+
+    traditional	A Boolean value specifying whether or not to use the traditional style of param serialization
+
+    url Specifies the URL to send the request to. Default is the current page
+
+
+    username    	Specifies a username to be used in an HTTP access authentication request
+
+
+    xhr  A function used for creating the XMLHttpRequest object
+    type	Specifies the type of request. (GET or POST)
+
+
+    jQuery’s Ajax-Related Methods
+        he core $.ajax() method is at the heart of all of them, and understanding it is imperative.
+
+
+      link$.ajax()
+        jQuery’s core $.ajax() method is a powerful and straightforward way of creating Ajax requests. It takes a configuration object that contains all the instructions jQuery requires to complete the request
+
+
+        // Using the core $.ajax() method
+$.ajax({
+
+    // The URL for the request
+    url: "post.php",
+
+    // The data to send (will be converted to a query string)
+    data: {
+        id: 123
+    },
+
+    // Whether this is a POST or GET request
+    type: "GET",
+
+    // The type of data we expect back
+    dataType : "json",
+    })
+    // Code to run if the request succeeds (is done);
+    // The response is passed to the function
+    .done(function( json ) {
+        $( "<h1>" ).text( json.title ).appendTo( "body" );
+        $( "<div class=\"content\">").html( json.html ).appendTo( "body" );
+    })
+    // Code to run if the request fails; the raw request and
+    // status codes are passed to the function
+    .fail(function( xhr, status, errorThrown ) {
+        alert( "Sorry, there was a problem!" );
+        console.log( "Error: " + errorThrown );
+        console.log( "Status: " + status );
+        console.dir( xhr );
+    })
+    // Code to run regardless of success or failure;
+    .always(function( xhr, status ) {
+        alert( "The request is complete!" );
+    });
+
+    egarding the dataType setting, if the server sends back data that is in a different format than you specify, your code may fail, and the reason will not always be clear, because the HTTP response code will not show an error.
+
+
+
+    .ajax() Options
+
+        async
+            Set to false if the request should be sent synchronously. Defaults to true.
+
+       cache
+            Whether to use a cached response if available. Defaults to true for all dataTypes except "script" and "jsonp". When set to false, the URL will simply have a cachebusting parameter appended to it.
+
+       done
+        A callback function to run if the request succeeds. The function receives the response data (converted to a JavaScript object if the dataType was JSON), as well as the text status of the request and the raw request object.
+
+
+        fail
+            A callback function to run if the request results in an error. The function receives the raw request object and the text status of the request.
+
+            link
+        always
+                A callback function to run when the request is complete, regardless of success or failure. The function receives the raw request object and the text status of the request.
+
+         context
+            The scope in which the callback function(s) should run (i.e. what this will mean inside the callback function(s)). By default, this inside the callback function(s) refers to the object originally
+            passed to $.ajax().
+
+         data
+            The data to be sent to the server. This can either be an object or a query string, such as foo=bar&amp;baz=bim.
+
+         dataType
+            The type of data you expect back from the server. By default, jQuery will look at the MIME type of the response if no dataType is specified.
+
+        linkjsonp
+            The callback name to send in a query string when making a JSONP request. Defaults to "callback".
+
+         timeout
+            The time in milliseconds to wait before considering the request a failure.
+
+          traditional
+            Set to true to use the param serialization style in use prior to jQuery 1.4.
+         linktype
+                The type of the request, "POST" or "GET". Defaults to "GET". Other request types, such as "PUT" and "DELETE" can be used, but they may not be supported by all browsers.
+
+           linkurl
+            the url option is the only required property of the $.ajax() configuration object; all other properties are optional.
+
+
+    Convenience Methods
+
+            f you don't need the extensive configurability of $.ajax(), and you don't care about handling errors, the Ajax convenience functions provided by jQuery can be useful, terse ways to accomplish Ajax requests.
+
+            .get
+            Perform a GET request to the provided URL.
+
+            link$.post
+            Perform a POST request to the provided URL.
+
+            link$.getScript
+            Add a script to the page\\
+
+            getJSON
+            Perform a GET request, and expect JSON to be returned.
+
+            In each case, the methods take the following arguments, in order:
+
+            linkurl
+            The URL for the request. Required.
+
+            linkdata
+        success callback
+            -A callback function to run if the request succeeds. Optional. The function receives the response data (converted to a JavaScript object if the data type was JSON), as well as the text status of the request and the raw request object.
+
+       linkdata type
+                The type of data you expect back from the server. Optional.
+       fn.load
+            the .load() method is unique among jQuery’s Ajax methods in that it is called on a selection. The .load() method fetches HTML from a URL, and uses the returned HTML to populate the selected element(s). In addition to providing a URL to
+
+
+            / Using .load() to populate an element
+            $( "#newContent" ).load( "/foo.html" );
+            // Using .load() to populate an element based on a selector
+            $( "#newContent" ).load( "/foo.html #myDiv h1:first", function( html ) {
+                alert( "Content updated!" );
+            });

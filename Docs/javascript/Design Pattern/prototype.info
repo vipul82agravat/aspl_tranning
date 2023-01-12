@@ -1,0 +1,68 @@
+
+    Prototype Design Pattern in JavaScript
+
+
+    Any JavaScript developer has either seen the keyword prototype, confused by the prototypical inheritance, or implemented prototypes in their code.
+    The Prototype design pattern relies on the JavaScript prototypical inheritance. The prototype model is used mainly for creating objects in performance-intensive situations.
+
+
+
+    The objects created are clones (shallow clones) of the original object that are passed around. One use case of the prototype pattern is performing an extensive database operation to create an object used for other parts of the application. If another process needs to use this object, instead of having to perform this substantial database operation, it would be advantageous to clone the previously created object.
+
+
+
+    To clone an object, a constructor must exist to instantiate the first object. Next, by using the keyword prototype variables and methods bind to the object’s structure
+
+
+    var TeslaModelS = function() {
+    this.numWheels    = 4;
+    this.manufacturer = 'Tesla';
+    this.make         = 'Model S';
+}
+
+TeslaModelS.prototype = {
+    go: function() {
+    // Rotate wheels
+    },
+    stop: function() {
+    // Apply brake pads
+    }
+}
+
+
+function go and stop is easy since we declared them with prototype
+
+
+
+
+Revealing Prototype Pattern
+
+    Similar to Module pattern, the Prototype pattern also has a revealing variation. The Revealing Prototype Pattern provides encapsulation with public and private members since it returns an object literal.
+
+
+    Since we are returning an object, we will prefix the prototype object with a function. By extending our example above, we can choose what we want to expose in the current prototype to preserve their access levels:
+
+
+    var TeslaModelS = function() {
+    this.numWheels    = 4;
+    this.manufacturer = 'Tesla';
+    this.make         = 'Model S';
+}
+
+   TeslaModelS.prototype = function() {
+
+    var go = function() {
+    // Rotate wheels
+    };
+
+    var stop = function() {
+    // Apply brake pads
+    };
+
+    return {
+    pressBrakePedal: stop,
+    pressGasPedal: go
+    }
+
+}();
+

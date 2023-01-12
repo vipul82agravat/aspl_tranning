@@ -1,0 +1,65 @@
+<html>
+<head>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <style>
+    body { background-color:#ccc;}
+    .container { margin:150px auto; max-width:960px;}
+  </style>
+
+</head>
+<body>
+
+<div class="container">
+  <h1>jQuery Two slider (Horizontal and Vertical) both must interact each other</h1>
+  <div class="jg-slider">
+        <div class="big">
+        <ul>
+          <li class="current"><a href=""><img src="img/animals.jpeg"></a></li>
+          <li><a href=""><img src="img/arch.jpeg"></a></li>
+          <li><a href=""><img src="img/nature.jpeg"></a></li>
+          <li><a href=""><img src="img/people.jpeg"></a></li>
+          <li><a href=""><img src="img/tech.jpeg"></a></li>
+        </ul>
+      </div>
+      <div class="small">
+      <ul>
+        <li class="current">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      </div>
+    <a class="prev" href="javascript:;"></a>
+    <a class="next" href="javascript:;"></a>
+  </div>
+  <div class="jg-slider2">
+    <div class="big">
+      <ul>
+        <li class="current"><a href=""><img src="img/animals.jpeg"></a></li>
+        <li><a href=""><img src="img/arch.jpeg"></a></li>
+        <li><a href=""><img src="img/nature.jpeg"></a></li>
+        <li><a href=""><img src="img/people.jpeg"></a></li>
+      </ul>
+    </div>
+    <div class="small">
+      <ul>
+        <li class="current"><img src="img/animals.jpeg"></li>
+        <li><img src="img/arch.jpeg"></li>
+        <li><img src="img/nature.jpeg"></li>
+        <li><img src="img/people.jpeg"></li>
+      </ul>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/jgSlider.js" type="text/javascript"></script>
+<script>
+jQuery(".jg-slider").jgSlider({effect:"left",mouseOverStop:true});
+jQuery(".jg-slider2").jgSlider({effect:"top",mouseOverStop:true});
+</script>
+
+</div>
+</body>
+</html>
