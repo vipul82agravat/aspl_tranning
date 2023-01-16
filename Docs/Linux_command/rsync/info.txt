@@ -1,0 +1,341 @@
+    Rsync in Linux
+
+        -rsync stands for “remote sync” and is a powerful command line utility for synchronizing directories either on a local system or with remote machines.
+        - it can take a source directory and make an identical destination directory.
+        -And when a file changes in the source directory, rsync can efficiently synchronize the contents to the destination directory, only transferring the bits that have changed. It’s also a very secure utility, utilizing SSH for remote file transfers.
+
+
+        -There are a bunch of options that are really common to use with rsync.
+        -This includes recursive transfer, the transfer of file modification times, file permissions, symbolic links, etc.
+        -ll these options combined ends up being -rlptgoD
+
+        Syntax
+
+            $ rsync -a /src/ /dst/
+
+
+
+        The previous command won’t produce much output, unless an error occurs. To get more information about the current transfer, you can add the -v (verbose) option to the command.
+
+            $ rsync -av /src/ /dst/
+
+        y default, rsync won’t delete any files from the destination directory. It will only transfer the new files and the changes made to current files. If you want to delete extraneous files drom the destination directory, you can add the --delete option to the command.
+
+
+             rsync -av --delete /src/ /dst/
+
+
+         Up until now, we’ve only been showing rsync examples that work for directories on the same system. One of rsync’s most powerful features is that it can also be used with remote systems.
+
+        -=run rsync through SSH, we can add the -e ssh option in our command.
+        Specify the remote SSH user and destination directory in the command as well.
+
+            -$ rsync -av -e ssh /src/ user@remote:/path/to/dst/
+
+
+       If the remote server is accepting SSH connections on a different port than the default (22), you can use the following command syntax to instruct rsync to connect to that port.
+
+         rsync -av -e 'ssh -p 2200' /src/ user@remote:/path/to/dst/
+
+
+
+
+         Intermediate rsync==========================
+
+
+            When using rsync for remote transfers, the --partial and --progress options are very helpful. They will resume partial transfers in case a previous sync is interrupted, and show you the current transfer progress of all files
+
+
+                --P option to combine both of these features into a single flag
+
+                $ rsync -avP -e ssh /src/ user@remote:/path/to/dst/
+
+
+          -the -z flag, which enables file compression.
+
+
+            his can save a little bit of bandwidth and speed up data transfers, but will cost your system a bit of CPU usage to compress files before transferring them.
+
+            $ rsync -avPz -e ssh /src/ user@remote:/path/to/dst/
+
+
+
+
+         -c option which will check each file’s checksum. This is a foolproof way to verify whether a file in the source is different than the corresponding file in the destination
+
+            rsync -avc /src/ /dst/
+
+
+
+        Advanced rsync====================================
+
+            Remember that you can also use wildcards to match certain patterns for file names that you wish to exclude. F
+            -e, you could exclude all .jpg and .txt files with the following rsync command.
+
+
+
+                 rsync -av --exclude *.jpg --exclude *.txt /src/ /dst/
+
+
+
+            rsync gives us some statistics about our file transfer when we use the -P option, as shown in a previous example. It also gives us a summary of stats when the entire transfer is finished. These can be a little hard to read, as everything is shown in bytes. To make file sizes more human readable, we can append the -h flag to our command.
+
+                    $ rsync -avh /src/ /dst/
+
+
+
+
+          >>
+
+          You can redirect rsync’s output by using the usual bash operators such as >, >>, etc. The following would save all of rsync’s output to a text file, rather than your terminal screen. However, errors would still show in your terminal, if any are encountered.
+
+
+
+             rsync -av /src/ /dst/ > rsync.log
+
+
+       Master rsync
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ===========================
+        Rsync is famous for its delta-transfer algorithm, in which it copies only the differences between the source files present in the local-host and the existing files in the destination or the remote host.
+
+
+        Rsync, or Remote Sync, is a free command-line tool that lets you transfer files and directories to local and remote destinations. Rsync is used for mirroring, performing backups, or migrating data to other servers.
+
+        This tool is fast and efficient, copying only the changes from the source and offering customization options.
+
+
+
+        Example
+
+            rsync options SOURCE DESTINATION
+
+
+        Rsync Options
+
+            -The rsync tool comes with many options. You can enter rsync in your terminal and get all the details. We will list some of the most common rsync options.
+
+
+
+            -r
+                Allows to sync data recursively but does not keep ownership for users and groups, permissions, timestamps, or symbolic links.
+
+            -a
+                The archive mode behaves like the recursive mode but keeps all file permissions, symbolic links, file ownership, etc.
+
+            -z
+                Used to compress data during transfers to save space.
+
+            -b
+                -Performs a backup during data synchronization
+            -h
+                Shows the numbers in the output in a human-readable format.
+
+            -n
+                Does a dry run. Used for testing before the actual synchronization takes place.
+
+
+            -e
+                Instructs the rsync to use the SSH protocol for remote transfers.
+
+            -progress
+
+                Displays the transfer progress during synchronization.
+            -v
+                Verbose output. Displays the details of the transfer.
+            -q
+                Used to suppress the output for the rsync command and options.
+
+
+
+            Rsync Command Examples
+
+             1.Copy a Single File Locally
+                    To copy one file to another directory on a local machine, type in the source file's full path, followed by the target destination.
+
+
+                        rsync -v v.txt dd/
+
+                        rsync -v ss/v.txt dd/
+
+             2. Copy Multiple Files Locally
+
+                    rsync v.txt ss/vv.txt ss/v1.txt dd/
+
+             3.Copy a Directory and All Subdirectories Locally (Copy Files and Directories Recursively)
+
+                    rsync -av /ss dd/
+
+
+             4. Copy a File or Directory from Local to Remote Machine
+
+                    Add the IP address and the destination after the source directory. Remember to put a colon (:) after the remote host's IP address, with no spaces before the destination.
+
+
+                         rsync ss/vv.txt 192.168.56.100:/dd
+
+                         Enter the password for the current user to continue. If you want to use another account for the remote connection, specify it before the IP address:
+
+                            rsync ss/vv.txt vipul@192.168.56.100:/dd
+
+            5. Copy Multiple Files or Directories from Local to Remote Machine
+
+                        rsync ss/ 192.168.56.100:/dd
+
+            6.Specify rsync Protocol for Remote Transfers
+
+                The rsync tool can be instructed with the -e option to use a specific protocol for file transfers. To use Rsync over SSH to transfer files remotely, append -e ssh to the rsync command.
+
+
+
+                    rsync -e ssh ss/vv.txt 192.168.56.100:/dd
+
+             7.Copy a File or Directory from a Remote to a Local Machine
+
+                    Rsync supports transferring files from a remote server to your local machine.
+
+
+                        rsync -av 192.168.56.100:/ss  /dd
+                        rsync -v 192.168.56.100:/ss  /dd
+                        rsync -e ssh 192.168.56.100:/ss  /dd
+                        rsync -avr 192.168.56.100:/ss  /dd
+                        rsync -av 192.168.56.100:/dd  home/ss
+
+                8.Copy Multiple Files or Directories from Local to Remote Machine
+
+                        To transfer multiple files or multiple directories from a remote server, list the paths using curly brackets after the IP address of the server. Separate the paths with a comma.
+
+                        rsync -av 192.168.56.100:{s1/ s2/}  /dd
+
+                9. Show rsync Progress During Data Transfer
+
+
+                    -When performing a large data backup, you may want to view the progress of the transfer.
+                    -Add the --progress flag to the rsync command to view the amount of data transferred, transfer speed, and the remaining time.
+
+
+                        rsync -av --progress ss/vv.txt 192.168.56.100:/dd
+
+               10.Delete a Nonexistent Source File or Directory from Destination
+
+                        Use the --delete option to keep the source and the target in sync.
+
+                        This option tells rsync to delete any file or directory at the destination if the source does not have it.
+
+                       rsync -av --delete ss/vv.txt 192.168.56.100:/dd
+
+               11.Delete Source Files After Transfer
+
+                    In some scenarios, you may want to delete the source files after the transfer. For example, you may be moving a weekly backup to a new server. Once the transfer is done, you no longer need the source files on the old server.
+
+                    In that case, use the --remove-source-files flag to delete the source file you specified.
+
+
+                    rsync -av --remove-source-files ss/vv.txt 192.168.56.100:/dd
+
+               12. Rsync Dry Run
+
+                    Rsync is a powerful synchronization tool. Since this tool allows you to copy and delete data, we advise you to do a dry run first to test if rsync does what you intended to.
+
+                   The dry run option is especially useful when you want to delete files. To do a dry run, use the --dry-run option and follow regular rsync syntax.
+
+                    rsync -av --dry-run  --delete ss/vv.txt 192.168.56.100:/dd
+
+
+                    The output looks the same as when you are actually syncing files. However, this time  data will not be synced. To confirm the test took place and not the actual transfer, the terminal shows (DRY RUN) at the bottom.
+
+
+               13 Set Maximum File Size for Transfer
+                        To determine the maximum file size that rsync will transfer, use the --max-size=add_size.
+
+                        rsync -av --max-size=500k ss/vv.txt 192.168.56.100:/dd
+
+               14  Set Minimum File Size for Transfer
+                    Use --min-size=add_size with rsync when you do not want to transfer files smaller than the size you specify. This option is useful, for example, when you want to skip small log or thumbnail files.
+
+                    rsync -av --min-size=10k ss/vv.txt 192.168.56.100:/dd
+
+                    To skip any file smaller than 10KB, run this command:
+
+               15 Set rsync Bandwidth Limit
+
+                If you want to determine the bandwidth limit during data transfer between machines, use --bwlimit=KB/s.
+
+                This option is useful when you do not want to clog your network throughput.
+
+                        rsync -av --bwlimit=50  --progress ss/vv.txt 192.168.56.100:/dd
+
+                        We also used the --progress option to demonstrate the usage of --bwlimit.
+
+
+              16 . Copy Specific File Type
+
+                    You can use rsync to copy only a specific file type. To do so, use the asterisk (*) instead of the file name and add the extension.
+                         rsync -av ss/*.txt 192.168.56.100:/dd
+                    This rsync command transfers all text files from the Documents directory to the rsync directory on your desktop.
+
+
+               17 Copy Directory Structure but Skip Files
+
+                        Rsync allows you to transfer only directory structure if you do not need the files at another location.
+                        To do so, add -f"+ */" -f"- *" before the source directory.
+
+                        rsync -av -f"+ */" -f"- *"  /ss /dd
+
+               18  Add Date Stamp to Directory Name
+
+                    You can easily add a date to a directory name if you want to put a date stamp to your transfers.
+
+                Append $(date +%Y-%m-%d) to the destination directory name you want to create. This option is useful when you want to keep track of when transfers took place without opening directory properties.
+
+
+                     rsync -av  ss/ dd/$($date +%y-%m-%d)
+
+                     rsync -av /ss /dd$(date +%Y-%m-%d)
+
+               19  Do Not Copy Source File if the Same Destination File is Modified
+
+
+                    If you keep in sync two directories, rsync does not copy a file if the same one exists at the destination.
+
+                    Sometimes it may happen that you modify a file at the destination and do not want to let rsync overwrite it.
+
+                    To avoid overwriting modified destination files, use the -u option.
+
+                    rsync -avu  ss/ dd/
+
+                    rsync -avu web/aspl_tranning/Docs/rsync/ss/ web/aspl_tranning/Docs/rsync/ss/dd/
+
+
+               20  Show the Difference Between the Source and Destination Files
+
+                    When you start transferring data, you can use the -i flag with rsync to check if there is a difference between the source and the destination.
+
+
+                    rsync -avi ss/ dd/
+
+    q
+                    Possible letters in the output are:
+
+
+                    f – stands for file
+
+                    d – shows the destination file is in question
+
+                    t – shows the timestamp has changed
+
+                    s – shows the size has changed
