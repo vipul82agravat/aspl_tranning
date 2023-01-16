@@ -1,0 +1,358 @@
+    https://www.php-fig.org/psr/psr-1/
+
+PSR-1: Basic Coding Standard
+
+        This section of the standard comprises what should be considered the standard coding elements that are required to ensure a high level of technical interoperability between shared PHP code.
+
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
+
+            -Files MUST use only <?php and <?= tags.
+            -Files MUST use only UTF-8 without BOM for PHP code.
+            -Files SHOULD either declare symbols (classes, functions, constants, etc.) or cause side-effects (e.g. generate output, change .ini settings, etc.) but SHOULD NOT do both.
+            -Namespaces and classes MUST follow an "autoloading" PSR: [PSR-0, PSR-4].
+            -Class names MUST be declared in StudlyCaps.
+            -Class constants MUST be declared in all upper case with underscore separators.
+            -Method names MUST be declared in camelCase.
+
+
+            Example
+                <?php
+                // side effect: change ini settings
+                ini_set('error_reporting', E_ALL);
+
+                // side effect: loads a file
+                include "file.php";
+
+                // side effect: generates output
+                echo "<html>\n";
+
+                // declaration
+                function foo()
+                {
+                    // function body
+                }
+
+
+         Namespace and Class Names
+            -This means each class is in a file by itself, and is in a namespace of at least one level: a top-level vendor name
+            -Class names MUST be declared in StudlyCaps.
+
+
+                <?php
+                // PHP 5.3 and later:
+                namespace Vendor\Model;
+
+                class Foo
+                {
+                }
+
+        Class Constants, Properties, and Methods
+
+            -Class constants MUST be declared in all upper case with underscore separators
+
+
+                <?php
+                    namespace Vendor\Model;
+
+                    class Foo
+                    {
+                        const VERSION = '1.0';
+                        const DATE_APPROVED = '2012-06-01';
+                    }
+         Properties
+
+            -This guide intentionally avoids any recommendation regarding the use of $StudlyCaps, $camelCase, or $under_score property names.
+
+
+        Methods
+
+            Method names MUST be declared in camelCase().
+
+
+
+
+   -====================================================================
+
+https://www.php-fig.org/psr/psr-2/
+
+
+            PSR-2: Coding Style Guide
+
+                -This guide extends and expands on PSR-1, the basic coding standard.
+
+
+
+
+
+=====================================================================================
+https://www.php-fig.org/psr/psr-3/
+Logger Interface
+
+        -This document describes a common interface for logging libraries.
+        -The main goal is to allow libraries to receive a Psr\Log\LoggerInterface object and write logs to it in a simple and universal way.
+        -This ensures that the third-party libraries an application uses can write to the centralized application logs.
+        -The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted
+
+        -The word implementor in this document is to be interpreted as someone implementing the LoggerInterface in a log-related library or framework.
+
+
+
+        Specification
+
+            ->Basic
+                The LoggerInterface exposes eight methods to write logs to the eight RFC 5424 levels (debug, info, notice, warning, error, critical, alert, emergency).
+                -A ninth method, log, accepts a log level as the first argument. Calling this method with one of the log level constants MUST have the same result as calling the level-specific method.
+                -Calling this method with a level not defined by this specification MUST throw a Psr\Log\InvalidArgumentException
+
+
+            Message
+                -Every method accepts a string as the message, or an object with a __toString() method. Implementors MAY have special handling for the passed objects. If that is not the case, implementors MUST cast it to a string.
+                -The message MAY contain placeholders which implementors MAY replace with values from the context array.
+
+                -Placeholder names MUST be delimited with a single opening brace { and a single closing brace }. There MUST NOT be any whitespace between the delimiters and the placeholder name.
+                -Placeholder names SHOULD be composed only of the characters A-Z, a-z, 0-9, underscore _, and period .. The use of other characters is reserved for future modifications of the placeholders specification.
+
+            Context
+                -Every method accepts an array as context data. This is meant to hold any extraneous information that does not fit well in a string. The array can contain anything.
+                -Implementors MUST ensure they treat context data with as much lenience as possible. A given value in the context MUST NOT throw an exception nor raise any php error, warning or notice.
+
+                -If an Exception object is passed in the context data, it MUST be in the 'exception' key. Logging exceptions is a common pattern and this allows implementors to extract a stack trace from the exception when the log backend supports it. Implementors MUST still verify that the 'exception' key is actually an Exception before using it as such, as it MAY contain anything.
+
+            Helper classes and interfaces
+
+                -The Psr\Log\AbstractLogger class lets you implement the LoggerInterface very easily by extending it and implementing the generic log method.
+                -Similarly, using the Psr\Log\LoggerTrait only requires you to implement the generic log method. Note that since traits can not implement interfaces, in this case you still have to implement LoggerInterface.
+                -The Psr\Log\NullLogger is provided together with the interface. It MAY be used by users of the interface to provide a fall-back "black hole" implementation if no logger is given to them
+
+                -The Psr\Log\LoggerAwareInterface only contains a setLogger(LoggerInterface $logger) method and can be used by frameworks to auto-wire arbitrary instances with a logger.
+                -The Psr\Log\LoggerAwareTrait trait can be used to implement the equivalent interface easily in any class. It gives you access to $this->logger.
+                -The Psr\Log\LogLevel class holds constants for the eight log levels.
+
+
+             Package
+
+                -The interfaces and classes described as well as relevant exception classes and a test suite to verify your implementation are provided as part of the psr/log package.
+
+
+            Psr\Log\LoggerInterface
+
+                ?php
+
+                namespace Psr\Log;
+
+                /**
+                * Describes a logger instance.
+                *
+                * The message MUST be a string or object implementing __toString().
+                *
+                * The message MAY contain placeholders in the form: {foo} where foo
+                * will be replaced by the context data in key "foo".
+                *
+                * The context array can contain arbitrary data, the only assumption that
+                * can be made by implementors is that if an Exception instance is given
+                * to produce a stack trace, it MUST be in a key named "exception".
+                *
+                * See https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md
+                * for the full interface specification.
+                */
+                interface LoggerInterface
+                {
+                    /**
+                    * System is unusable.
+                    *
+                    * @param string $message
+                    * @param array $context
+                    * @return void
+                    */
+                    public function emergency($message, array $context = array());
+
+                    /**
+                    * Action must be taken immediately.
+                    *
+                    * Example: Entire website down, database unavailable, etc. This should
+                    * trigger the SMS alerts and wake you up.
+                    *
+                    * @param string $message
+                    * @param array $context
+                    * @return void
+                    */
+                    public function alert($message, array $context = array());
+
+                    /**
+                    * Critical conditions.
+                    *
+                    * Example: Application component unavailable, unexpected exception.
+                    *
+                    * @param string $message
+                    * @param array $context
+                    * @return void
+                    */
+                    public function critical($message, array $context = array());
+
+                    /**
+                    * Runtime errors that do not require immediate action but should typically
+                    * be logged and monitored.
+                    *
+                    * @param string $message
+                    * @param array $context
+                    * @return void
+                    */
+                    public function error($message, array $context = array());
+
+                    /**
+                    * Exceptional occurrences that are not errors.
+                    *
+                    * Example: Use of deprecated APIs, poor use of an API, undesirable things
+                    * that are not necessarily wrong.
+                    *
+                    * @param string $message
+                    * @param array $context
+                    * @return void
+                    */
+                    public function warning($message, array $context = array());
+
+                    /**
+                    * Normal but significant events.
+                    *
+                    * @param string $message
+                    * @param array $context
+                    * @return void
+                    */
+                    public function notice($message, array $context = array());
+
+                    /**
+                    * Interesting events.
+                    *
+                    * Example: User logs in, SQL logs.
+                    *
+                    * @param string $message
+                    * @param array $context
+                    * @return void
+                    */
+                    public function info($message, array $context = array());
+
+                    /**
+                    * Detailed debug information.
+                    *
+                    * @param string $message
+                    * @param array $context
+                    * @return void
+                    */
+                    public function debug($message, array $context = array());
+
+                    /**
+                    * Logs with an arbitrary level.
+                    *
+                    * @param mixed $level
+                    * @param string $message
+                    * @param array $context
+                    * @return void
+                    */
+                    public function log($level, $message, array $context = array());
+                }
+
+Psr\Log\LoggerAwareInterface¶
+        <?php
+
+            namespace Psr\Log;
+
+            /**
+            * Describes a logger-aware instance.
+            */
+            interface LoggerAwareInterface
+            {
+                /**
+                * Sets a logger instance on the object.
+                *
+                * @param LoggerInterface $logger
+                * @return void
+                */
+                public function setLogger(LoggerInterface $logger);
+            }
+Psr\Log\LogLevel
+
+        <?php
+
+        namespace Psr\Log;
+
+        /**
+        * Describes log levels.
+        */
+        class LogLevel
+        {
+            const EMERGENCY = 'emergency';
+            const ALERT     = 'alert';
+            const CRITICAL  = 'critical';
+            const ERROR     = 'error';
+            const WARNING   = 'warning';
+            const NOTICE    = 'notice';
+            const INFO      = 'info';
+            const DEBUG     = 'debug';
+        }
+===================================================================================
+
+https://www.php-fig.org/psr/psr-4/
+
+Autoloader
+
+    -The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
+
+    -This PSR describes a specification for autoloading classes from file paths.
+    -This PSR also describes where to place files that will be autoloaded according to the specification.
+
+    Specification
+
+        -The term "class" refers to classes, interfaces, traits, and other similar structures.
+        -A  fully qualified class name has the following form:
+
+
+            \<NamespaceName>(\<SubNamespaceNames>)*\<ClassName>
+
+            -The fully qualified class name MUST have a top-level namespace name, also known as a "vendor namespace".
+            -The fully qualified class name MAY have one or more sub-namespace names.
+            -The fully qualified class name MUST have a terminating class name.
+            -Underscores have no special meaning in any portion of the fully qualified class name.
+            -Alphabetic characters in the fully qualified class name MAY be any combination of lower case and upper case.
+            -All class names MUST be referenced in a case-sensitive fashion
+
+        -When loading a file that corresponds to a fully qualified class name ..
+            -A contiguous series of one or more leading namespace and sub-namespace names, not including the leading namespace separator, in the fully qualified class name (a "namespace prefix") corresponds to at least one "base directory".
+
+            -The contiguous sub-namespace names after the "namespace prefix" correspond to a subdirectory within a "base directory", in which the namespace separators represent directory separators. The subdirectory name MUST match the case of the sub-namespace names.
+
+            -The terminating class name corresponds to a file name ending in .php. The file name MUST match the case of the terminating class name.
+
+        -Autoloader implementations MUST NOT throw exceptions, MUST NOT raise errors of any level, and SHOULD NOT return a value.
+
+        Examples
+
+            -   The table below shows the corresponding file path for a given fully qualified class name, namespace prefix, and base directory.
+
+
+            FULLY QUALIFIED CLASS NAME
+
+                -\Acme\Log\Writer\File_Writer
+                -\Aura\Web\Response\Status
+                -\Symfony\Core\Request
+
+            NAMESPACE PREFIX
+                -Acme\Log\Writer
+                -Aura\Web
+                -Symfony\Core
+                -Zend
+
+            BASE DIRECTORY
+
+                -./acme-log-writer/lib/
+                -/path/to/aura-web/src/
+                -./vendor/Symfony/Core/
+                -/usr/includes/Zend/
+
+            RESULTING FILE PATH
+                -./acme-log-writer/lib/File_Writer.php
+                -/path/to/aura-web/src/Response/Status.php
+                -./vendor/Symfony/Core/Request.php
+                -/usr/includes/Zend/Acl.php
+
+
+
